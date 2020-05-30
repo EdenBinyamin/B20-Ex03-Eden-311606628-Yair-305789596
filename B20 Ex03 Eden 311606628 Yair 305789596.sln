@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1062
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B20 Ex03 Eden 311606628 Yair 305789596", "B20 Ex03 Eden 311606628 Yair 305789596\B20 Ex03 Eden 311606628 Yair 305789596.csproj", "{AF449FDF-4551-4993-A8C5-969905C4E25F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF449FDF-4551-4993-A8C5-969905C4E25F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF449FDF-4551-4993-A8C5-969905C4E25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF449FDF-4551-4993-A8C5-969905C4E25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF449FDF-4551-4993-A8C5-969905C4E25F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8C78773E-EABB-48F2-8AA5-46A3FFEEADB6}
+	EndGlobalSection
+EndGlobal
