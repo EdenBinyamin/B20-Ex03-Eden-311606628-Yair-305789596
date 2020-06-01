@@ -4,10 +4,14 @@ using System.Collections.Generic;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    class Garage
+    public class Garage
     {
         private Dictionary<string, VehicleInRepair> m_VehiclesInGarage;
 
+        public Garage()
+        {
+            m_VehiclesInGarage = new Dictionary<string, VehicleInRepair>();
+        }
 
         internal void addingNewVehicleToGarage(string i_OwnerName, string i_PhoneNumberOfOwner,
             Dictionary<KnownVehicleTypes.eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel,
