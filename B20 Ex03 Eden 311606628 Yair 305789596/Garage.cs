@@ -31,7 +31,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return res;
         }
         
-        public List<string> licenseNumbersByConditions(VehicleInRepair.VehicleCondition i_Condition)
+        internal List<string> licenseNumbersByConditions(VehicleInRepair.VehicleCondition i_Condition)
         {
             List<string> licenseNumbers = new List<string>();
             foreach(KeyValuePair<string, VehicleInRepair> vehicle in m_VehiclesInGarage)
