@@ -1,58 +1,86 @@
-﻿using System;
+﻿using B20_Ex03_Eden_311606628_Yair_305789596;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management.Instrumentation;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    class KnownVehicleTypes
+    public class KnownVehicleTypes
     {
-        private Motorcycle Motorcycle(string i_Model, string i_LicensePlate,
-            Motorcycle.licenseType i_LicenseType, int i_EngineCapacity, 
-            string i_ManuFacturer, EnergyType i_EnergyType)
+        public enum eVehicleType
         {
-            Motorcycle motorCycle = new Motorcycle(i_Model,i_LicensePlate, 
-                i_LicenseType, i_EngineCapacity, i_ManuFacturer);
-            if(i_EnergyType is RegularEnergyType)
-            {
-                motorCycle.m_EnergyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan95, 
-                                                                                             5, 7);
-            }
-            else if(i_EnergyType is ElectricEnergyType)
-            {
-                motorCycle.m_EnergyType = new ElectricEnergyType(1.2f);
-            }
-            return motorCycle;
+            Motorcycle,
+            Truck,
+            Car
         }
-        private Car Car(string i_Model, string i_LicensePlate,
-            Car.Color i_Color, int i_NumOfDoors, 
-            string i_ManuFacturer, EnergyType i_EnergyType)
+        public enum eDataType
         {
-            Car car = new Car(i_Model, i_LicensePlate, 
-                i_Color, i_NumOfDoors, i_ManuFacturer);
-            if(i_EnergyType is RegularEnergyType)
-            {
-                car.m_EnergyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, 5, 60);
-            }
-            else if(i_EnergyType is ElectricEnergyType)
-            {
-                car.m_EnergyType = new ElectricEnergyType(2.1f);
-            }
-            return car;
+            Model,
+            LicencePlate,
+            EngineCapacity,
+            ManuFacturer,
+            numOfDoors,
+            havingHazardousMeterials,
+            cargoVolume
         }
 
-        private Truck Truck(string i_Model, string i_LicensePlate,
-            bool i_IsHavingHazardousMeterials, float i_CargoVolume, 
-            string i_ManuFactuer, EnergyType i_EnergyType)
+        public static Vehicle CreateVehicle(Dictionary<eDataType, string> i_DataMemory, eVehicleType i_VehicleType, EnergyType i_EnergyType)
         {
-            Truck truck = new Truck(i_Model, i_LicensePlate, 
-                i_IsHavingHazardousMeterials, i_CargoVolume, i_ManuFactuer);
-            if(i_EnergyType is RegularEnergyType)
+            Vehicle vehicle = null;
+            string model = i_DataMemory[eDataType.Model];
+            string licensePlate = i_DataMemory[eDataType.LicencePlate];
+            string ManuFacturer = i_DataMemory[eDataType.ManuFacturer];
+            string engineCapacity = i_DataMemory[eDataType.EngineCapacity];
+            string numOfDoors = i_DataMemory[eDataType.numOfDoors];
+            string isHavingHazardousMeterials = i_DataMemory[eDataType.havingHazardousMeterials];
+            string cargoVolume = i_DataMemory[eDataType.cargoVolume];
+
+            switch (i_VehicleType)
             {
-                truck.m_EnergyType = new RegularEnergyType(RegularEnergyType.FuelType.Soler, 5, 120);
+                case eVehicleType.Motorcycle:
+                    {
+                        vehicle = new Motorcycle(model, licensePlate, int.Parse(engineCapacity), ManuFacturer);
+                        if (i_EnergyType is RegularEnergyType)
+                        {
+                            vehicle.m_EnergyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan95, 5, 7);
+                        }
+                        else if (i_EnergyType is ElectricEnergyType)
+                        {
+                            vehicle.m_EnergyType = new ElectricEnergyType(1.2f);
+                        }
+                        break;
+                    }
+                case eVehicleType.Car:
+                    {
+                        vehicle = new Car(model, licensePlate, color, numOfDoors, ManuFacturer);
+                        if (i_EnergyType is RegularEnergyType)
+                        {
+                            vehicle.m_EnergyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, 5, 60);
+                        }
+                        else if (i_EnergyType is ElectricEnergyType)
+                        {
+                            vehicle.m_EnergyType = new ElectricEnergyType(2.1f);
+                        }
+                        break;
+                    }
+                case eVehicleType.Truck:
+                    {
+                        vehicle = new Truck(model, licensePlate, isHavingHazardousMeterials, float.Parse(cargoVolume), ManuFacturer)
+                    if (i_EnergyType is RegularEnergyType)
+                        {
+                            vehicle.m_EnergyType = new RegularEnergyType(RegularEnergyType.FuelType.Soler, 5, 120);
+                        }
+                        break;
+                    }
             }
-            return truck;
+            return vehicle;
         }
     }
 }
+
+
+
