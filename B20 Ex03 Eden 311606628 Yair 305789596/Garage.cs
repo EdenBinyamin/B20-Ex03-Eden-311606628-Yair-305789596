@@ -15,7 +15,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public bool tryAddingNewVehicleToGarage(string i_OwnerName, string i_PhoneNumberOfOwner,
             Dictionary<KnownVehicleTypes.eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel,
-            KnownVehicleTypes.eVehicleType i_VehicleType, EnergyType i_EnergyType)
+            KnownVehicleTypes.eVehicleType i_VehicleType, EnergyType.eEnergyType i_EnergyType)
         {
             bool res = true;
             if (!isLicenseNumberAlrdyExists(i_DataMemory[KnownVehicleTypes.eDataType.LicencePlate]))
@@ -25,7 +25,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             else
             {
-                changesVehicleCondition(m_VehiclesInGarage[i_DataMemory[KnownVehicleTypes.eDataType.licenceType]].Vehicle.LicensePlate, VehicleInRepair.VehicleCondition.inRepair);
+                changesVehicleCondition(m_VehiclesInGarage[i_DataMemory[KnownVehicleTypes.eDataType.LicenceType]].Vehicle.LicensePlate, VehicleInRepair.VehicleCondition.inRepair);
                 res = false;
             }
             return res;

@@ -17,7 +17,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             Model,
             LicencePlate,
-            licenceType,
+            LicenceType,
             EngineCapacity,
             NumOfDoors,
             HavingHazardousMeterials,
@@ -27,7 +27,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             
         }
 
-        public static Vehicle CreateVehicle(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, eVehicleType i_VehicleType, EnergyType i_EnergyType)
+        public static Vehicle CreateVehicle(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, eVehicleType i_VehicleType, EnergyType.eEnergyType i_EnergyType)
         {
             Vehicle vehicle = null;
             switch (i_VehicleType)
@@ -45,7 +45,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return vehicle;
         }
 
-        public static Car CreateCar(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType)
+        public static Car CreateCar(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
            Car.Color color = (Car.Color)int.Parse(i_DataMemory[eDataType.LicencePlate]);
            int numOfDoors = int.Parse(i_DataMemory[eDataType.NumOfDoors]);
@@ -54,11 +54,11 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
            float percentage = float.Parse(i_DataMemory[eDataType.Percentage]);
             EnergyType energyType = null;
 
-            if (i_EnergyType is RegularEnergyType)
+            if (i_EnergyType == EnergyType.eEnergyType.Regular)
             {
                 energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, 5, 60);
             }
-            else if(i_EnergyType is ElectricEnergyType)
+            else if (i_EnergyType == EnergyType.eEnergyType.Electric)
             {
                 energyType = new ElectricEnergyType(2.1f);
             }
@@ -66,7 +66,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return new Car(color, numOfDoors, model, licensePlate, percentage, i_Wheel, energyType);
         }
    
-        public static Truck CreateTruck(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType)
+        public static Truck CreateTruck(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
             bool isHavingHazardousMeterials = false;
             if (i_DataMemory[eDataType.HavingHazardousMeterials] == "true")
@@ -82,21 +82,21 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return new Truck(isHavingHazardousMeterials, cargoVolume, model, licensePlate, percentage, i_Wheel, energyType);
         }
 
-        public static Motorcycle CreateMotorCycle(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData,string> i_Wheel, EnergyType i_EnergyType)
+        public static Motorcycle CreateMotorCycle(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData,string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
 
             string model = i_DataMemory[eDataType.Model];
-            Motorcycle.licenseType licenceType = (Motorcycle.licenseType)int.Parse(i_DataMemory[eDataType.licenceType]);
+            Motorcycle.licenseType licenceType = (Motorcycle.licenseType)int.Parse(i_DataMemory[eDataType.LicenceType]);
             string licensePlate = i_DataMemory[eDataType.LicencePlate];
             int engineCapacity = int.Parse(i_DataMemory[eDataType.EngineCapacity]);
             float percentage = float.Parse(i_DataMemory[eDataType.Percentage]);
             EnergyType energyType = null;
 
-            if (i_EnergyType is RegularEnergyType)
+            if (i_EnergyType == EnergyType.eEnergyType.Regular)
             {
                 energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, 5, 60);
             }
-            else if (i_EnergyType is ElectricEnergyType)
+            else if (i_EnergyType == EnergyType.eEnergyType.Electric)
             {
                 energyType = new ElectricEnergyType(2.1f);
             }

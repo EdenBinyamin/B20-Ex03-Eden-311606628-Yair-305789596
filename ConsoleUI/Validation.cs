@@ -12,7 +12,7 @@ namespace ConsoleUI
         {
             i_UserSelection = i_UserSelection.Trim();
             return i_UserSelection.Length == 1 && char.IsDigit(i_UserSelection[0])
-                        && int.Parse(i_UserSelection) >= 1 && int.Parse(i_UserSelection) <= 8; 
+                        && int.Parse(i_UserSelection) >= 1 && int.Parse(i_UserSelection) <= 8;
         }
 
         internal static bool AddCarUserSelection(string i_UserSelection)
@@ -36,15 +36,26 @@ namespace ConsoleUI
             return userInput == "SILVER" || userInput == "BLACK" || userInput == "WHITE" || userInput == "RED";
         }
 
-        internal static bool CurrentPressure(string i_CurrPressure, int i_MaxPressure)
+
+        internal static bool Name(string i_Name)
         {
-            int currentPressure;
-            bool result = int.TryParse(i_CurrPressure, out currentPressure);
-            if(result)
-            {
-                result = currentPressure <= i_MaxPressure;
-            }
-            return result;
+            return i_Name.Length != 0;
+
+        }
+
+        internal static bool IsANumberStr(string i_StrToCheck)
+        {
+            return i_StrToCheck.All(char.IsDigit);
+        }
+
+        internal static bool Percentage(string precentage)
+        {
+            return IsANumberStr(precentage) && int.Parse(precentage) <= 100 && int.Parse(precentage) >= 0;
+        }
+
+        internal static bool EnergyType(string userSelection)
+        {
+            return userSelection.Length == 1 && (userSelection == "1" || userSelection == "2");
         }
     }
 }

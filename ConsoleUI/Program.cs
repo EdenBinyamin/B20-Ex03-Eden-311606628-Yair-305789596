@@ -8,7 +8,7 @@ namespace ConsoleUI
 {
     public class Program
     {
-        public static Main()
+        public static void Main()
         {
             UI.GarageSystem();
         }
