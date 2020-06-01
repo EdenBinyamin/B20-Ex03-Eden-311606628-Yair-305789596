@@ -17,16 +17,13 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         }
         internal licenseType m_LicenseType;
         private int m_EngineCapacity;
-        internal Motorcycle(string i_Model, string i_LicensePlate, 
-            licenseType i_LceinseType, 
-            int i_EngineCapacity, string i_Manufacturer)
+        internal Motorcycle(licenseType i_LicenseType, int i_EngineCapacity, 
+            int i_NumOfDoors, string i_Model, string i_LicensePlate,
+            float i_Percentage, Dictionary<Vehicle.WheelData, string> i_Wheel, 
+            EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, i_Percentage, 
+                i_Wheel, i_EnergyType)
         {
-            m_Model = i_Model;
             m_LicensePlate = i_LicensePlate;
-            m_Wheels = new Wheel[2];
-            m_Wheels[0] = new Wheel(i_Manufacturer, 30);
-            m_Wheels[1] = new Wheel(i_Manufacturer, 30);
-            m_LicenseType = i_LceinseType;
             m_EngineCapacity = i_EngineCapacity;
         }
     }

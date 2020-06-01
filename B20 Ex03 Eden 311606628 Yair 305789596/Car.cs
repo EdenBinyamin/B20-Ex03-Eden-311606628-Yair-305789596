@@ -18,18 +18,12 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         internal Color m_Color;
         internal int m_NumOfDoors;
 
-        internal Car(string i_Model, string i_LicensePlate, 
-            Color i_Color, int i_NumOfDoors, string i_ManuFacturer)
+        internal Car(Color i_Color, int i_NumOfDoors, string i_Model, string i_LicensePlate,
+            float i_Percentage, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType)
+            : base(i_Model, i_LicensePlate, i_Percentage, i_Wheel, i_EnergyType)
         {
-            m_Model = i_Model;
-            m_LicensePlate = i_LicensePlate;
             m_Color = i_Color;
             m_NumOfDoors = i_NumOfDoors;
-            m_Wheels = new Wheel[4];
-            for (int i = 0; i < 4; i++) 
-            {
-                m_Wheels[i] = new Wheel(i_ManuFacturer, 32);
-            }
         }
     }
 }
