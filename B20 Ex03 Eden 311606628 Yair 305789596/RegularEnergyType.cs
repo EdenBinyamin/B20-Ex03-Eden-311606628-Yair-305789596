@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
@@ -27,7 +23,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_AmountOfLittersLeftInTank = i_AmountOfLittersInTank;
             m_FullTank = i_FullTank;
         }
-        private void refueling (float i_Litters)
+        public void fuel (float i_Litters)
         {
             
         }

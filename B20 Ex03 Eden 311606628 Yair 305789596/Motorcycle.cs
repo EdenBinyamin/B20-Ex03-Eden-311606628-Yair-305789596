@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    class Motorcycle : Vehicle
+    public class Motorcycle : Vehicle
     {
         internal enum licenseType
         {
@@ -15,15 +12,15 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             AA,
             B
         }
-        internal licenseType m_LicenseType;
+        private licenseType m_LicenseType;
         private int m_EngineCapacity;
         internal Motorcycle(licenseType i_LicenseType, int i_EngineCapacity, 
-            int i_NumOfDoors, string i_Model, string i_LicensePlate,
+            string i_Model, string i_LicensePlate,
             float i_Percentage, Dictionary<Vehicle.WheelData, string> i_Wheel, 
-            EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, i_Percentage, 
+            EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, i_Percentage, 2,
                 i_Wheel, i_EnergyType)
         {
-            m_LicensePlate = i_LicensePlate;
+            m_LicenseType = i_LicenseType;
             m_EngineCapacity = i_EngineCapacity;
         }
     }
