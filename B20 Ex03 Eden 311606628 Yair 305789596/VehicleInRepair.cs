@@ -8,7 +8,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         private Vehicle m_TypeOfVehicle;
         private string m_Owner;
         private string m_PhoneNumberOfOwner;
-        internal enum VehicleCondition
+        public enum VehicleCondition
         {
             inRepair,
             wasFixed,

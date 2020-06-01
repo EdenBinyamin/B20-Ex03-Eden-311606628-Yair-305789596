@@ -16,7 +16,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         }
         internal void batteryCharging (float i_HoursToCharge)
         {
-
+            if(i_HoursToCharge + m_HourseLeftForEndingBattery > m_FullBatteryInHours)
+            {
+                throw new ValueOutOfRangeException(0, m_FullBatteryInHours - m_HourseLeftForEndingBattery);
+            }
+            else
+            {
+                m_HourseLeftForEndingBattery += i_HoursToCharge;
+            }
         }
     }
 }

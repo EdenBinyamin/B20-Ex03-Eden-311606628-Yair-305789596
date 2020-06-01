@@ -13,22 +13,26 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_VehiclesInGarage = new Dictionary<string, VehicleInRepair>();
         }
 
-        internal void addingNewVehicleToGarage(string i_OwnerName, string i_PhoneNumberOfOwner,
+        public bool tryAddingNewVehicleToGarage(string i_OwnerName, string i_PhoneNumberOfOwner,
             Dictionary<KnownVehicleTypes.eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel,
             KnownVehicleTypes.eVehicleType i_VehicleType, EnergyType i_EnergyType)
         {
-            m_VehiclesInGarage.Add(i_DataMemory[KnownVehicleTypes.eDataType.LicencePlate], new VehicleInRepair(i_OwnerName, i_PhoneNumberOfOwner,
-                                            i_DataMemory, i_Wheel, i_VehicleType, i_EnergyType));
+            bool res = true;
+            if (!isLicenseNumberAlrdyExists(i_DataMemory[KnownVehicleTypes.eDataType.LicencePlate]))
+            {
+                m_VehiclesInGarage.Add(i_DataMemory[KnownVehicleTypes.eDataType.LicencePlate], new VehicleInRepair(i_OwnerName, i_PhoneNumberOfOwner,
+                                                i_DataMemory, i_Wheel, i_VehicleType, i_EnergyType));
+            }
+            else
+            {
+                changesVehicleCondition(m_VehiclesInGarage[i_DataMemory[KnownVehicleTypes.eDataType.licenceType]].Vehicle.LicensePlate, VehicleInRepair.VehicleCondition.inRepair);
+                res = false;
+            }
+            return res;
         }
         public bool isLicenseNumberAlrdyExists(string i_LicenseNumber)
         {
-            bool res = false;
-            if(m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
-            {
-                res = true;
-                m_VehiclesInGarage[i_LicenseNumber].Condition = VehicleInRepair.VehicleCondition.inRepair;
-            }
-            return res;
+            return m_VehiclesInGarage.ContainsKey(i_LicenseNumber);
         }
         
         internal List<string> licenseNumbersByConditions(VehicleInRepair.VehicleCondition i_Condition)
@@ -46,7 +50,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public void changesVehicleCondition(string licenseNumber, VehicleInRepair.VehicleCondition i_Condition)
         {
-            m_VehiclesInGarage[licenseNumber].Condition = i_Condition;
+            if(m_VehiclesInGarage[licenseNumber].Condition == i_Condition)
+            {
+                throw new ArgumentException("Vehicle is allready in this condition.");
+            }
+            else
+            {
+                m_VehiclesInGarage[licenseNumber].Condition = i_Condition;
+            }
         }
 
         public void fillAirInWheels(string licenseNumber)
@@ -58,10 +69,16 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             float i_AmountToFuel)
         {
             RegularEnergyType regularEnergy = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as RegularEnergyType;
-            if (regularEnergy != null)
+
+            if (regularEnergy != null && regularEnergy.m_FuleType == i_FuelType)
             {
                 regularEnergy.fuel(i_AmountToFuel);
             }
+            else
+            {
+                throw new ArgumentException("Wrong type of fuel for fueling");
+            }
+            
         }
 
         public void chargeVehicle(string i_LicenseNumber, float minutesToCharge)

@@ -2,16 +2,16 @@
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    class RegularEnergyType : EnergyType
+    public class RegularEnergyType : EnergyType
     {
-        internal enum FuelType
+        public enum FuelType
         {
             Soler,
             Octan95,
             Octan96,
             Octan98
         }
-        internal FuelType m_FuleType;
+        public FuelType m_FuleType;
         internal float m_AmountOfLittersLeftInTank;
         internal float m_FullTank;
 
@@ -23,8 +23,16 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_AmountOfLittersLeftInTank = i_AmountOfLittersInTank;
             m_FullTank = i_FullTank;
         }
-        public void fuel (float i_Litters)
+        public void fuel(float i_Litters)
         {
+            if (m_AmountOfLittersLeftInTank + i_Litters > m_FullTank)
+            {
+                throw new ValueOutOfRangeException(0, m_FullTank - m_AmountOfLittersLeftInTank);
+            }
+            else
+            {
+                m_AmountOfLittersLeftInTank += i_Litters;
+            }
             
         }
     }
