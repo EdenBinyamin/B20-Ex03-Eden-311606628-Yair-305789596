@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    class Vehicle
+    internal class Vehicle
     {
         internal enum WheelData
         {
@@ -25,11 +25,11 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
             }
         }
-        internal string m_Model;
-        internal string m_LicensePlate;
-        internal float m_PercentageOfEnergyRemaining;
-        internal Wheel[] m_Wheels;
-        internal EnergyType m_EnergyType;
+        private string m_Model;
+        private string m_LicensePlate;
+        private float m_PercentageOfEnergyRemaining;
+        private Wheel[] m_Wheels;
+        private EnergyType m_EnergyType;
         internal Vehicle(string i_Model, string i_LicensePlate, float i_Percentage, Dictionary<WheelData,string> i_Wheel, EnergyType i_EnergyType)
         {
             m_Model = i_Model;
@@ -50,6 +50,17 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 Wheels[i].m_CurrentAirPressure = float.Parse(i_Wheel[WheelData.CurrentAirPressure]);
             }
             return Wheels;
+        }
+        public string LicensePlate
+        {
+            get
+            {
+                return m_LicensePlate;
+            }
+            set
+            {
+                m_LicensePlate = value;
+            }
         }
     }
 }
