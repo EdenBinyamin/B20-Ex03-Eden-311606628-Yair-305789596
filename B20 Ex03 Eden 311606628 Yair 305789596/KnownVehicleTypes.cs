@@ -1,11 +1,7 @@
 ﻿using B20_Ex03_Eden_311606628_Yair_305789596;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Management.Instrumentation;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
@@ -23,10 +19,12 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             LicencePlate,
             licenceType,
             EngineCapacity,
-            numOfDoors,
-            havingHazardousMeterials,
-            cargoVolume,
-            percentage
+            NumOfDoors,
+            HavingHazardousMeterials,
+            CargoVolume,
+            Percentage,
+            Color,
+            
         }
 
         public static Vehicle CreateVehicle(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, eVehicleType i_VehicleType, EnergyType i_EnergyType)
@@ -50,10 +48,10 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         public static Car CreateCar(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType)
         {
            Car.Color color = (Car.Color)int.Parse(i_DataMemory[eDataType.LicencePlate]);
-           int numOfDoors = int.Parse(i_DataMemory[eDataType.numOfDoors]);
+           int numOfDoors = int.Parse(i_DataMemory[eDataType.NumOfDoors]);
            string model = i_DataMemory[eDataType.Model];
            string licensePlate = i_DataMemory[eDataType.LicencePlate];
-           float percentage = float.Parse(i_DataMemory[eDataType.percentage]);
+           float percentage = float.Parse(i_DataMemory[eDataType.Percentage]);
             EnergyType energyType = null;
 
             if (i_EnergyType is RegularEnergyType)
@@ -71,18 +69,17 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         public static Truck CreateTruck(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType)
         {
             bool isHavingHazardousMeterials = false;
-            if (i_DataMemory[eDataType.havingHazardousMeterials] == "true")
+            if (i_DataMemory[eDataType.HavingHazardousMeterials] == "true")
             {
                  isHavingHazardousMeterials = true;
             }
-            float cargoVolume = float.Parse(i_DataMemory[eDataType.cargoVolume]);
-            int numOfDoors = int.Parse(i_DataMemory[eDataType.numOfDoors]);
+            float cargoVolume = float.Parse(i_DataMemory[eDataType.CargoVolume]);
             string model = i_DataMemory[eDataType.Model];
             string licensePlate = i_DataMemory[eDataType.LicencePlate];
-            float percentage = float.Parse(i_DataMemory[eDataType.percentage]);
+            float percentage = float.Parse(i_DataMemory[eDataType.Percentage]);
 
             EnergyType energyType = new RegularEnergyType(RegularEnergyType.FuelType.Soler, 5, 120);
-            return new Truck(isHavingHazardousMeterials, cargoVolume, numOfDoors, model, licensePlate, percentage, i_Wheel, energyType);
+            return new Truck(isHavingHazardousMeterials, cargoVolume, model, licensePlate, percentage, i_Wheel, energyType);
         }
 
         public static Motorcycle CreateMotorCycle(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData,string> i_Wheel, EnergyType i_EnergyType)
@@ -92,8 +89,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             Motorcycle.licenseType licenceType = (Motorcycle.licenseType)int.Parse(i_DataMemory[eDataType.licenceType]);
             string licensePlate = i_DataMemory[eDataType.LicencePlate];
             int engineCapacity = int.Parse(i_DataMemory[eDataType.EngineCapacity]);
-            int numOfDoors = int.Parse(i_DataMemory[eDataType.numOfDoors]);
-            float percentage = float.Parse(i_DataMemory[eDataType.percentage]);
+            float percentage = float.Parse(i_DataMemory[eDataType.Percentage]);
             EnergyType energyType = null;
 
             if (i_EnergyType is RegularEnergyType)
@@ -105,7 +101,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 energyType = new ElectricEnergyType(2.1f);
             }
 
-            return new Motorcycle(licenceType, engineCapacity, numOfDoors, model, percentage, i_Wheel, energyType);
+            return new Motorcycle(licenceType, engineCapacity, model, licensePlate, percentage, i_Wheel, energyType);
         }
     }
 }
