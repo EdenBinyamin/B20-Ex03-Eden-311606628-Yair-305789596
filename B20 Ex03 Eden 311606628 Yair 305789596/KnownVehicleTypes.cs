@@ -157,8 +157,12 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public static Car CreateCar(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
-           Car.Color color = (Car.Color)int.Parse(i_DataMemory[eDataType.LicencePlate]);
-           int numOfDoors = int.Parse(i_DataMemory[eDataType.NumOfDoors]);
+            Car.Color color = Car.colorParse(i_DataMemory[eDataType.Color]);
+           int numOfDoors = int.TryParse(i_DataMemory[eDataType.NumOfDoors]);
+            if(!int.TryParse(i_DataMemory[eDataType.NumOfDoors],out numOfDoors))
+            {
+                throw new ArgumentException;
+            }
            string model = i_DataMemory[eDataType.Model];
            string licensePlate = i_DataMemory[eDataType.LicencePlate];
            float percentage = float.Parse(i_DataMemory[eDataType.Percentage]);
@@ -170,7 +174,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             else if (i_EnergyType == EnergyType.eEnergyType.Electric)
             {
-                energyType = new ElectricEnergyType(2.1f);
+                energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]), 1.2f);
             }
 
             return new Car(color, numOfDoors, model, licensePlate, percentage, i_Wheel, energyType);
