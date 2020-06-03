@@ -49,41 +49,41 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             Dictionary<eDataType, string> dataMemory = new Dictionary<eDataType, string>();
             Dictionary<Vehicle.WheelData, string> wheelsData = new Dictionary<Vehicle.WheelData, string>();
             int indexInProperties = 0;
-            dataMemory.Add(eDataType.Model, i_Properties[++indexInProperties]);
-            dataMemory.Add(eDataType.LicencePlate, i_Properties[++indexInProperties]);
-            dataMemory.Add(eDataType.Percentage, i_Properties[++indexInProperties]);
-            wheelsData.Add(Vehicle.WheelData.CurrentAirPressure, i_Properties[++indexInProperties]);
-            wheelsData.Add(Vehicle.WheelData.ManufacturerName, i_Properties[++indexInProperties]);
+            dataMemory.Add(eDataType.Model, i_Properties[indexInProperties++]);
+            dataMemory.Add(eDataType.LicencePlate, i_Properties[indexInProperties++]);
+            dataMemory.Add(eDataType.Percentage, i_Properties[indexInProperties++]);
+            wheelsData.Add(Vehicle.WheelData.CurrentAirPressure, i_Properties[indexInProperties++]);
+            wheelsData.Add(Vehicle.WheelData.ManufacturerName, i_Properties[indexInProperties++]);
             switch (i_Type)
             {
                 case eVehicleType.RegularCar:
                 case eVehicleType.RegularMotorcycle:
                 case eVehicleType.Truck:
-                    dataMemory.Add(eDataType.FuelType, i_Properties[++indexInProperties]);
-                    dataMemory.Add(eDataType.AmountOfFuelLeft, i_Properties[++indexInProperties]);
+                    dataMemory.Add(eDataType.FuelType, i_Properties[indexInProperties++]);
+                    dataMemory.Add(eDataType.AmountOfFuelLeft, i_Properties[indexInProperties++]);
                     break;
                 case eVehicleType.ElectricCar:
                 case eVehicleType.ElectricMotorcycle:
-                    dataMemory.Add(eDataType.HoursLeftInBattery, i_Properties[++indexInProperties]);
+                    dataMemory.Add(eDataType.HoursLeftInBattery, i_Properties[indexInProperties++]);
                     break;
             }
             switch(i_Type)
             {
                 case eVehicleType.RegularCar:
                 case eVehicleType.ElectricCar:
-                    dataMemory.Add(eDataType.Color, i_Properties[++indexInProperties]);
-                    dataMemory.Add(eDataType.NumOfDoors, i_Properties[++indexInProperties]);
+                    dataMemory.Add(eDataType.Color, i_Properties[indexInProperties++]);
+                    dataMemory.Add(eDataType.NumOfDoors, i_Properties[indexInProperties++]);
                     wheelsData.Add(Vehicle.WheelData.MaxAirPressure, carMaxAirPressure.ToString());
                     break;
                 case eVehicleType.RegularMotorcycle:
                 case eVehicleType.ElectricMotorcycle:
-                    dataMemory.Add(eDataType.LicenceType, i_Properties[++indexInProperties]);
-                    dataMemory.Add(eDataType.EngineCapacity, i_Properties[++indexInProperties]);
+                    dataMemory.Add(eDataType.LicenceType, i_Properties[indexInProperties++]);
+                    dataMemory.Add(eDataType.EngineCapacity, i_Properties[indexInProperties++]);
                     wheelsData.Add(Vehicle.WheelData.MaxAirPressure, motorcycleMaxAirPressure.ToString());
                     break;
                 case eVehicleType.Truck:
-                    dataMemory.Add(eDataType.HavingHazardousMeterials, i_Properties[++indexInProperties]);
-                    dataMemory.Add(eDataType.CargoVolume, i_Properties[++indexInProperties]);
+                    dataMemory.Add(eDataType.HavingHazardousMeterials, i_Properties[indexInProperties++]);
+                    dataMemory.Add(eDataType.CargoVolume, i_Properties[indexInProperties++]);
                     wheelsData.Add(Vehicle.WheelData.MaxAirPressure, truckMaxAirPressure.ToString());
                     break;
             }

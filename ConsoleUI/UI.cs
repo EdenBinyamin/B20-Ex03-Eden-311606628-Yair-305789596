@@ -131,6 +131,10 @@ Press 8 - To Exit");
         {
             Console.WriteLine(" ===== Add New Vechile To Our Garage ==== ");
             KnownVehicleTypes.eVehicleType vehicleType = chooseVechileToAdd();
+            Console.WriteLine("Please Type Owner Name");
+            string ownerName = getNonEmptyString();
+            Console.WriteLine("please Type Phone Number");
+            string phoneNumber = getANumericString();
             List<string> propertiesToGet = KnownVehicleTypes.GetPropertiesByVehicleType(vehicleType);
             List<string> userInputProperties = new List<string>();
             foreach (string prop in propertiesToGet)
@@ -138,6 +142,7 @@ Press 8 - To Exit");
                 Console.WriteLine("Please Type {0}", prop);
                 userInputProperties.Add(getNonEmptyString());
             }
+            i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumber, userInputProperties, vehicleType);
         }
 
 
@@ -149,14 +154,14 @@ Press 8 - To Exit");
 Press 1 - To Display only the vehicles in repair
 Press 2 - To Display only the repaired vehicles
 Press 3 - To Display only the paid up vehicles");
-            char userSelection = Console.ReadKey().KeyChar;
-            while (userSelection < '1' || userSelection > '3')
+            string userSelection = Console.ReadLine();
+            while (char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
             {
                 Console.WriteLine(k_WrongInput);
-                userSelection = Console.ReadKey().KeyChar;
+                userSelection = Console.ReadLine();
             }
             List<string> licensePlates = new List<string>();
-            switch (userSelection)
+            switch (char.Parse(userSelection))
             {
                 case '1':
                     Console.WriteLine("==== The Vechile in Repair ==== ");
@@ -214,20 +219,22 @@ Press 3 - If the Repair was paid");
         //AUX FUNCTION
 
         private static KnownVehicleTypes.eVehicleType chooseVechileToAdd()
+
         {
-            int indexForMenu = 1;
+            char indexForMenu = '1';
             foreach (string vechileType in KnownVehicleTypes.r_KnownTypes)
             {
-                Console.WriteLine("Press {0} - To Add New {2} To The Garage", indexForMenu.ToString(), vechileType);
+                Console.WriteLine("Press {0} - To Add New {1} To The Garage", indexForMenu, vechileType);
+                indexForMenu++;
             }
-            char userSelection = Console.ReadKey().KeyChar;
+            string userSelection = Console.ReadLine();// Key().KeyChar;
 
-            while (!Enum.IsDefined(typeof(KnownVehicleTypes.eVehicleType), userSelection))
-            {
-                Console.WriteLine("You Choise is out of Range, Please Try Again!");
-                userSelection = Console.ReadKey().KeyChar;
-            }
-            return (KnownVehicleTypes.eVehicleType)userSelection;
+            //while (!Enum.IsDefined(typeof(KnownVehicleTypes.eVehicleType), userSelection))
+            //{
+            //    Console.WriteLine("You Choise is out of Range, Please Try Again!");
+            //    userSelection = Console.ReadLine(); // Key().KeyChar;
+            //}
+            return (KnownVehicleTypes.eVehicleType)int.Parse(userSelection);
         }
 
 

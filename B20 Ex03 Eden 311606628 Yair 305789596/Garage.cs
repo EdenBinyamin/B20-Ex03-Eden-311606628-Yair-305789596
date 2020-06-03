@@ -24,11 +24,17 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             else
             {
-                changesVehicleCondition(m_VehiclesInGarage[i_DataMemory[(int)KnownVehicleTypes.eDataType.LicenceType]].Vehicle.LicensePlate, VehicleInRepair.VehicleCondition.inRepair);
+                changeVehicleConditionBackToInRepair(m_VehiclesInGarage[i_DataMemory[(int)KnownVehicleTypes.eDataType.LicenceType]].Vehicle.LicensePlate);
                 res = false;
             }
             return res;
         }
+
+        public void changeVehicleConditionBackToInRepair(string licenseNumber)
+        {
+            m_VehiclesInGarage[licenseNumber].Condition = VehicleInRepair.VehicleCondition.inRepair;
+        }
+
         public bool isLicenseNumberAlrdyExists(string i_LicenseNumber)
         {
             return m_VehiclesInGarage.ContainsKey(i_LicenseNumber);
@@ -51,7 +57,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             if(m_VehiclesInGarage[licenseNumber].Condition == i_Condition)
             {
-                throw new ArgumentException("Vehicle is allready in this condition.");
+                throw new ArgumentException("Vehicle is allready in the garage.");
             }
             else
             {
