@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Management.Instrumentation;
 using System.Security.AccessControl;
 
@@ -24,30 +25,8 @@ namespace ConsoleUI
             DisplayACarDetails,
             ExitTheSystem
         }
-        public static void GarageSystem()
-        {
-            string msg = "=========== Welcome to our Garage System ===========";
-            Console.WriteLine(msg);
-            eUserSelectionType userSelection = Menu();
-            Garage garage = new Garage();
-            while(userSelection != eUserSelectionType.ExitTheSystem)
-            {
-                userSelection = Menu();
-                switch(userSelection)
-                {
-                    case eUserSelectionType.AddNewVehicle:
-                        AddANewVehicleToGarage(garage);
-                        break;
 
-
-
-
-
-                }
-            }
-        }
-
-        private static eUserSelectionType Menu ()
+        private static eUserSelectionType Menu()
         {
             string menuMsg = string.Format
 (@"========== MENU ==========
@@ -60,300 +39,233 @@ Press 6 - To Recharge a electric vechile
 Press 7 - To Display the entire details of a certain vechile
 Press 8 - To Exit");
             Console.WriteLine(menuMsg);
-            string userSelection = Console.ReadLine(); 
-            while(!Validation.MenuSelection(userSelection))
+            string userSelection = Console.ReadLine();
+            while (!Validation.MenuSelection(userSelection))
             {
                 Console.WriteLine(k_WrongInput);
                 userSelection = Console.ReadLine();
             }
             return (eUserSelectionType)int.Parse(userSelection);
-        } 
+        }
 
+        public static void GarageSystem()
+        {
+            string msg = "=========== Welcome to our Garage System ===========";
+            Console.WriteLine(msg);
+            eUserSelectionType userSelection = Menu();
+            Garage garage = new Garage();
+            while (userSelection != eUserSelectionType.ExitTheSystem)
+            {
+                userSelection = Menu();
+                switch (userSelection)
+                {
+                    case eUserSelectionType.AddNewVehicle:
+                        AddANewVehicleToGarage(garage);
+                        break;
+                    case eUserSelectionType.DisplayLicensePlates:
+                        DisplayLicensePlates(garage);
+                        break;
+                    case eUserSelectionType.ChangeTheStateOfVehicleInGarage:
+                        ChangeVehicleStatus(garage);
+                        break;
+                    case eUserSelectionType.BlowingAirInTheWheels:
+                        blowingAirPressure(garage);
+                        break;
+                    case eUserSelectionType.FuelAVehicle:
+                        fuelAVehicle(garage);
+                        break;
+                    case eUserSelectionType.RechargeAVehicle:
+                        rechargeAVehicle(garage);
+                        break;
+                    case eUserSelectionType.DisplayACarDetails:
+                        displayAVehicleDetails(garage);
+                        break;
+                }
+            }
+        }
+
+       //Function Menu 7
+
+        private static void displayAVehicleDetails(Garage i_Garage)
+        {
+            Console.WriteLine(" ===== Display All The Details Of A Certain Vechile ==== ");
+            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
+            //METODS THE RETURN ALL LIST OF VEHICLE, EACH ONE IS A DICTIONARY <STRING AND OBJECT> FOR PRINT
+            
+        }
+        //Function MEnu 6
+
+        private static void rechargeAVehicle(Garage i_Garage)
+        {
+            Console.WriteLine(" ===== Recharge A Electric Vehicle ==== ");
+            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
+            string amountToRechare = getANumericString();
+
+          ///  i_Garage. MAke the Function
+
+        }
+
+        //Funcion Menu 5
+        private static void fuelAVehicle(Garage i_Garage)
+        {
+            Console.WriteLine(" ===== Fuel A Regular Vehicle ==== ");
+            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
+            string amountToFill = getANumericString();
+       //     i_Garage.fuelVehicle() change funciton get only amount and A license number
+        }
+
+
+        //Function Menu 4
+        private static void blowingAirPressure(Garage i_Garage)
+        {
+            Console.WriteLine(" ===== Blowing Air Pressure In Wheel ==== ");
+            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
+            i_Garage.fillAirInWheels(vehicleLicenseNumber);
+        }
+
+
+
+
+        //Function menu 1
         private static void AddANewVehicleToGarage(Garage i_Garage)
         {
             Console.WriteLine(" ===== Add New Vechile To Our Garage ==== ");
-            foreach ()
-            Console.WriteLine("Press 1 - To Add A Car");
-            Console.WriteLine("Press 2 - To Add A Motorcycle");
-            Console.WriteLine("Press 3 - To Add A Truck");
-            string userInput = Console.ReadLine();
-            while(!Validation.AddCarUserSelection(userInput))
+            KnownVehicleTypes.eVehicleType vehicleType = chooseVechileToAdd();
+            List<string> propertiesToGet = KnownVehicleTypes.GetPropertiesByVehicleType(vechileType);
+            List<string> userInputProperties = new List<string>();
+            foreach (string prop in propertiesToGet)
+            {
+                Console.WriteLine("Please Type {0}", prop);
+                userInputProperties.Add(getNonEmptyString());
+            }
+        }
+
+
+        //Function menu 2
+        private static void DisplayLicensePlates(Garage i_Garage)
+        {
+            Console.WriteLine(
+@"====== Display license Plates of the Vehicles in The Garage =====
+Press 1 - To Display only the vehicles in repair
+Press 2 - To Display only the repaired vehicles
+Press 3 - To Display only the paid up vehicles");
+            char userSelection = Console.ReadKey().KeyChar;
+            while (userSelection < '1' || userSelection > '3')
             {
                 Console.WriteLine(k_WrongInput);
+                userSelection = Console.ReadKey().KeyChar;
+            }
+            List<string> licensePlates = new List<string>();
+            switch (userSelection)
+            {
+                case '1':
+                    Console.WriteLine("==== The Vechile in Repair ==== ");
+                    licensePlates = i_Garage.licenseNumbersByConditions(VehicleInRepair.VehicleCondition.inRepair);
+                    break;
+                case '2':
+                    Console.WriteLine("==== The Repaired Vechiles ==== ");
+                    licensePlates = i_Garage.licenseNumbersByConditions(VehicleInRepair.VehicleCondition.wasFixed);
+                    break;
+                case '3':
+                    Console.WriteLine("==== The Paid Up Vechiles ==== ");
+                    licensePlates = i_Garage.licenseNumbersByConditions(VehicleInRepair.VehicleCondition.paidUp);
+                    break;
+            }
+            foreach (string vechileLicensePlate in licensePlates)
+            {
+                Console.WriteLine("License Number: {0}", vechileLicensePlate);
+            }
+        }
+
+        //Function menu 3
+
+        private static void ChangeVehicleStatus(Garage i_Garage)
+        {
+            Console.WriteLine("====== Change Vehicle Status =====");
+            Console.WriteLine("Please Type A License Number");
+            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
+
+            Console.WriteLine(
+            @"Please Choose A New Status
+Press 1 - If The Vehicle In Repair
+Press 2 - If The Vehicle Already Repaired
+Press 3 - If the Repair was paid");
+            char userSelection = Console.ReadKey().KeyChar;
+            while (userSelection < '1' || userSelection > '3')
+            {
+                userSelection = Console.ReadKey().KeyChar;
+            }
+            switch (userSelection)
+            {
+                case '1':
+                    i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.inRepair);
+                    break;
+                case '2':
+                    i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.wasFixed);
+                    break;
+                case '3':
+                    i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.paidUp);
+                    break;
+            }
+        }
+
+
+
+        //AUX FUNCTION
+
+        private static KnownVehicleTypes.eVehicleType chooseVechileToAdd()
+        {
+            int indexForMenu = 1;
+            foreach (string vechileType in KnownVehicleTypes.r_KnownType)
+            {
+                Console.WriteLine("Press {0} - To Add New {2} To The Garage", indexForMenu.ToString, vechileType);
+            }
+            char userSelection = Console.ReadKey().KeyChar;
+
+            while (!Enum.IsDefined(typeof(KnownVehicleTypes.eVehicleType), userSelection))
+            {
+                Console.WriteLine("You Choise is out of Range, Please Try Again!");
+                userSelection = Console.ReadKey().KeyChar;
+            }
+            return (KnownVehicleTypes.eVehicleType)userSelection;
+        }
+
+
+        private static string getAVehicleLicenseNumber(Garage i_Garage)
+        {
+            Console.WriteLine("=Please Type A License Number=");
+            string vehicleLicenseNumber = getANumericString();
+            if (!i_Garage.isLicenseNumberAlrdyExists(vehicleLicenseNumber))
+            {
+                Console.WriteLine("The Vehicle with the liecnse number {0}, is not exist", vehicleLicenseNumber);
+                Console.WriteLine("Please Try Again!");
+                vehicleLicenseNumber = getANumericString();
+            }
+            return vehicleLicenseNumber;
+        }
+
+
+        //AUXILIARY
+        private static string getANumericString()
+        {
+            string inputStr = Console.ReadLine();
+            while (!inputStr.All(char.IsDigit))
+            {
+                Console.WriteLine("Not A Numeric String, Please Try Again.");
+                inputStr = Console.ReadLine();
+            }
+            return inputStr;
+        }
+
+        private static string getNonEmptyString()
+        {
+            string userInput = Console.ReadLine();
+            while (userInput.Length == 0)
+            {
+                Console.WriteLine("You Enter A Empty Input, please try again!");
                 userInput = Console.ReadLine();
             }
-           KnownVehicleTypes.eVehicleType userSelection =(KnownVehicleTypes.eVehicleType)int.Parse(userInput);
-            switch(userSelection)
-            {
-                case KnownVehicleTypes.eVehicleType.Car:
-                    addANewCar(i_Garage);
-                    break;
-                case KnownVehicleTypes.eVehicleType.Motorcycle:
-                    addANewMotorcycle(i_Garage);
-                    break;
-                case KnownVehicleTypes.eVehicleType.Truck:
-                    addANewTruck(i_Garage);
-                    break;
-            }
+            return userInput;
         }
-
-
-
-
-        private static void addANewCar(Garage i_Garage)
-        {
-            Dictionary<KnownVehicleTypes.eDataType, string> CarInputs = new Dictionary<KnownVehicleTypes.eDataType, string>();
-            Dictionary<Vehicle.WheelData, string> WheelInputs = new Dictionary<Vehicle.WheelData, string>();
-            KnownVehicleTypes.eVehicleType vehicleType = KnownVehicleTypes.eVehicleType.Car;
-            string ownerName = getName("Owner");
-            string phoneNumberOfOwner = getPhoneNumber();
-            getVehicleProperties(CarInputs, WheelInputs);
-            CarInputs.Add(KnownVehicleTypes.eDataType.NumOfDoors, getNumOfDoors());
-            CarInputs.Add(KnownVehicleTypes.eDataType.Color, getColor());
-            float currentEnergy;
-            EnergyType.eEnergyType vehicleEnergy = getEnergyType(out currentEnergy);
-
-            i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumberOfOwner, CarInputs, WheelInputs, vehicleType, vehicleEnergy);
-        }
-        private static void addANewTruck(Garage i_Garage)
-        {
-            Dictionary<KnownVehicleTypes.eDataType, string> TruckInputs = new Dictionary<KnownVehicleTypes.eDataType, string>();
-            Dictionary<Vehicle.WheelData, string> WheelInputs = new Dictionary<Vehicle.WheelData, string>();
-            KnownVehicleTypes.eVehicleType vehicleType = KnownVehicleTypes.eVehicleType.Truck;
-            string ownerName = getName("Owner");
-            string phoneNumberOfOwner = getPhoneNumber();
-            getVehicleProperties(TruckInputs, WheelInputs);
-            TruckInputs.Add(KnownVehicleTypes.eDataType.HavingHazardousMeterials, getIsHavingHazardousMeterials());
-            float currentEnergy; // NO CHOISE FOR TYPE
-            EnergyType.eEnergyType vehicleEnergy = getEnergyType(out currentEnergy);
-
-            i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumberOfOwner, TruckInputs, WheelInputs, vehicleType, vehicleEnergy);
-
-
-        }
-
-        private static void addANewMotorcycle(Garage i_Garage)
-        {
-            Dictionary<KnownVehicleTypes.eDataType, string> MotorcycleInputs = new Dictionary<KnownVehicleTypes.eDataType, string>();
-            Dictionary<Vehicle.WheelData, string> WheelInputs = new Dictionary<Vehicle.WheelData, string>();
-            KnownVehicleTypes.eVehicleType vehicleType = KnownVehicleTypes.eVehicleType.Motorcycle;
-
-            string ownerName = getName("Owner");
-            string phoneNumberOfOwner = getPhoneNumber();
-            getVehicleProperties(MotorcycleInputs, WheelInputs);
-            MotorcycleInputs.Add(KnownVehicleTypes.eDataType.LicenceType, getLicenceType());
-            MotorcycleInputs.Add(KnownVehicleTypes.eDataType.EngineCapacity, getEngineCapacity());
-            float currentEnergy;
-            EnergyType.eEnergyType vehicleEnergy = getEnergyType(out currentEnergy);
-
-            i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumberOfOwner, MotorcycleInputs, WheelInputs, vehicleType, vehicleEnergy);
-
-
-        }
-
-        private static string getLicenceType()
-        { // לממש
-            throw new NotImplementedException();
-        }
-
-        private static string getEngineCapacity()
-        { // לממש
-            throw new NotImplementedException();
-        }
-
-        private static string getCargo()
-        {
-            string msg = "Please Type Cargo Volume";
-            Console.WriteLine(msg);
-            string cargoVolume = Console.ReadLine();
-            ///Kעשות בדיקה
-            return cargoVolume;
-        }
-
-        private static string getIsHavingHazardousMeterials()
-        {
-            string msg = "Please Type if Truck have Hazardous Meterials";
-            Console.WriteLine(msg);
-            Console.WriteLine("Type Y for Yes and N for No");
-            string hazardousMeterials = Console.ReadLine();
-            //while () /// לממש את הבדיקה
-
-            return hazardousMeterials;
-        }
-
- 
-
-        private static void getVehicleProperties(Dictionary<KnownVehicleTypes.eDataType, string> i_CarInputs,Dictionary<Vehicle.WheelData, string> i_WheelInputs)
-        {
-            i_CarInputs.Add(KnownVehicleTypes.eDataType.Model, getModel());
-            i_CarInputs.Add(KnownVehicleTypes.eDataType.LicencePlate, getLicensePlate());
-            i_CarInputs.Add(KnownVehicleTypes.eDataType.Percentage, getPercentage());
-            i_WheelInputs.Add(Vehicle.WheelData.ManufacturerName, getName("Manufacturer"));
-            i_WheelInputs.Add(Vehicle.WheelData.MaxAirPressure, getPressure("Max"));
-            i_WheelInputs.Add(Vehicle.WheelData.CurrentAirPressure, getPressure("Current"));
-        }
-
-        private static string getPhoneNumber()
-        {
-            string msg = "Please Type Owner Phone Number";
-            Console.WriteLine(msg);
-            string phoneNumber = Console.ReadLine();
-            while(!Validation.IsANumberStr(phoneNumber))
-            {
-                Console.WriteLine(k_WrongInput);
-                phoneNumber = Console.ReadLine();
-            }
-            return phoneNumber;
-        }
-
-        private static EnergyType.eEnergyType getEnergyType(out float o_CurrentEnergy)
-        {
-            string msg = "Please Choose Energy Type";
-            Console.WriteLine(msg);
-            Console.WriteLine("For Electric Energy Please press 1");
-            Console.WriteLine("For Regular Energy Please press 2");
-            string userSelection = Console.ReadLine();
-            string currentEnergy = null;
-            while(!Validation.EnergyType(userSelection))
-            {
-                Console.WriteLine(k_WrongInput);
-                userSelection = Console.ReadLine();
-            }
-            EnergyType.eEnergyType veihicleEnergy = (EnergyType.eEnergyType)int.Parse(userSelection);
-            if (veihicleEnergy == EnergyType.eEnergyType.Regular)
-            {
-                Console.WriteLine("Please Choose Current Fuel");
-                currentEnergy = Console.ReadLine();
-                while(!Validation.IsANumberStr(currentEnergy))
-                {
-                    Console.WriteLine(k_WrongInput);
-                    userSelection = Console.ReadLine();
-                }
-                o_CurrentEnergy = float.Parse(currentEnergy);
-            }
-            else
-            {
-                Console.WriteLine("Please Choose Current Battery Time");
-                currentEnergy = Console.ReadLine();
-                while (!Validation.IsANumberStr(currentEnergy))
-                {
-                    Console.WriteLine(k_WrongInput);
-                    userSelection = Console.ReadLine();
-                }
-                o_CurrentEnergy = float.Parse(currentEnergy);
-            }
-            return veihicleEnergy;
-
-        }
-
-
-
-        private static string getNumOfDoors()
-        {
-            string msg = string.Format(
-@"Please Choose numbers of Doors
-You can choose 2/3/4/5.");
-            Console.WriteLine(msg);
-            Console.Write("Please Type: ");
-            string numOfDoors = Console.ReadLine();
-            while(!Validation.DoorCars(numOfDoors))
-            {
-                Console.WriteLine(k_WrongInput);
-                numOfDoors = Console.ReadLine();
-            }
-
-            return numOfDoors;
-        }
-
-        private static string getColor()
-        {
-            string msg = string.Format(
-@"Please Choose Car Color
-You can choose Red / White / Silver / Black");
-            Console.WriteLine(msg);
-            Console.Write("Please Type: ");
-            string color = Console.ReadLine();
-            while(!Validation.CarColor(ref color))
-            {
-                Console.WriteLine(k_WrongInput);
-                color = Console.ReadLine();
-            }
-            return color;
-        }
-
-
-        private static string getPressure(string i_Val)
-        {
-            string msg = string.Format("Please Type the {0} Pressure of the Vechiale",i_Val);
-            Console.WriteLine(msg);
-            string pressure = Console.ReadLine();
-            while(!Validation.IsANumberStr(pressure))
-            {
-                Console.WriteLine(k_WrongInput);
-                pressure = Console.ReadLine();
-            }
-
-            return pressure;
-        }
-
-        private static string getName(string typeName)
-        {
-            string msg = string.Format("Please Type {0} Name", typeName);
-            Console.WriteLine(msg);
-            string name = Console.ReadLine();
-            while(!Validation.Name(name))
-            {
-                Console.WriteLine(k_WrongInput);
-                name = Console.ReadLine();
-            }
-            return name;
-        }
-
-        private static string getPercentage()
-        {
-            string msg = "Please Type Energy Percentage";
-            Console.WriteLine(msg);
-            string precentage = Console.ReadLine();
-            while(!Validation.Percentage(precentage))
-            {
-                Console.WriteLine(k_WrongInput);
-                precentage = Console.ReadLine();
-            }
-            return precentage;
-        }
-
-        private static string getLicensePlate()
-        {
-            string msg = "Please Type A License Plate";
-            Console.WriteLine(msg);
-            string licencsePlate = Console.ReadLine();
-            while(!Validation.IsANumberStr(licencsePlate))
-            {
-                Console.WriteLine(k_WrongInput);
-                licencsePlate = Console.ReadLine();
-            }
-            return licencsePlate;
-        }
-
-        private static string getModel()
-        {
-            string msg = "Please Type A Vehicle Model";
-            Console.WriteLine(msg);
-            string model = Console.ReadLine();
-            while (!Validation.Name(model))
-            {
-                Console.WriteLine(k_WrongInput);
-                model = Console.ReadLine();
-            }
-            return model;
-        }
-
-       
-
-
-
-
-
     }
-    
 }
