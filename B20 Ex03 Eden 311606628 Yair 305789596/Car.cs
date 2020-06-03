@@ -8,7 +8,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
     public class Car : Vehicle
     { 
-        internal enum Color
+        public enum Color
         {
             Red,
             White,
@@ -24,6 +24,32 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             m_Color = i_Color;
             m_NumOfDoors = i_NumOfDoors;
+        }
+
+        public static Color colorParse(string i_Color)
+        {
+            Color color;
+            if (i_Color == "Red")
+            {
+                color = Color.Red;
+            }
+            else if (i_Color == "White")
+            {
+                color = Color.White;
+            }
+            else if (i_Color == "Black")
+            {
+                color = Color.Black;
+            }
+            else if (i_Color == "Silver")
+            {
+                color = Color.Silver;
+            }
+            else
+            {
+                throw new ArgumentException("Wrong known color");
+            }
+            return color;
         }
     }
 }
