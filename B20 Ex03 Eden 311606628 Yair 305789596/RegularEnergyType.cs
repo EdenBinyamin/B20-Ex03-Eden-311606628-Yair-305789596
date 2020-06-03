@@ -71,5 +71,33 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             
         }
+
+        internal static FuelType ParseFuelType(string i_FuelType)
+        {
+            i_FuelType = i_FuelType.Trim();
+            i_FuelType = i_FuelType.ToUpper();
+            FuelType fuelType;          
+            if (i_FuelType == "OCTAN98")
+            {
+                fuelType = FuelType.Octan98;
+            }
+            else if (i_FuelType == "OCTAN95")
+            {
+                fuelType = FuelType.Octan95;
+            }
+            else if(i_FuelType== "OCTAN96")
+            {
+                fuelType = FuelType.Octan96;
+            }
+            else if(i_FuelType == "SOLER")
+            {
+                fuelType = FuelType.Soler;
+            }
+            else
+            {
+                throw new ArgumentException("Known Fuel Type");
+            }
+            return fuelType;
+        }
     }
 }

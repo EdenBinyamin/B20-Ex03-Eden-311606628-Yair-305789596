@@ -18,5 +18,25 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_IsHavingHazardousMaterials = i_IsHavingHazardousMaterials;
             m_CargoVolume = i_CargoVolume;
         }
+
+        public static bool ParseHazardousMeterials(string i_InputStr)
+        {
+            i_InputStr = i_InputStr.Trim();
+            i_InputStr = i_InputStr.ToUpper();
+            bool res = true;
+            if (i_InputStr == "TRUE" || i_InputStr == "YES")
+            {
+                res = true;
+            }
+            else if(i_InputStr == "FALSE" ||i_InputStr == "NO")
+            {
+                res = false;
+            }
+            else
+            {
+                throw new ArgumentException("Hazardous Meterials: Not A Vaild input");
+            }
+            return res;
+        }
     }
 }

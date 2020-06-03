@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    class ElectricEnergyType : EnergyType
+    public class ElectricEnergyType : EnergyType
     {
         internal float m_HourseLeftForEndingBattery;
         internal float m_FullBatteryInHours;

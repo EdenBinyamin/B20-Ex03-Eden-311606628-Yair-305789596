@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
     public class Car : Vehicle
-    { 
-        public enum Color
+    {
+
+    
+        public enum eColorType
         {
             Red,
             White,
             Black,
             Silver
         }
-        private Color m_Color;
+        private eColorType m_Color;
         private int m_NumOfDoors;
 
-        internal Car(Color i_Color, int i_NumOfDoors, string i_Model, string i_LicensePlate,
+        internal Car(eColorType i_Color, int i_NumOfDoors, string i_Model, string i_LicensePlate,
             float i_Percentage, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType)
             : base(i_Model, i_LicensePlate, i_Percentage, 4, i_Wheel, i_EnergyType)
         {
@@ -26,28 +28,45 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_NumOfDoors = i_NumOfDoors;
         }
 
-        public static Color colorParse(string i_Color)
+        public static int DoorNumbersParse(string i_NumOfDoors)
         {
-            Color color;
-            if (i_Color == "Red")
+            int numOfDoors;
+            bool res = int.TryParse(i_NumOfDoors, out numOfDoors);
+            if(!res)
             {
-                color = Color.Red;
+                throw new ArgumentException("Not A Valid Number");
             }
-            else if (i_Color == "White")
+            if(numOfDoors < 2 || numOfDoors > 5)
             {
-                color = Color.White;
+                throw new ArgumentException("Not A Valid Door numbers. Min Door:2, Max Door: 5");
             }
-            else if (i_Color == "Black")
+            return numOfDoors;
+        }
+
+        public static eColorType ColorParse(string i_Color)
+        {
+            i_Color = i_Color.Trim();
+            i_Color = i_Color.ToUpper();
+            eColorType color;
+            if (i_Color == "RED")
             {
-                color = Color.Black;
+                color = eColorType.Red;
             }
-            else if (i_Color == "Silver")
+            else if (i_Color == "WHITE")
             {
-                color = Color.Silver;
+                color = eColorType.White;
+            }
+            else if (i_Color == "BLACK")
+            {
+                color = eColorType.Black;
+            }
+            else if (i_Color == "SILVER")
+            {
+                color = eColorType.Silver;
             }
             else
             {
-                throw new ArgumentException("Wrong known color");
+                throw new ArgumentException("Wrong Known Color");
             }
             return color;
         }

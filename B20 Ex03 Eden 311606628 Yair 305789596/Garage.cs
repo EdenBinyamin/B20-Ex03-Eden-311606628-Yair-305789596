@@ -67,17 +67,22 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public void fillAirInWheels(string licenseNumber)
         {
-            m_VehiclesInGarage[licenseNumber].Vehicle.fillAirInWheels();
+            bool res= m_VehiclesInGarage[licenseNumber].Vehicle.fillAirInWheels();
+            if(!res)
+            {
+                throw new ArgumentException("The Wheels Already fill to the Maximum");
+            }
         }
 
-        public void fuelVehicle(string i_LicenseNumber, RegularEnergyType.FuelType i_FuelType,
-            float i_AmountToFuel)
+        public void fuelVehicle(string i_LicenseNumber, string i_FuelType, string i_AmountToFuel)
         {
             RegularEnergyType regularEnergy = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as RegularEnergyType;
-
-            if (regularEnergy != null && regularEnergy.m_FuleType == i_FuelType)
+            RegularEnergyType.FuelType fuelType = RegularEnergyType.ParseFuelType(i_FuelType);
+            float amountToFuel;
+            bool res= float.TryParse(i_AmountToFuel, out amountToFuel);
+            if (res && regularEnergy != null && regularEnergy.m_FuleType == fuelType)
             {
-                regularEnergy.fuel(i_AmountToFuel);
+                regularEnergy.fuel(amountToFuel);
             }
             else
             {
@@ -86,12 +91,17 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             
         }
 
-        public void chargeVehicle(string i_LicenseNumber, float minutesToCharge)
+        public void chargeVehicle(string i_LicenseNumber, string i_MinutesToCharge)
         {
             ElectricEnergyType electricType = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as ElectricEnergyType;
+            float minToRechare = float.Parse(i_MinutesToCharge);
             if (electricType != null) 
             {
-                electricType.batteryCharging(minutesToHours(minutesToCharge));
+                electricType.batteryCharging(minutesToHours(minToRechare));
+            }
+            else
+            {
+                throw new ArgumentException("The Vehicle number {0} hasn't Electric Energy", i_LicenseNumber);
             }
         }
 

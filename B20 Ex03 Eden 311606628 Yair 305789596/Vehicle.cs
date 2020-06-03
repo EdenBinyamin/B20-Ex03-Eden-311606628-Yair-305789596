@@ -17,9 +17,13 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             private string m_ManufacturerName;
             private float m_CurrentAirPressure;
             private float m_MaxAirPressure;
-            internal void fillAirInWheel()
+            internal void fillAirInWheel(ref bool res)
             {
-                m_CurrentAirPressure = m_MaxAirPressure;
+                if(m_CurrentAirPressure != m_MaxAirPressure)
+                {
+                    m_CurrentAirPressure = m_MaxAirPressure;
+                    res = true;
+                }
             }
             public Wheel(string i_ManurfacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
             {
@@ -72,12 +76,22 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 return m_EnergyType;
             }
         }
-        public void fillAirInWheels()
+        public bool fillAirInWheels()
         {
+            bool succeessFillAir = false;
             foreach(Wheel wheel in m_Wheels)
             {
-                wheel.fillAirInWheel();
+                wheel.fillAirInWheel(ref succeessFillAir);
             }
+            return succeessFillAir;
         }
+
+        //public List<string> GetProprtiesList()
+        //{
+        //    List<string> propList= new List<string>();
+        //    propList.Add(m_Model);
+        //    propList.Add(m_LicensePlate);
+        //    propList.Add(m_EnergyTyp);
+        //}
     }
 }
