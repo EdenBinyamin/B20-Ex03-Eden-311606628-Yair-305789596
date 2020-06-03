@@ -52,7 +52,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             dataMemory.Add(eDataType.Model, i_Properties[++indexInProperties]);
             dataMemory.Add(eDataType.LicencePlate, i_Properties[++indexInProperties]);
             dataMemory.Add(eDataType.Percentage, i_Properties[++indexInProperties]);
-            wheelsData.Add(Vehicle.WheelData.CurrentAirPressure, i_Properties[++indexInProperties]);
+            wheelsData.Add(Vehicle.WheelData.CurrentAirPressure, i_Properties[++indexInProperties]); ; ;
             wheelsData.Add(Vehicle.WheelData.ManufacturerName, i_Properties[++indexInProperties]);
             switch (i_Type)
             {
