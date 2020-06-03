@@ -14,18 +14,17 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         }
 
         public bool tryAddingNewVehicleToGarage(string i_OwnerName, string i_PhoneNumberOfOwner,
-            Dictionary<KnownVehicleTypes.eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel,
-            KnownVehicleTypes.eVehicleType i_VehicleType, EnergyType.eEnergyType i_EnergyType)
+            List<string> i_DataMemory, KnownVehicleTypes.eVehicleType i_VehicleType)
         {
             bool res = true;
-            if (!isLicenseNumberAlrdyExists(i_DataMemory[KnownVehicleTypes.eDataType.LicencePlate]))
+            if (!isLicenseNumberAlrdyExists(i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate]))
             {
-                m_VehiclesInGarage.Add(i_DataMemory[KnownVehicleTypes.eDataType.LicencePlate], new VehicleInRepair(i_OwnerName, i_PhoneNumberOfOwner,
-                                                i_DataMemory, i_Wheel, i_VehicleType, i_EnergyType));
+                m_VehiclesInGarage.Add(i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate], new VehicleInRepair(i_OwnerName, i_PhoneNumberOfOwner,
+                                                i_DataMemory, i_VehicleType));
             }
             else
             {
-                changesVehicleCondition(m_VehiclesInGarage[i_DataMemory[KnownVehicleTypes.eDataType.LicenceType]].Vehicle.LicensePlate, VehicleInRepair.VehicleCondition.inRepair);
+                changesVehicleCondition(m_VehiclesInGarage[i_DataMemory[(int)KnownVehicleTypes.eDataType.LicenceType]].Vehicle.LicensePlate, VehicleInRepair.VehicleCondition.inRepair);
                 res = false;
             }
             return res;
@@ -35,7 +34,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return m_VehiclesInGarage.ContainsKey(i_LicenseNumber);
         }
         
-        internal List<string> licenseNumbersByConditions(VehicleInRepair.VehicleCondition i_Condition)
+        public List<string> licenseNumbersByConditions(VehicleInRepair.VehicleCondition i_Condition)
         {
             List<string> licenseNumbers = new List<string>();
             foreach(KeyValuePair<string, VehicleInRepair> vehicle in m_VehiclesInGarage)

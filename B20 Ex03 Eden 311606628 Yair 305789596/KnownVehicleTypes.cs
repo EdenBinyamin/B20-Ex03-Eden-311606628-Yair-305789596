@@ -19,7 +19,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             Truck,
         }
 
-        public readonly string[] m_KnownTypes =
+        public static readonly string[] r_KnownTypes =
         {
             "Regular Car",
             "Electric Car",
@@ -44,7 +44,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             HoursLeftInBattery,
         }
 
-        public static void CreateVehicle(List<string> i_Properties, eVehicleType i_Type)
+        public static Vehicle CreateVehicle (List<string> i_Properties, eVehicleType i_Type)
         {
             Dictionary<eDataType, string> dataMemory = new Dictionary<eDataType, string>();
             Dictionary<Vehicle.WheelData, string> wheelsData = new Dictionary<Vehicle.WheelData, string>();
@@ -52,7 +52,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             dataMemory.Add(eDataType.Model, i_Properties[++indexInProperties]);
             dataMemory.Add(eDataType.LicencePlate, i_Properties[++indexInProperties]);
             dataMemory.Add(eDataType.Percentage, i_Properties[++indexInProperties]);
-            wheelsData.Add(Vehicle.WheelData.CurrentAirPressure, i_Properties[++indexInProperties]); ; ;
+            wheelsData.Add(Vehicle.WheelData.CurrentAirPressure, i_Properties[++indexInProperties]);
             wheelsData.Add(Vehicle.WheelData.ManufacturerName, i_Properties[++indexInProperties]);
             switch (i_Type)
             {
@@ -87,10 +87,10 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     wheelsData.Add(Vehicle.WheelData.MaxAirPressure, truckMaxAirPressure.ToString());
                     break;
             }
-            CreateVehicle(dataMemory, i_Type, wheelsData);
+            return CreateVehicle(dataMemory, i_Type, wheelsData);
         }
         
-        public static List<string> getPropertiesByVehicleType(eVehicleType i_Type)
+        public static List<string> GetPropertiesByVehicleType(eVehicleType i_Type)
         {
             List<string> properties = new List<string>();
             properties.Add("model:");

@@ -131,7 +131,7 @@ Press 8 - To Exit");
         {
             Console.WriteLine(" ===== Add New Vechile To Our Garage ==== ");
             KnownVehicleTypes.eVehicleType vehicleType = chooseVechileToAdd();
-            List<string> propertiesToGet = KnownVehicleTypes.GetPropertiesByVehicleType(vechileType);
+            List<string> propertiesToGet = KnownVehicleTypes.GetPropertiesByVehicleType(vehicleType);
             List<string> userInputProperties = new List<string>();
             foreach (string prop in propertiesToGet)
             {
@@ -216,9 +216,9 @@ Press 3 - If the Repair was paid");
         private static KnownVehicleTypes.eVehicleType chooseVechileToAdd()
         {
             int indexForMenu = 1;
-            foreach (string vechileType in KnownVehicleTypes.r_KnownType)
+            foreach (string vechileType in KnownVehicleTypes.r_KnownTypes)
             {
-                Console.WriteLine("Press {0} - To Add New {2} To The Garage", indexForMenu.ToString, vechileType);
+                Console.WriteLine("Press {0} - To Add New {2} To The Garage", indexForMenu.ToString(), vechileType);
             }
             char userSelection = Console.ReadKey().KeyChar;
 
