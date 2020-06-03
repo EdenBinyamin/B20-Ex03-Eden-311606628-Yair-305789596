@@ -10,14 +10,7 @@ namespace ConsoleUI
     public class UI
     {
 
-        private const string k_Msg1 = "Press 1 - To Put a new car in the Garage";
-        private const string k_Msg2 = "Press 2 - To Display the entire list of vechicle license plates in the Garage";
-        private const string k_Msg3 = "Press 3 - For Changing the state of a vehicle in the Garage";
-        private const string k_Msg4 = "Press 4 - For Blowing air in the wheels of a certain vehicle";
-        private const string k_Msg5 = "Press 5 - To Fuel a regular vechile";
-        private const string k_Msg6 = "Press 6 - To Recharge a electric vechile";
-        private const string k_Msg7 = "Press 7 - To Display the entire details of a certain vechile";
-        private const string k_Msg8 = "Press 8 - To Exit";
+
         private const string k_WrongInput = "Wrong Input! Please Try Again.";
 
         public enum eUserSelectionType
@@ -56,14 +49,17 @@ namespace ConsoleUI
 
         private static eUserSelectionType Menu ()
         {
-            Console.WriteLine(k_Msg1);
-            Console.WriteLine(k_Msg2);
-            Console.WriteLine(k_Msg3);
-            Console.WriteLine(k_Msg4);
-            Console.WriteLine(k_Msg5);
-            Console.WriteLine(k_Msg6);
-            Console.WriteLine(k_Msg7);
-            Console.WriteLine(k_Msg8);
+            string menuMsg = string.Format
+(@"========== MENU ==========
+Press 1 - To Put a new car in the Garage
+Press 2 - To Display the entire list of vechicle license plates in the Garage
+Press 3 - For Changing the state of a vehicle in the Garage
+Press 4 - For Blowing air in the wheels of a certain vehicle
+Press 5 - To Fuel a regular vechile
+Press 6 - To Recharge a electric vechile
+Press 7 - To Display the entire details of a certain vechile
+Press 8 - To Exit");
+            Console.WriteLine(menuMsg);
             string userSelection = Console.ReadLine(); 
             while(!Validation.MenuSelection(userSelection))
             {
@@ -76,6 +72,7 @@ namespace ConsoleUI
         private static void AddANewVehicleToGarage(Garage i_Garage)
         {
             Console.WriteLine(" ===== Add New Vechile To Our Garage ==== ");
+            foreach ()
             Console.WriteLine("Press 1 - To Add A Car");
             Console.WriteLine("Press 2 - To Add A Motorcycle");
             Console.WriteLine("Press 3 - To Add A Truck");
