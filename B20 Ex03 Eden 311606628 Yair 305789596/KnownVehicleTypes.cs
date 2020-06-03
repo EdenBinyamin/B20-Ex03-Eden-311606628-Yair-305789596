@@ -196,7 +196,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
 
             string model = i_DataMemory[eDataType.Model];
-            Motorcycle.licenseType licenceType = (Motorcycle.licenseType)int.Parse(i_DataMemory[eDataType.LicenceType]);
+            Motorcycle.licenseType licenceType = Motorcycle.LicenseTypeParse(i_DataMemory[eDataType.LicenceType]);
             string licensePlate = i_DataMemory[eDataType.LicencePlate];
             int engineCapacity = int.Parse(i_DataMemory[eDataType.EngineCapacity]);
             float percentage = float.Parse(i_DataMemory[eDataType.Percentage]);

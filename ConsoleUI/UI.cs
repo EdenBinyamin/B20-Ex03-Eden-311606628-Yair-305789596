@@ -56,7 +56,6 @@ Press 8 - To Exit");
             Garage garage = new Garage();
             while (userSelection != eUserSelectionType.ExitTheSystem)
             {
-                userSelection = Menu();
                 switch (userSelection)
                 {
                     case eUserSelectionType.AddNewVehicle:
@@ -81,49 +80,9 @@ Press 8 - To Exit");
                         displayAVehicleDetails(garage);
                         break;
                 }
+                userSelection = Menu();
             }
         }
-
-       //Function Menu 7
-
-        private static void displayAVehicleDetails(Garage i_Garage)
-        {
-            Console.WriteLine(" ===== Display All The Details Of A Certain Vechile ==== ");
-            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
-            //METODS THE RETURN ALL LIST OF VEHICLE, EACH ONE IS A DICTIONARY <STRING AND OBJECT> FOR PRINT
-            
-        }
-        //Function MEnu 6
-
-        private static void rechargeAVehicle(Garage i_Garage)
-        {
-            Console.WriteLine(" ===== Recharge A Electric Vehicle ==== ");
-            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
-            string amountToRechare = getANumericString();
-
-          ///  i_Garage. MAke the Function
-
-        }
-
-        //Funcion Menu 5
-        private static void fuelAVehicle(Garage i_Garage)
-        {
-            Console.WriteLine(" ===== Fuel A Regular Vehicle ==== ");
-            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
-            string amountToFill = getANumericString();
-       //     i_Garage.fuelVehicle() change funciton get only amount and A license number
-        }
-
-
-        //Function Menu 4
-        private static void blowingAirPressure(Garage i_Garage)
-        {
-            Console.WriteLine(" ===== Blowing Air Pressure In Wheel ==== ");
-            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
-            i_Garage.fillAirInWheels(vehicleLicenseNumber);
-        }
-
-
 
 
         //Function menu 1
@@ -142,7 +101,15 @@ Press 8 - To Exit");
                 Console.WriteLine("Please Type {0}", prop);
                 userInputProperties.Add(getNonEmptyString());
             }
-            i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumber, userInputProperties, vehicleType);
+            try
+            {
+                i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumber, userInputProperties, vehicleType);
+            }
+            catch(ArgumentException e)
+            {
+                Console.WriteLine("Cannot Adding a New Vechile");
+                Console.WriteLine(e.Message);
+            }
         }
 
 
@@ -176,6 +143,10 @@ Press 3 - To Display only the paid up vehicles");
                     licensePlates = i_Garage.licenseNumbersByConditions(VehicleInRepair.VehicleCondition.paidUp);
                     break;
             }
+            if(licensePlates.Count==0)
+            {
+                Console.WriteLine("No License Plates To Display");
+            }
             foreach (string vechileLicensePlate in licensePlates)
             {
                 Console.WriteLine("License Number: {0}", vechileLicensePlate);
@@ -187,7 +158,6 @@ Press 3 - To Display only the paid up vehicles");
         private static void ChangeVehicleStatus(Garage i_Garage)
         {
             Console.WriteLine("====== Change Vehicle Status =====");
-            Console.WriteLine("Please Type A License Number");
             string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
 
             Console.WriteLine(
@@ -195,27 +165,76 @@ Press 3 - To Display only the paid up vehicles");
 Press 1 - If The Vehicle In Repair
 Press 2 - If The Vehicle Already Repaired
 Press 3 - If the Repair was paid");
-            char userSelection = Console.ReadKey().KeyChar;
-            while (userSelection < '1' || userSelection > '3')
+            string userSelection = Console.ReadLine();
+            while (char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
             {
-                userSelection = Console.ReadKey().KeyChar;
+                userSelection = Console.ReadLine();
             }
-            switch (userSelection)
+            try
             {
-                case '1':
-                    i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.inRepair);
-                    break;
-                case '2':
-                    i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.wasFixed);
-                    break;
-                case '3':
-                    i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.paidUp);
-                    break;
+                switch (char.Parse(userSelection))
+                {
+                    case '1':
+                        i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.inRepair);
+                        break;
+                    case '2':
+                        i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.wasFixed);
+                        break;
+                    case '3':
+                        i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.paidUp);
+                        break;
+                }
             }
+            catch(ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+   
+        }
+
+  
+     
+
+        //Function Menu 4
+        private static void blowingAirPressure(Garage i_Garage)
+        {
+            Console.WriteLine(" ===== Blowing Air Pressure In Wheel ==== ");
+            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
+            i_Garage.fillAirInWheels(vehicleLicenseNumber);
         }
 
 
+        //Funcion Menu 5
+        private static void fuelAVehicle(Garage i_Garage)
+        {
+            Console.WriteLine(" ===== Fuel A Regular Vehicle ==== ");
+            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
+            string amountToFill = getANumericString();
+            //     i_Garage.fuelVehicle() change funciton get only amount and A license number
+        }
 
+        //Function MEnu 6
+
+        private static void rechargeAVehicle(Garage i_Garage)
+        {
+            Console.WriteLine(" ===== Recharge A Electric Vehicle ==== ");
+            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
+            string amountToRechare = getANumericString();
+
+            ///  i_Garage. MAke the Function
+
+        }
+
+
+        //Function Menu 7
+
+        private static void displayAVehicleDetails(Garage i_Garage)
+        {
+            Console.WriteLine(" ===== Display All The Details Of A Certain Vechile ==== ");
+            string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
+            //METODS THE RETURN ALL LIST OF VEHICLE, EACH ONE IS A DICTIONARY <STRING AND OBJECT> FOR PRINT
+
+        }
         //AUX FUNCTION
 
         private static KnownVehicleTypes.eVehicleType chooseVechileToAdd()

@@ -5,7 +5,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
     public class Motorcycle : Vehicle
     {
-        internal enum licenseType
+        public enum licenseType
         {
             A,
             A1,
@@ -22,6 +22,32 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             m_LicenseType = i_LicenseType;
             m_EngineCapacity = i_EngineCapacity;
+        }
+
+        public static licenseType LicenseTypeParse(string licenseType)
+        {
+            licenseType type;
+            if(licenseType == "A")
+            {
+                type = Motorcycle.licenseType.A;
+            }
+            else if(licenseType == "A1")
+            {
+                type = Motorcycle.licenseType.A1;
+            }
+            else if(licenseType == "AA")
+            {
+                type = Motorcycle.licenseType.AA;
+            }
+            else if(licenseType == "B")
+            {
+                type = Motorcycle.licenseType.B;
+            }
+            else
+            {
+                throw new ArgumentException("Wrong License Type");
+            }
+            return type;
         }
     }
 }
