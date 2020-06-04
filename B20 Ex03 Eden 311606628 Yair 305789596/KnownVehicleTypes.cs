@@ -254,7 +254,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 if (!strToCheck.All(char.IsDigit))
                 {
                     string failedMsg = string.Format("your input: {0}, should be Only Numeric input", strToCheck);
-                    throw new ArgumentException(failedMsg);
+                    throw new FormatException(failedMsg);
                 }
             }
         }
@@ -265,7 +265,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 if (!strToCheck.All(char.IsLetter))
                 {
                     string failedMsg = string.Format("your input: {0}, should be Only Alpabeat input", strToCheck);
-                    throw new ArgumentException(failedMsg);
+                    throw new FormatException(failedMsg);
                 }
             }
         }

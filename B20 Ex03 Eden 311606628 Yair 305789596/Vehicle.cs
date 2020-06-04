@@ -54,10 +54,10 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             m_Model = i_Model;
             m_LicensePlate = i_LicensePlate;
-            m_PercentageOfEnergyRemaining = i_EnergyType.currentEneregy * 100 / i_EnergyType.maxEnergy;
             m_NumOfWheels = i_NumOfWheels;
             m_Wheels = Wheels(i_Wheel, i_NumOfWheels);
             m_EnergyType = i_EnergyType;
+            updatePecentageOfEnergy();
         }
         private Wheel[] Wheels(Dictionary<WheelData,string> i_Wheel, int i_NumOfWheels)
         {
@@ -109,6 +109,11 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             vehicleDetails += m_Wheels[0].ToString();
             vehicleDetails += m_EnergyType.ToString();
             return vehicleDetails;
+        }
+
+        public void updatePecentageOfEnergy()
+        {
+            m_PercentageOfEnergyRemaining = m_EnergyType.currentEneregy * 100 / m_EnergyType.maxEnergy;
         }
     }
 }

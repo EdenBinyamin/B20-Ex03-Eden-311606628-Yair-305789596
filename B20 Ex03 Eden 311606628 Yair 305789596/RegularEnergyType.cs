@@ -22,40 +22,11 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_FuleType = i_FuelType;
             if(i_AmountOfLittersInTank > i_FullTank)
             {
-                throw new ValueOutOfRangeException(0, i_FullTank,"litters left in the tank is bigger than the tank itself");
+                throw new ValueOutOfRangeException(0, i_FullTank, "litters left in the tank is bigger than the tank itself");
             }
             m_AmountOfLittersLeftInTank = i_AmountOfLittersInTank;
             m_FullTank = i_FullTank;
         }
-
-        public static FuelType FuelTypeParse(string i_FuelType)
-        {
-            FuelType type;
-            if (i_FuelType == "Octan95")
-            {
-                type = FuelType.Octan95;
-            }
-            else if (i_FuelType == "Octan96")
-            {
-                type = FuelType.Octan96;
-            }
-            else if (i_FuelType == "Octan98")
-            {
-                type = FuelType.Octan98;
-            }
-            else if(i_FuelType == "Soler")
-            {
-                type = FuelType.Soler;
-            }
-            else
-            {
-                throw new ArgumentException("Wrong type of fuel!");
-            }
-            return type;
-        }
-
-
-
         public void fuel(float i_Litters)
         {
             if (m_AmountOfLittersLeftInTank + i_Litters > m_FullTank)
@@ -92,7 +63,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             else
             {
-                throw new ArgumentException("Known Fuel Type");
+                throw new FormatException("Unknown Fuel Type");
             }
             return fuelType;
         }

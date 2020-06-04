@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
     public class Car : Vehicle
     {
-
-    
         public enum eColorType
         {
             Red,
@@ -34,7 +29,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             bool res = int.TryParse(i_NumOfDoors, out numOfDoors);
             if(!res)
             {
-                throw new ArgumentException("Not A Valid Number");
+                throw new FormatException("Not A Valid Number");
             }
             if(numOfDoors < 2 || numOfDoors > 5)
             {
@@ -66,7 +61,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             else
             {
-                throw new ArgumentException("Wrong Known Color");
+                throw new FormatException("Wrong Known Color");
             }
             return color;
         }

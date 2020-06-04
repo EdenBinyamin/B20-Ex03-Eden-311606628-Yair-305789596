@@ -57,7 +57,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             if(m_VehiclesInGarage[licenseNumber].Condition == i_Condition)
             {
-                throw new ArgumentException("Vehicle is allready in the garage.");
+                throw new ArgumentException("Vehicle is allready in " + i_Condition.ToString() + " condition.");
             }
             else
             {
@@ -67,7 +67,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public void fillAirInWheels(string licenseNumber)
         {
-            bool res= m_VehiclesInGarage[licenseNumber].Vehicle.fillAirInWheels();
+            bool res = m_VehiclesInGarage[licenseNumber].Vehicle.fillAirInWheels();
             if(!res)
             {
                 throw new ArgumentException("The Wheels Already fill to the Maximum");
@@ -79,7 +79,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             RegularEnergyType vehicleEnergy = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as RegularEnergyType;
             RegularEnergyType.FuelType fuelType = RegularEnergyType.ParseFuelType(i_FuelType);
             float amountToFuel;
-            bool res= float.TryParse(i_AmountToFuel, out amountToFuel);
+            bool res = float.TryParse(i_AmountToFuel, out amountToFuel);
             if(vehicleEnergy == null)
             {
                 throw new ArgumentException("The vehicle isn't using Fuel");
@@ -87,6 +87,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             if (res && vehicleEnergy.m_FuleType == fuelType)
             {
                 vehicleEnergy.fuel(amountToFuel);
+                m_VehiclesInGarage[i_LicenseNumber].Vehicle.updatePecentageOfEnergy();
             }
             else
             {
@@ -102,16 +103,22 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             if (electricType != null) 
             {
                 electricType.batteryCharging(minutesToHours(minToRechare));
+                m_VehiclesInGarage[i_LicenseNumber].Vehicle.updatePecentageOfEnergy();
             }
             else
             {
-                throw new ArgumentException("The Vehicle number {0} hasn't Electric Energy", i_LicenseNumber);
+                throw new ArgumentException("The Vehicle number " + i_LicenseNumber + "doesn't have electric Energy");
             }
         }
 
         private float minutesToHours(float i_Minutes)
         {
-            return i_Minutes / 60 + i_Minutes % 60 / 60;
+            float hours = i_Minutes / 60;
+            if(i_Minutes > 60)
+            {
+                hours += i_Minutes / 60 % 60;
+            }
+            return hours;
         }
 
         public Dictionary<string, VehicleInRepair> VehiclesInRepair

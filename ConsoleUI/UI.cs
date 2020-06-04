@@ -219,7 +219,7 @@ Press 3 - If the Repair was paid");
                 i_Garage.fillAirInWheels(vehicleLicenseNumber);
                 Console.WriteLine("Blow Air Succeeded!");
             }
-            catch(ArgumentException e)
+            catch(Exception e)
             {
                 Console.WriteLine("Cannot Blowing Air Pressure in Vehicle {0}", vehicleLicenseNumber);
                 Console.Write(e.Message);
@@ -241,7 +241,7 @@ Press 3 - If the Repair was paid");
                i_Garage.fuelVehicle(vehicleLicenseNumber, fuelType, amountToFill);
                 Console.WriteLine("Fuel Vechile {0} Succeeded!", vehicleLicenseNumber);
             }
-            catch (ArgumentException e) 
+            catch (Exception e) 
             {// Exeption : Type Fuel Not As The vehicle Type fuel, Amout to fill is more than the max, the vechile is electric
                 Console.WriteLine("Cannot Fuel A Vehicle");
                 Console.WriteLine(e.Message);
@@ -259,9 +259,9 @@ Press 3 - If the Repair was paid");
             try
             { 
                 i_Garage.chargeVehicle(vehicleLicenseNumber, minutesToCharge);
-                Console.WriteLine("Recharge Vehicle {0} in {1} Succeeded!",vehicleLicenseNumber,minutesToCharge);
+                Console.WriteLine("Recharge Vehicle {0} in {1} minutes Succeeded!",vehicleLicenseNumber,minutesToCharge);
             }
-            catch(ArgumentException e)
+            catch(Exception e)
             {
                 Console.WriteLine("Cannot Recharge Vehicle {0}", vehicleLicenseNumber);
                 Console.WriteLine(e.Message);
