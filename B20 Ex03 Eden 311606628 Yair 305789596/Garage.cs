@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
     public class Garage
@@ -13,20 +12,19 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_VehiclesInGarage = new Dictionary<string, VehicleInRepair>();
         }
 
-        public bool tryAddingNewVehicleToGarage(string i_OwnerName, string i_PhoneNumberOfOwner,
-            List<string> i_DataMemory, KnownVehicleTypes.eVehicleType i_VehicleType)
+        public bool tryAddingNewVehicleToGarage(string i_OwnerName, string i_PhoneNumberOfOwner, List<string> i_DataMemory, KnownVehicleTypes.eVehicleType i_VehicleType)
         {
             bool res = true;
             if (!isLicenseNumberAlrdyExists(i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate]))
             {
-                m_VehiclesInGarage.Add(i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate], new VehicleInRepair(i_OwnerName, i_PhoneNumberOfOwner,
-                                                i_DataMemory, i_VehicleType));
+                m_VehiclesInGarage.Add(i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate], new VehicleInRepair(i_OwnerName, i_PhoneNumberOfOwner, i_DataMemory, i_VehicleType));
             }
             else
             {
                 changeVehicleConditionBackToInRepair(m_VehiclesInGarage[i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate]].Vehicle.LicensePlate);
                 res = false;
             }
+
             return res;
         }
 
@@ -50,6 +48,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     licenseNumbers.Add(vehicle.Key);
                 }
             }
+
             return licenseNumbers;
         }
 
@@ -84,6 +83,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             {
                 throw new ArgumentException("The vehicle isn't using Fuel");
             }
+
             if (res && vehicleEnergy.m_FuleType == fuelType)
             {
                 vehicleEnergy.fuel(amountToFuel);
@@ -92,8 +92,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             else
             {
                 throw new ArgumentException("Wrong type of fuel for fueling");
-            }
-            
+            }   
         }
 
         public void chargeVehicle(string i_LicenseNumber, string i_MinutesToCharge)
@@ -116,8 +115,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             float hours = i_Minutes / 60;
             if(i_Minutes > 60)
             {
-                hours += i_Minutes / 60 % 60;
+                hours += (i_Minutes / 60) % 60;
             }
+
             return hours;
         }
 
@@ -129,10 +129,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
         }
 
-        public VehicleInRepair getVehicleByLicenseNumber (string i_LicenseNumber)
+        public VehicleInRepair getVehicleByLicenseNumber(string i_LicenseNumber)
         {
             return m_VehiclesInGarage[i_LicenseNumber];
         }
-
     }
 }

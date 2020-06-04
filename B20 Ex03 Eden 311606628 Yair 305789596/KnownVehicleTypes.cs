@@ -1,7 +1,6 @@
-﻿using B20_Ex03_Eden_311606628_Yair_305789596;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using B20_Ex03_Eden_311606628_Yair_305789596;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
@@ -15,6 +14,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         internal const int k_RegularTruckFullTank = 120;
         internal const float k_ElectricCarMaxBatteryHourTime = 2.1f;
         internal const float k_ElectricMotorcycleMaxBatteryHourTime = 1.5f;
+
         public enum eVehicleType
         {
             RegularCar = 1,
@@ -32,6 +32,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             "Electric Motorcycle",
             "Truck"
         };
+
         public enum eDataType
         {
             Model,
@@ -69,6 +70,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     dataMemory.Add(eDataType.HoursLeftInBattery, i_Properties[indexInProperties++]);
                     break;
             }
+
             switch (i_Type)
             {
                 case eVehicleType.RegularCar:
@@ -89,9 +91,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     wheelsData.Add(Vehicle.WheelData.MaxAirPressure, k_TruckMaxAirPressure.ToString());
                     break;
             }
+
             return CreateVehicle(dataMemory, i_Type, wheelsData);
         }
-
 
         public static List<string> GetPropertiesByVehicleType(Vehicle i_Vehicle)
         {
@@ -102,30 +104,33 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 {
                     vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.RegularMotorcycle);
                 }
+
                 if (i_Vehicle.Energy is ElectricEnergyType)
                 {
                     vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.ElectricMotorcycle);
                 }
             }
+
             if (i_Vehicle is Car)
             {
                 if (i_Vehicle.Energy is RegularEnergyType)
                 {
                     vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.RegularCar);
                 }
+
                 if (i_Vehicle.Energy is ElectricEnergyType)
                 {
                     vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.ElectricCar);
                 }
-
             }
+
             if (i_Vehicle is Truck)
             {
                 vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.Truck);
             }
+
             return vehicleProprties;
         }
-
 
         public static List<string> GetPropertiesByVehicleType(eVehicleType i_Type)
         {
@@ -146,6 +151,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     properties.Add("hours left for battery usage:");
                     break;
             }
+
             switch (i_Type)
             {
                 case eVehicleType.RegularCar:
@@ -163,6 +169,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     properties.Add("cargo volume:");
                     break;
             }
+
             return properties;
         }
 
@@ -192,6 +199,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     vehicle = CreateTruck(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Electric);
                     break;
             }
+
             return vehicle;
         }
 
@@ -258,6 +266,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 }
             }
         }
+
         public static void checkAlpabeatStrings(params string[] i_ListStrings)
         {
             foreach (string strToCheck in i_ListStrings)
@@ -268,10 +277,6 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     throw new FormatException(failedMsg);
                 }
             }
-        }
-                   
+        }              
     }
 }
-
-
-

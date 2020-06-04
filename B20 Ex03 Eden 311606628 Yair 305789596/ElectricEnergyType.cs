@@ -10,6 +10,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
     {
         internal float m_HourseLeftForEndingBattery;
         internal float m_FullBatteryInHours;
+
         internal ElectricEnergyType(float i_HoursLeftInBattery, float i_FullBatteryInHours)
         {
             if(i_HoursLeftInBattery > i_FullBatteryInHours)
@@ -22,7 +23,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 m_FullBatteryInHours = i_FullBatteryInHours;
             }
         }
-        internal void batteryCharging (float i_HoursToCharge)
+
+        internal void batteryCharging(float i_HoursToCharge)
         {
             if(i_HoursToCharge + m_HourseLeftForEndingBattery > m_FullBatteryInHours)
             {
@@ -41,6 +43,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 return m_HourseLeftForEndingBattery;
             }
         }
+
         public override float maxEnergy
         {
             get

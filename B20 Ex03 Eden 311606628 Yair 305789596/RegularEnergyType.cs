@@ -11,22 +11,23 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             Octan96,
             Octan98
         }
+
         public FuelType m_FuleType;
         internal float m_AmountOfLittersLeftInTank;
         internal float m_FullTank;
 
-        internal RegularEnergyType(FuelType i_FuelType,
-            float i_AmountOfLittersInTank,
-                    float i_FullTank)
+        internal RegularEnergyType(FuelType i_FuelType, float i_AmountOfLittersInTank, float i_FullTank)
         {
             m_FuleType = i_FuelType;
             if(i_AmountOfLittersInTank > i_FullTank)
             {
                 throw new ValueOutOfRangeException(0, i_FullTank, "litters left in the tank is bigger than the tank itself");
             }
+
             m_AmountOfLittersLeftInTank = i_AmountOfLittersInTank;
             m_FullTank = i_FullTank;
         }
+
         public void fuel(float i_Litters)
         {
             if (m_AmountOfLittersLeftInTank + i_Litters > m_FullTank)
@@ -37,14 +38,13 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             {
                 m_AmountOfLittersLeftInTank += i_Litters;
             }
-            
         }
 
         internal static FuelType ParseFuelType(string i_FuelType)
         {
             i_FuelType = i_FuelType.Trim();
             i_FuelType = i_FuelType.ToUpper();
-            FuelType fuelType;          
+            FuelType fuelType;
             if (i_FuelType == "OCTAN98")
             {
                 fuelType = FuelType.Octan98;
@@ -53,7 +53,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             {
                 fuelType = FuelType.Octan95;
             }
-            else if(i_FuelType== "OCTAN96")
+            else if (i_FuelType == "OCTAN96") 
             {
                 fuelType = FuelType.Octan96;
             }
@@ -65,6 +65,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             {
                 throw new FormatException("Unknown Fuel Type");
             }
+
             return fuelType;
         }
 
@@ -75,6 +76,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 return m_AmountOfLittersLeftInTank;
             }
         }
+
         public override float maxEnergy
         {
             get

@@ -33,8 +33,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
             if(numOfDoors < 2 || numOfDoors > 5)
             {
-                throw new ValueOutOfRangeException(2, 5,"Wrong number of doors. only 2 to 5 numbers of doors are allowed");
+                throw new ValueOutOfRangeException(2, 5, "Wrong number of doors. only 2 to 5 numbers of doors are allowed");
             }
+
             return numOfDoors;
         }
 
@@ -63,8 +64,10 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             {
                 throw new FormatException("Wrong Known Color");
             }
+
             return color;
         }
+
         public override string ToString()
         {
             string carDetails = base.ToString();
