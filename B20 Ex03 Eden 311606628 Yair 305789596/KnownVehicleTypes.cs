@@ -1,7 +1,7 @@
 ﻿using B20_Ex03_Eden_311606628_Yair_305789596;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
@@ -12,7 +12,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         internal static readonly int truckMaxAirPressure = 28;
         public enum eVehicleType
         {
-            RegularCar=1,
+            RegularCar = 1,
             ElectricCar,
             RegularMotorcycle,
             ElectricMotorcycle,
@@ -42,7 +42,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             HoursLeftInBattery,
         }
 
-        public static Vehicle CreateVehicle (List<string> i_Properties, eVehicleType i_Type)
+        public static Vehicle CreateVehicle(List<string> i_Properties, eVehicleType i_Type)
         {
             Dictionary<eDataType, string> dataMemory = new Dictionary<eDataType, string>();
             Dictionary<Vehicle.WheelData, string> wheelsData = new Dictionary<Vehicle.WheelData, string>();
@@ -63,7 +63,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     dataMemory.Add(eDataType.HoursLeftInBattery, i_Properties[indexInProperties++]);
                     break;
             }
-            switch(i_Type)
+            switch (i_Type)
             {
                 case eVehicleType.RegularCar:
                 case eVehicleType.ElectricCar:
@@ -101,7 +101,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.ElectricMotorcycle);
                 }
             }
-            if(i_Vehicle is Car)
+            if (i_Vehicle is Car)
             {
                 if (i_Vehicle.Energy is RegularEnergyType)
                 {
@@ -113,14 +113,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 }
 
             }
-            if(i_Vehicle is Truck)
+            if (i_Vehicle is Truck)
             {
                 vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.Truck);
             }
             return vehicleProprties;
         }
 
-            
+
         public static List<string> GetPropertiesByVehicleType(eVehicleType i_Type)
         {
             List<string> properties = new List<string>();
@@ -162,79 +162,107 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public static Vehicle CreateVehicle(Dictionary<eDataType, string> i_DataMemory, eVehicleType i_VehicleType, Dictionary<Vehicle.WheelData, string> i_Wheel)
         {
+            string licensePlate = i_DataMemory[eDataType.LicencePlate];
+            string model = i_DataMemory[eDataType.Model];
+            checkNumericStrings(model, licensePlate);
+
             Vehicle vehicle = null;
             switch (i_VehicleType)
             {
                 case eVehicleType.RegularMotorcycle:
-                    vehicle = CreateMotorCycle(i_DataMemory, i_Wheel, EnergyType.eEnergyType.Regular);
+                    vehicle = CreateMotorCycle(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Regular);
                     break;
                 case eVehicleType.ElectricMotorcycle:
-                    vehicle = CreateMotorCycle(i_DataMemory, i_Wheel, EnergyType.eEnergyType.Electric);
+                    vehicle = CreateMotorCycle(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Electric);
                     break;
                 case eVehicleType.RegularCar:
-                    vehicle = CreateCar(i_DataMemory, i_Wheel, EnergyType.eEnergyType.Regular);
+                    vehicle = CreateCar(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Regular);
                     break;
                 case eVehicleType.ElectricCar:
-                    vehicle = CreateCar(i_DataMemory,i_Wheel, EnergyType.eEnergyType.Electric);
+                    vehicle = CreateCar(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Electric);
                     break;
                 case eVehicleType.Truck:
-                    vehicle = CreateTruck(i_DataMemory, i_Wheel, EnergyType.eEnergyType.Electric);
+                    vehicle = CreateTruck(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Electric);
                     break;
             }
             return vehicle;
         }
 
-        public static Car CreateCar(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
+        public static Car CreateCar(string i_LicensePlate, string i_Model, Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
-             Car.eColorType color = Car.ColorParse(i_DataMemory[eDataType.Color]);
-             int numOfDoors = Car.DoorNumbersParse(i_DataMemory[eDataType.NumOfDoors]);
-             string model = i_DataMemory[eDataType.Model];
-             string licensePlate = i_DataMemory[eDataType.LicencePlate];
-             EnergyType energyType = null;
+            checkNumericStrings(i_DataMemory[eDataType.NumOfDoors]);
+            Car.eColorType color = Car.ColorParse(i_DataMemory[eDataType.Color]);
+            int numOfDoors = Car.DoorNumbersParse(i_DataMemory[eDataType.NumOfDoors]);
+            EnergyType energyType = null;
 
             if (i_EnergyType == EnergyType.eEnergyType.Regular)
             {
+                checkNumericStrings(i_DataMemory[eDataType.AmountOfFuelLeft]);
                 energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), 60);
             }
             else if (i_EnergyType == EnergyType.eEnergyType.Electric)
             {
+                checkNumericStrings(i_DataMemory[eDataType.HoursLeftInBattery]);
                 energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]), 2.1f);
             }
 
-            return new Car(color, numOfDoors, model, licensePlate, i_Wheel, energyType);
+            return new Car(color, numOfDoors, i_Model, i_LicensePlate, i_Wheel, energyType);
         }
-   
-        public static Truck CreateTruck(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
+
+        public static Truck CreateTruck(string i_LicensePlate, string i_Model, Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
+            checkNumericStrings(i_DataMemory[eDataType.CargoVolume], i_DataMemory[eDataType.AmountOfFuelLeft]);
             bool isHavingHazardousMeterials = Truck.ParseHazardousMeterials(i_DataMemory[eDataType.HavingHazardousMeterials]);
             float cargoVolume = float.Parse(i_DataMemory[eDataType.CargoVolume]);
-            string model = i_DataMemory[eDataType.Model];
-            string licensePlate = i_DataMemory[eDataType.LicencePlate];
 
             EnergyType energyType = new RegularEnergyType(RegularEnergyType.FuelType.Soler, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), 120);
-            return new Truck(isHavingHazardousMeterials, cargoVolume, model, licensePlate, i_Wheel, energyType);
+            return new Truck(isHavingHazardousMeterials, cargoVolume, i_Model, i_LicensePlate, i_Wheel, energyType);
         }
 
-        public static Motorcycle CreateMotorCycle(Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData,string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
+        public static Motorcycle CreateMotorCycle(string i_LicensePlate, string i_Model, Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
-
-            string model = i_DataMemory[eDataType.Model];
+            checkNumericStrings(i_DataMemory[eDataType.EngineCapacity]);
             Motorcycle.licenseType licenceType = Motorcycle.LicenseTypeParse(i_DataMemory[eDataType.LicenceType]);
-            string licensePlate = i_DataMemory[eDataType.LicencePlate];
             int engineCapacity = int.Parse(i_DataMemory[eDataType.EngineCapacity]);
             EnergyType energyType = null;
 
             if (i_EnergyType == EnergyType.eEnergyType.Regular)
             {
-                energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, 5, 60);
+                checkNumericStrings(i_DataMemory[eDataType.AmountOfFuelLeft]);
+                energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), 60);
             }
             else if (i_EnergyType == EnergyType.eEnergyType.Electric)
             {
-                energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]),1.2f);
+                checkNumericStrings(i_DataMemory[eDataType.HoursLeftInBattery]);
+                energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]), 1.2f);
             }
 
-            return new Motorcycle(licenceType, engineCapacity, model, licensePlate, i_Wheel, energyType);
+            return new Motorcycle(licenceType, engineCapacity, i_Model, i_LicensePlate, i_Wheel, energyType);
         }
+
+        public static void checkNumericStrings(params string[] i_ListStrings)
+        {
+            foreach (string strToCheck in i_ListStrings)
+            {
+                if (!strToCheck.All(char.IsDigit))
+                {
+                    string failedMsg = string.Format("your input: {0}, should be Only Numeric input", strToCheck);
+                    throw new ArgumentException(failedMsg);
+                }
+            }
+        }
+        public static void checkAlpabeatStrings(params string[] i_ListStrings)
+        {
+            foreach (string strToCheck in i_ListStrings)
+            {
+                if (!strToCheck.All(char.IsLetter))
+                {
+                    string failedMsg = string.Format("your input: {0}, should be Only Alpabeat input", strToCheck);
+                    throw new ArgumentException(failedMsg);
+                }
+            }
+        }
+                   
     }
 }
 

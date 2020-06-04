@@ -93,7 +93,7 @@ Press 8 - To Exit");
             Console.WriteLine(" ===== Add New Vechile To Our Garage ==== ");
             KnownVehicleTypes.eVehicleType vehicleType = chooseVechileToAdd();
             Console.WriteLine("Please Type Owner Name");
-            string ownerName = getNonEmptyString();
+            string ownerName = getAlphabeatString();
             Console.WriteLine("please Type Phone Number");
             string phoneNumber = getANumericString();
             List<string> propertiesToGet = KnownVehicleTypes.GetPropertiesByVehicleType(vehicleType);
@@ -105,37 +105,26 @@ Press 8 - To Exit");
             }
             try
             {
-                i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumber, userInputProperties, vehicleType);
-                Console.WriteLine("Sucsses Adding A New Vehicle!");
+                bool res = i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumber, userInputProperties, vehicleType);
+                if (res)
+                {
+                    Console.WriteLine(" --------------------------  ");
+                    Console.WriteLine("Sucsses Adding A New Vehicle!");
+                }
+                else
+                {
+                    Console.WriteLine(" --------------------------  ");
+                    Console.WriteLine("Vechile by the same license plate already exist in the garage");
+                }
 
             }
             catch (Exception e)
             {
+                Console.WriteLine(" --------------------------  ");
                 Console.WriteLine("Cannot Adding a New Vechile");
-                while(e != null)
-                {
-                    Console.WriteLine(e.Message);
-                    e = e.InnerException;
-                }
+                Console.WriteLine(e.Message);
+                Console.WriteLine(" --------------------------  ");
             }
-            //catch (ArgumentException e)
-            //{
-            //    while (e.InnerException != null)
-            //    {
-            //        Exception inner = e.InnerException;
-            //        Console.WriteLine(e.Message);
-            //    }
-            //    Console.WriteLine(e.Message);
-            //}
-            //catch(ValueOutOfRangeException e)
-            //{
-            //    while (e.InnerException != null)
-            //    {
-            //        Exception inner = e.InnerException;
-            //        Console.WriteLine(e.Message);
-            //    }
-            //    Console.WriteLine(e.Message);
-            //}
         }
 
 
@@ -350,6 +339,17 @@ Press 3 - If the Repair was paid");
                 userInput = Console.ReadLine();
             }
             return userInput;
+        }
+
+        private static string getAlphabeatString()
+        {
+            string inputStr = Console.ReadLine();
+            while (!inputStr.All(char.IsLetter))
+            {
+                Console.WriteLine("Not A Alphabeat String, Please Try Again.");
+                inputStr = Console.ReadLine();
+            }
+            return inputStr;
         }
     }
 }
