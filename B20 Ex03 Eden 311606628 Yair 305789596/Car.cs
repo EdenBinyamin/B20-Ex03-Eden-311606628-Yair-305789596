@@ -12,12 +12,11 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             Black,
             Silver
         }
+
         private eColorType m_Color;
         private int m_NumOfDoors;
 
-        internal Car(eColorType i_Color, int i_NumOfDoors, string i_Model, string i_LicensePlate,
-            Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType)
-            : base(i_Model, i_LicensePlate, 4, i_Wheel, i_EnergyType)
+        internal Car(eColorType i_Color, int i_NumOfDoors, string i_Model, string i_LicensePlate, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, 4, i_Wheel, i_EnergyType)
         {
             m_Color = i_Color;
             m_NumOfDoors = i_NumOfDoors;
@@ -31,6 +30,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             {
                 throw new FormatException("Not A Valid Number");
             }
+
             if(numOfDoors < 2 || numOfDoors > 5)
             {
                 throw new ValueOutOfRangeException(2, 5,"Wrong number of doors. only 2 to 5 numbers of doors are allowed");

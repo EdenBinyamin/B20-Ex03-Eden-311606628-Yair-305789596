@@ -39,7 +39,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="UI.cs" />
-    <Compile Include="Validation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\B20 Ex03 Eden 311606628 Yair 305789596\Ex03.GarageLogic.csproj">
