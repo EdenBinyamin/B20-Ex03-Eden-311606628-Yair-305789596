@@ -38,5 +38,13 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             return res;
         }
+
+        public override string ToString()
+        {
+            string truckDetials = base.ToString() + "\n";
+            truckDetials += "Is it having hazardous materials: " + m_IsHavingHazardousMaterials.ToString() + "\n";
+            truckDetials += "Cargo volume: " + m_CargoVolume.ToString() + "\n";
+            return truckDetials;
+        }
     }
 }

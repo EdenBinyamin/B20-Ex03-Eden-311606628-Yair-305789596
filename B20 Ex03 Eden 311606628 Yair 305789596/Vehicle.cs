@@ -28,8 +28,19 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             public Wheel(string i_ManurfacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
             {
                 m_ManufacturerName = i_ManurfacturerName;
+                if (i_CurrentAirPressure > i_MaxAirPressure)
+                {
+                    throw new ValueOutOfRangeException(0, i_MaxAirPressure);
+                }
                 m_CurrentAirPressure = i_CurrentAirPressure;
                 m_MaxAirPressure = i_MaxAirPressure;
+            }
+
+            public override string ToString()
+            {
+                string wheelDetails = "Manufacturer of wheels: " + m_ManufacturerName + "\n";
+                wheelDetails += "Current air pressure  in wheels: " + m_CurrentAirPressure.ToString() + "\n";
+                return wheelDetails;
             }
         }
         private string m_Model;
@@ -86,12 +97,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return succeessFillAir;
         }
 
-        //public List<string> GetProprtiesList()
-        //{
-        //    List<string> propList= new List<string>();
-        //    propList.Add(m_Model);
-        //    propList.Add(m_LicensePlate);
-        //    propList.Add(m_EnergyTyp);
-        //}
+        public override string ToString()
+        {
+            string vehicleDetails = "Model: " + m_Model + "\n";
+            vehicleDetails += "License Plate: " + m_LicensePlate + "\n";
+            vehicleDetails += "Percentage left fuel: " + m_PercentageOfEnergyRemaining.ToString() + "\n";
+            vehicleDetails += m_Wheels[0].ToString(); /// לשאול את דנה
+            vehicleDetails += m_EnergyType.ToString() + "\n";
+            return vehicleDetails;
+        }
     }
 }

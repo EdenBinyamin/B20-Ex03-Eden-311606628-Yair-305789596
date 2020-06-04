@@ -49,5 +49,12 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             return type;
         }
+        public override string ToString()
+        {
+            string motorcycleDetials = base.ToString() + "\n";
+            motorcycleDetials += "License type: " + m_LicenseType.ToString() + "\n";
+            motorcycleDetials += "Engine capacity: " + m_EngineCapacity.ToString() + "\n";
+            return motorcycleDetials;
+        }
     }
 }

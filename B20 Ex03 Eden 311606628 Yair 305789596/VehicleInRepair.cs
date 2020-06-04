@@ -44,5 +44,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
         }
 
+        public override string ToString()
+        {
+            string vehicleInRepairDetails = "Owner name: " + m_Owner + "\n";
+            vehicleInRepairDetails += "Phone number: " + m_PhoneNumberOfOwner + "\n";
+            vehicleInRepairDetails += "Status: " + m_VehicleCondition.ToString() + "\n";
+            vehicleInRepairDetails += m_TypeOfVehicle.ToString();
+            return vehicleInRepairDetails;
+        }
+
     }
 }

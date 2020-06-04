@@ -20,13 +20,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                     float i_FullTank)
         {
             m_FuleType = i_FuelType;
-            if (m_AmountOfLittersLeftInTank < i_AmountOfLittersInTank)
+            if(i_AmountOfLittersInTank > i_FullTank)
             {
-                m_AmountOfLittersLeftInTank = i_AmountOfLittersInTank;
-            }
-            else
-            {
-                throw new ArgumentException("There are more litter in the tank than the maximum capabailty of it");
+                throw new ValueOutOfRangeException(0, i_FullTank);
             }
             m_FullTank = i_FullTank;
         }
@@ -98,6 +94,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 throw new ArgumentException("Known Fuel Type");
             }
             return fuelType;
+        }
+
+        public override string ToString()
+        {
+            string regularEnergyTypeDetails = "Fuel type: " + m_FuleType.ToString() + "\n";
+            regularEnergyTypeDetails += "Full tank: " + m_FullTank.ToString() + "\n";
+            regularEnergyTypeDetails += "Litters left in tank: " + m_AmountOfLittersLeftInTank.ToString() + "\n";
+            return regularEnergyTypeDetails;
         }
     }
 }

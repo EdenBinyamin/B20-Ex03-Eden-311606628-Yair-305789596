@@ -261,15 +261,11 @@ Press 3 - If the Repair was paid");
         //Function Menu 
         private static void displayAVehicleDetails(Garage i_Garage)
         {
-            Console.WriteLine(" ===== Display All The Details Of A Certain Vechile ==== ");
+            
             string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
-            VehicleInRepair vechileInGarage = i_Garage.getVehicleByLicenseNumber(vehicleLicenseNumber);
-            Vehicle vechileProp = vechileInGarage.Vehicle;
-            List<string> proprtiesToPrint = KnownVehicleTypes.GetPropertiesByVehicleType(vechileProp);
-            foreach(string prop in proprtiesToPrint)
-            {
-                Console.WriteLine(prop);
-            }
+            Console.WriteLine(" ===== Display All The Details Of A Certain Vechile ==== ");
+            VehicleInRepair vehicleInGarage = i_Garage.getVehicleByLicenseNumber(vehicleLicenseNumber);
+            System.Console.WriteLine(vehicleInGarage.ToString());
 
         }
 

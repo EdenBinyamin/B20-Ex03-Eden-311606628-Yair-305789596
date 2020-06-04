@@ -7,9 +7,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
     public class KnownVehicleTypes
     {
-        private static readonly int motorcycleMaxAirPressure = 32;
-        private static readonly int carMaxAirPressure = 30;
-        private static readonly int truckMaxAirPressure = 28;
+        internal static readonly int motorcycleMaxAirPressure = 32;
+        internal static readonly int carMaxAirPressure = 30;
+        internal static readonly int truckMaxAirPressure = 28;
         public enum eVehicleType
         {
             RegularCar=1,

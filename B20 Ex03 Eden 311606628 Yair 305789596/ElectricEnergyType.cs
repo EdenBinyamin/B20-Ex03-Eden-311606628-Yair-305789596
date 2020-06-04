@@ -10,16 +10,16 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
     {
         internal float m_HourseLeftForEndingBattery;
         internal float m_FullBatteryInHours;
-        internal ElectricEnergyType(float i_HoursLeftInBattery, float i_FullBatteryInHourse)
+        internal ElectricEnergyType(float i_HoursLeftInBattery, float i_FullBatteryInHours)
         {
-            if(i_HoursLeftInBattery > i_FullBatteryInHourse)
+            if(i_HoursLeftInBattery > i_FullBatteryInHours)
             {
-                throw new ArgumentException("There is more hourse left in the battery than its capability");
+                throw new ValueOutOfRangeException(0, i_FullBatteryInHours);
             }
             else
             {
                 m_HourseLeftForEndingBattery = i_HoursLeftInBattery;
-                m_FullBatteryInHours = i_FullBatteryInHourse;
+                m_FullBatteryInHours = i_FullBatteryInHours;
             }
         }
         internal void batteryCharging (float i_HoursToCharge)
@@ -32,6 +32,13 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             {
                 m_HourseLeftForEndingBattery += i_HoursToCharge;
             }
+        }
+
+        public override string ToString()
+        {
+            string electricEnergyTypeDetails = "Full battery in hours: " + m_FullBatteryInHours.ToString() + "\n";
+            electricEnergyTypeDetails += "Hours left in battery: " + m_HourseLeftForEndingBattery.ToString() + "\n";
+            return electricEnergyTypeDetails;
         }
     }
 }

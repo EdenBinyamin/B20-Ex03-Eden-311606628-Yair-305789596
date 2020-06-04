@@ -38,7 +38,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             if(numOfDoors < 2 || numOfDoors > 5)
             {
-                throw new ArgumentException("Not A Valid Door numbers. Min Door:2, Max Door: 5");
+                throw new ValueOutOfRangeException(2, 5);
             }
             return numOfDoors;
         }
@@ -69,6 +69,13 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 throw new ArgumentException("Wrong Known Color");
             }
             return color;
+        }
+        public override string ToString()
+        {
+            string carDetails = base.ToString();
+            carDetails += "Car color: " + m_Color.ToString() + "\n";
+            carDetails += "Number of doors: " + m_NumOfDoors.ToString() + "\n";
+            return carDetails;
         }
     }
 }
