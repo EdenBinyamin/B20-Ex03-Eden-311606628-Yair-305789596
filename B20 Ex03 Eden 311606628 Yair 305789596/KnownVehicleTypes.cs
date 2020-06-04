@@ -178,9 +178,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             string licensePlate = i_DataMemory[eDataType.LicencePlate];
             string model = i_DataMemory[eDataType.Model];
-            checkNumericStrings(licensePlate);
+            checkNumericStrings(licensePlate, i_Wheel[Vehicle.WheelData.CurrentAirPressure]);
             checkAlpabeatStrings(model);
-
             Vehicle vehicle = null;
             switch (i_VehicleType)
             {
