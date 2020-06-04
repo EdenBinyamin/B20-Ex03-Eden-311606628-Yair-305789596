@@ -76,13 +76,17 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public void fuelVehicle(string i_LicenseNumber, string i_FuelType, string i_AmountToFuel)
         {
-            RegularEnergyType regularEnergy = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as RegularEnergyType;
+            RegularEnergyType vehicleEnergy = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as RegularEnergyType;
             RegularEnergyType.FuelType fuelType = RegularEnergyType.ParseFuelType(i_FuelType);
             float amountToFuel;
             bool res= float.TryParse(i_AmountToFuel, out amountToFuel);
-            if (res && regularEnergy != null && regularEnergy.m_FuleType == fuelType)
+            if(vehicleEnergy == null)
             {
-                regularEnergy.fuel(amountToFuel);
+                throw new ArgumentException("The vehicle isn't using Fuel");
+            }
+            if (res && vehicleEnergy.m_FuleType == fuelType)
+            {
+                vehicleEnergy.fuel(amountToFuel);
             }
             else
             {
