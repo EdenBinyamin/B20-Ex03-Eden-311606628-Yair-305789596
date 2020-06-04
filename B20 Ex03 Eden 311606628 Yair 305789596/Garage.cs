@@ -24,7 +24,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             else
             {
-                changeVehicleConditionBackToInRepair(m_VehiclesInGarage[i_DataMemory[(int)KnownVehicleTypes.eDataType.LicenceType]].Vehicle.LicensePlate);
+                changeVehicleConditionBackToInRepair(m_VehiclesInGarage[i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate]].Vehicle.LicensePlate);
                 res = false;
             }
             return res;

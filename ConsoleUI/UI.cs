@@ -137,7 +137,7 @@ Press 1 - To Display only the vehicles in repair
 Press 2 - To Display only the repaired vehicles
 Press 3 - To Display only the paid up vehicles");
             string userSelection = Console.ReadLine();
-            while (char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
+            while (userSelection.Length > 1 ||char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
             {
                 Console.WriteLine(k_WrongInput);
                 userSelection = Console.ReadLine();
@@ -181,8 +181,9 @@ Press 1 - If The Vehicle In Repair
 Press 2 - If The Vehicle Already Repaired
 Press 3 - If the Repair was paid");
             string userSelection = Console.ReadLine();
-            while (char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
+            while (userSelection.Length > 1 || char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
             {
+                Console.WriteLine(k_WrongInput);
                 userSelection = Console.ReadLine();
             }
             try

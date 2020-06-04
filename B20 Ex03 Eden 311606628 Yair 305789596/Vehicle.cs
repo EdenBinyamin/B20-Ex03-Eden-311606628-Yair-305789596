@@ -12,7 +12,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             CurrentAirPressure,
             MaxAirPressure
         }
-        internal struct Wheel
+        internal class Wheel
         {
             private string m_ManufacturerName;
             private float m_CurrentAirPressure;
@@ -39,6 +39,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             public override string ToString()
             {
                 string wheelDetails = "Manufacturer of wheels: " + m_ManufacturerName + System.Environment.NewLine;
+                wheelDetails += "Max air pressure in wheels: " + m_MaxAirPressure.ToString() + System.Environment.NewLine;
                 wheelDetails += "Current air pressure  in wheels: " + m_CurrentAirPressure.ToString() + System.Environment.NewLine;
                 return wheelDetails;
             }
@@ -47,12 +48,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         private string m_LicensePlate;
         private float m_PercentageOfEnergyRemaining;
         private Wheel[] m_Wheels;
+        private int m_NumOfWheels;
         private EnergyType m_EnergyType;
         public Vehicle(string i_Model, string i_LicensePlate, int i_NumOfWheels, Dictionary<WheelData, string> i_Wheel, EnergyType i_EnergyType)
         {
             m_Model = i_Model;
             m_LicensePlate = i_LicensePlate;
-            m_PercentageOfEnergyRemaining = i_EnergyType.currentEneregy * 100 / i_EnergyType.maxEnergy; 
+            m_PercentageOfEnergyRemaining = i_EnergyType.currentEneregy * 100 / i_EnergyType.maxEnergy;
+            m_NumOfWheels = i_NumOfWheels;
             m_Wheels = Wheels(i_Wheel, i_NumOfWheels);
             m_EnergyType = i_EnergyType;
         }
@@ -101,8 +104,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             string vehicleDetails = "Model: " + m_Model + System.Environment.NewLine;
             vehicleDetails += "License Plate: " + m_LicensePlate + System.Environment.NewLine;
-            vehicleDetails += "Percentage left fuel: " + m_PercentageOfEnergyRemaining.ToString() + System.Environment.NewLine;
-            vehicleDetails += m_Wheels[0].ToString(); /// לשאול את דנה
+            vehicleDetails += "Percentage left fuel: " + m_PercentageOfEnergyRemaining.ToString("0.00") +"%" + System.Environment.NewLine;
+            vehicleDetails += "Numbers Of Wheels: " + m_NumOfWheels + System.Environment.NewLine;
+            vehicleDetails += m_Wheels[0].ToString();
             vehicleDetails += m_EnergyType.ToString();
             return vehicleDetails;
         }

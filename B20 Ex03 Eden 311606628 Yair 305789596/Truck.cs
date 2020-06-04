@@ -41,7 +41,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public override string ToString()
         {
-            string truckDetials = base.ToString() + System.Environment.NewLine;
+            string truckDetials = base.ToString();
             truckDetials += "Is it having hazardous materials: " + m_IsHavingHazardousMaterials.ToString() + System.Environment.NewLine;
             truckDetials += "Cargo volume: " + m_CargoVolume.ToString() + System.Environment.NewLine;
             return truckDetials;

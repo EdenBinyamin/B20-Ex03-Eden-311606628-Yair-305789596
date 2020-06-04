@@ -51,7 +51,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         }
         public override string ToString()
         {
-            string motorcycleDetials = base.ToString() + System.Environment.NewLine;
+            string motorcycleDetials = base.ToString();
             motorcycleDetials += "License type: " + m_LicenseType.ToString() + System.Environment.NewLine;
             motorcycleDetials += "Engine capacity: " + m_EngineCapacity.ToString() + System.Environment.NewLine;
             return motorcycleDetials;

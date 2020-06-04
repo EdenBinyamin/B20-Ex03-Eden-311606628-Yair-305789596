@@ -52,7 +52,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         public override string ToString()
         {
             string electricEnergyTypeDetails = "Full battery in hours: " + m_FullBatteryInHours.ToString() + System.Environment.NewLine;
-            electricEnergyTypeDetails += "Hours left in battery: " + m_HourseLeftForEndingBattery.ToString();
+            electricEnergyTypeDetails += "Hours left in battery: " + m_HourseLeftForEndingBattery.ToString() + System.Environment.NewLine;
             return electricEnergyTypeDetails;
         }
     }

@@ -7,9 +7,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
     public class KnownVehicleTypes
     {
-        internal static readonly int motorcycleMaxAirPressure = 32;
-        internal static readonly int carMaxAirPressure = 30;
-        internal static readonly int truckMaxAirPressure = 28;
+        internal const int k_MotorcycleMaxAirPressure = 30;
+        internal const int k_CarMaxAirPressure = 32;
+        internal const int k_TruckMaxAirPressure = 28;
+        internal const int k_RegualrCarFullTank = 60;
+        internal const int k_RegularMotorcycleFullTank = 7;
+        internal const int k_RegularTruckFullTank = 120;
+        internal const float k_ElectricCarMaxBatteryHourTime = 2.1f;
+        internal const float k_ElectricMotorcycleMaxBatteryHourTime = 1.5f;
         public enum eVehicleType
         {
             RegularCar = 1,
@@ -50,6 +55,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             dataMemory.Add(eDataType.Model, i_Properties[indexInProperties++]);
             dataMemory.Add(eDataType.LicencePlate, i_Properties[indexInProperties++]);
             wheelsData.Add(Vehicle.WheelData.CurrentAirPressure, i_Properties[indexInProperties++]);
+            checkAlpabeatStrings(i_Properties[indexInProperties]); // check manufactuereName
             wheelsData.Add(Vehicle.WheelData.ManufacturerName, i_Properties[indexInProperties++]);
             switch (i_Type)
             {
@@ -69,18 +75,18 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 case eVehicleType.ElectricCar:
                     dataMemory.Add(eDataType.Color, i_Properties[indexInProperties++]);
                     dataMemory.Add(eDataType.NumOfDoors, i_Properties[indexInProperties++]);
-                    wheelsData.Add(Vehicle.WheelData.MaxAirPressure, carMaxAirPressure.ToString());
+                    wheelsData.Add(Vehicle.WheelData.MaxAirPressure, k_CarMaxAirPressure.ToString());
                     break;
                 case eVehicleType.RegularMotorcycle:
                 case eVehicleType.ElectricMotorcycle:
                     dataMemory.Add(eDataType.LicenceType, i_Properties[indexInProperties++]);
                     dataMemory.Add(eDataType.EngineCapacity, i_Properties[indexInProperties++]);
-                    wheelsData.Add(Vehicle.WheelData.MaxAirPressure, motorcycleMaxAirPressure.ToString());
+                    wheelsData.Add(Vehicle.WheelData.MaxAirPressure, k_MotorcycleMaxAirPressure.ToString());
                     break;
                 case eVehicleType.Truck:
                     dataMemory.Add(eDataType.HavingHazardousMeterials, i_Properties[indexInProperties++]);
                     dataMemory.Add(eDataType.CargoVolume, i_Properties[indexInProperties++]);
-                    wheelsData.Add(Vehicle.WheelData.MaxAirPressure, truckMaxAirPressure.ToString());
+                    wheelsData.Add(Vehicle.WheelData.MaxAirPressure, k_TruckMaxAirPressure.ToString());
                     break;
             }
             return CreateVehicle(dataMemory, i_Type, wheelsData);
@@ -164,7 +170,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             string licensePlate = i_DataMemory[eDataType.LicencePlate];
             string model = i_DataMemory[eDataType.Model];
-            checkNumericStrings(model, licensePlate);
+            checkNumericStrings(licensePlate);
+            checkAlpabeatStrings(model);
 
             Vehicle vehicle = null;
             switch (i_VehicleType)
@@ -198,12 +205,12 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             if (i_EnergyType == EnergyType.eEnergyType.Regular)
             {
                 checkNumericStrings(i_DataMemory[eDataType.AmountOfFuelLeft]);
-                energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), 60);
+                energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegualrCarFullTank);
             }
             else if (i_EnergyType == EnergyType.eEnergyType.Electric)
             {
                 checkNumericStrings(i_DataMemory[eDataType.HoursLeftInBattery]);
-                energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]), 2.1f);
+                energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]), k_ElectricCarMaxBatteryHourTime);
             }
 
             return new Car(color, numOfDoors, i_Model, i_LicensePlate, i_Wheel, energyType);
@@ -215,7 +222,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             bool isHavingHazardousMeterials = Truck.ParseHazardousMeterials(i_DataMemory[eDataType.HavingHazardousMeterials]);
             float cargoVolume = float.Parse(i_DataMemory[eDataType.CargoVolume]);
 
-            EnergyType energyType = new RegularEnergyType(RegularEnergyType.FuelType.Soler, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), 120);
+            EnergyType energyType = new RegularEnergyType(RegularEnergyType.FuelType.Soler, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegularTruckFullTank);
             return new Truck(isHavingHazardousMeterials, cargoVolume, i_Model, i_LicensePlate, i_Wheel, energyType);
         }
 
@@ -229,12 +236,12 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             if (i_EnergyType == EnergyType.eEnergyType.Regular)
             {
                 checkNumericStrings(i_DataMemory[eDataType.AmountOfFuelLeft]);
-                energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), 60);
+                energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan95, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegularMotorcycleFullTank);
             }
             else if (i_EnergyType == EnergyType.eEnergyType.Electric)
             {
                 checkNumericStrings(i_DataMemory[eDataType.HoursLeftInBattery]);
-                energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]), 1.2f);
+                energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]), k_ElectricMotorcycleMaxBatteryHourTime);
             }
 
             return new Motorcycle(licenceType, engineCapacity, i_Model, i_LicensePlate, i_Wheel, energyType);
