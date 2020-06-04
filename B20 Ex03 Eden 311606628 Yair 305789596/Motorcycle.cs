@@ -14,10 +14,10 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         }
         private licenseType m_LicenseType;
         private int m_EngineCapacity;
-        internal Motorcycle(licenseType i_LicenseType, int i_EngineCapacity, 
+        internal Motorcycle(licenseType i_LicenseType, int i_EngineCapacity,
             string i_Model, string i_LicensePlate,
-            float i_Percentage, Dictionary<Vehicle.WheelData, string> i_Wheel, 
-            EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, i_Percentage, 2,
+            Dictionary<Vehicle.WheelData, string> i_Wheel,
+            EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, 2,
                 i_Wheel, i_EnergyType)
         {
             m_LicenseType = i_LicenseType;
@@ -51,9 +51,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         }
         public override string ToString()
         {
-            string motorcycleDetials = base.ToString() + "\n";
-            motorcycleDetials += "License type: " + m_LicenseType.ToString() + "\n";
-            motorcycleDetials += "Engine capacity: " + m_EngineCapacity.ToString() + "\n";
+            string motorcycleDetials = base.ToString() + System.Environment.NewLine;
+            motorcycleDetials += "License type: " + m_LicenseType.ToString() + System.Environment.NewLine;
+            motorcycleDetials += "Engine capacity: " + m_EngineCapacity.ToString() + System.Environment.NewLine;
             return motorcycleDetials;
         }
     }

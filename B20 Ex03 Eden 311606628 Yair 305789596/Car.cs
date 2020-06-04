@@ -21,8 +21,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         private int m_NumOfDoors;
 
         internal Car(eColorType i_Color, int i_NumOfDoors, string i_Model, string i_LicensePlate,
-            float i_Percentage, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType)
-            : base(i_Model, i_LicensePlate, i_Percentage, 4, i_Wheel, i_EnergyType)
+            Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType)
+            : base(i_Model, i_LicensePlate, 4, i_Wheel, i_EnergyType)
         {
             m_Color = i_Color;
             m_NumOfDoors = i_NumOfDoors;
@@ -38,7 +38,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             if(numOfDoors < 2 || numOfDoors > 5)
             {
-                throw new ValueOutOfRangeException(2, 5);
+                throw new ValueOutOfRangeException(2, 5,"Wrong number of doors. only 2 to 5 numbers of doors are allowed");
             }
             return numOfDoors;
         }
@@ -73,8 +73,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         public override string ToString()
         {
             string carDetails = base.ToString();
-            carDetails += "Car color: " + m_Color.ToString() + "\n";
-            carDetails += "Number of doors: " + m_NumOfDoors.ToString() + "\n";
+            carDetails += "Car color: " + m_Color.ToString() + System.Environment.NewLine;
+            carDetails += "Number of doors: " + m_NumOfDoors.ToString() + System.Environment.NewLine;
             return carDetails;
         }
     }

@@ -22,8 +22,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_FuleType = i_FuelType;
             if(i_AmountOfLittersInTank > i_FullTank)
             {
-                throw new ValueOutOfRangeException(0, i_FullTank);
+                throw new ValueOutOfRangeException(0, i_FullTank,"litters left in the tank is bigger than the tank itself");
             }
+            m_AmountOfLittersLeftInTank = i_AmountOfLittersInTank;
             m_FullTank = i_FullTank;
         }
 
@@ -59,7 +60,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             if (m_AmountOfLittersLeftInTank + i_Litters > m_FullTank)
             {
-                throw new ValueOutOfRangeException(0, m_FullTank - m_AmountOfLittersLeftInTank);
+                throw new ValueOutOfRangeException(0, m_FullTank - m_AmountOfLittersLeftInTank, "You can't fuel more litters then the tank can has");
             }
             else
             {
@@ -96,11 +97,26 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return fuelType;
         }
 
+        public override float currentEneregy
+        {
+            get
+            {
+                return m_AmountOfLittersLeftInTank;
+            }
+        }
+        public override float maxEnergy
+        {
+            get
+            {
+                return m_FullTank;
+            }
+        }
+
         public override string ToString()
         {
-            string regularEnergyTypeDetails = "Fuel type: " + m_FuleType.ToString() + "\n";
-            regularEnergyTypeDetails += "Full tank: " + m_FullTank.ToString() + "\n";
-            regularEnergyTypeDetails += "Litters left in tank: " + m_AmountOfLittersLeftInTank.ToString() + "\n";
+            string regularEnergyTypeDetails = "Fuel type: " + m_FuleType.ToString() + System.Environment.NewLine;
+            regularEnergyTypeDetails += "Full tank: " + m_FullTank.ToString() + System.Environment.NewLine;
+            regularEnergyTypeDetails += "Litters left in tank: " + m_AmountOfLittersLeftInTank.ToString() + System.Environment.NewLine;
             return regularEnergyTypeDetails;
         }
     }

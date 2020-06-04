@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    public class EnergyType
+    public abstract class EnergyType
     {
         public enum eEnergyType
         {
@@ -14,5 +14,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             Electric
         }
 
+        public abstract float currentEneregy
+        {
+            get;
+        }
+        
+        public abstract float maxEnergy
+        {
+            get;
+        }
     }
 }

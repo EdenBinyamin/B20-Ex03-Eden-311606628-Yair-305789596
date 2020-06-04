@@ -14,7 +14,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             if(i_HoursLeftInBattery > i_FullBatteryInHours)
             {
-                throw new ValueOutOfRangeException(0, i_FullBatteryInHours);
+                throw new ValueOutOfRangeException(0, i_FullBatteryInHours, "Hours left in battery are bigger then maximum hours in battery");
             }
             else
             {
@@ -26,7 +26,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             if(i_HoursToCharge + m_HourseLeftForEndingBattery > m_FullBatteryInHours)
             {
-                throw new ValueOutOfRangeException(0, m_FullBatteryInHours - m_HourseLeftForEndingBattery);
+                throw new ValueOutOfRangeException(0, m_FullBatteryInHours - m_HourseLeftForEndingBattery, "You cannot charge your battery more than its maxumim");
             }
             else
             {
@@ -34,10 +34,25 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
         }
 
+        public override float currentEneregy
+        {
+            get
+            {
+                return m_HourseLeftForEndingBattery;
+            }
+        }
+        public override float maxEnergy
+        {
+            get
+            {
+                return m_FullBatteryInHours;
+            }
+        }
+
         public override string ToString()
         {
-            string electricEnergyTypeDetails = "Full battery in hours: " + m_FullBatteryInHours.ToString() + "\n";
-            electricEnergyTypeDetails += "Hours left in battery: " + m_HourseLeftForEndingBattery.ToString() + "\n";
+            string electricEnergyTypeDetails = "Full battery in hours: " + m_FullBatteryInHours.ToString() + System.Environment.NewLine;
+            electricEnergyTypeDetails += "Hours left in battery: " + m_HourseLeftForEndingBattery.ToString();
             return electricEnergyTypeDetails;
         }
     }

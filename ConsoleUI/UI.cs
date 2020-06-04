@@ -109,11 +109,33 @@ Press 8 - To Exit");
                 Console.WriteLine("Sucsses Adding A New Vehicle!");
 
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 Console.WriteLine("Cannot Adding a New Vechile");
-                Console.WriteLine(e.Message);
+                while(e != null)
+                {
+                    Console.WriteLine(e.Message);
+                    e = e.InnerException;
+                }
             }
+            //catch (ArgumentException e)
+            //{
+            //    while (e.InnerException != null)
+            //    {
+            //        Exception inner = e.InnerException;
+            //        Console.WriteLine(e.Message);
+            //    }
+            //    Console.WriteLine(e.Message);
+            //}
+            //catch(ValueOutOfRangeException e)
+            //{
+            //    while (e.InnerException != null)
+            //    {
+            //        Exception inner = e.InnerException;
+            //        Console.WriteLine(e.Message);
+            //    }
+            //    Console.WriteLine(e.Message);
+            //}
         }
 
 

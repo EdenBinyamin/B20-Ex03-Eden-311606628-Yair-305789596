@@ -30,7 +30,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 m_ManufacturerName = i_ManurfacturerName;
                 if (i_CurrentAirPressure > i_MaxAirPressure)
                 {
-                    throw new ValueOutOfRangeException(0, i_MaxAirPressure);
+                    throw new ValueOutOfRangeException(0, i_MaxAirPressure, "Current air pressure is more then the maximum of the air pressure of the wheel can has");
                 }
                 m_CurrentAirPressure = i_CurrentAirPressure;
                 m_MaxAirPressure = i_MaxAirPressure;
@@ -38,8 +38,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
             public override string ToString()
             {
-                string wheelDetails = "Manufacturer of wheels: " + m_ManufacturerName + "\n";
-                wheelDetails += "Current air pressure  in wheels: " + m_CurrentAirPressure.ToString() + "\n";
+                string wheelDetails = "Manufacturer of wheels: " + m_ManufacturerName + System.Environment.NewLine;
+                wheelDetails += "Current air pressure  in wheels: " + m_CurrentAirPressure.ToString() + System.Environment.NewLine;
                 return wheelDetails;
             }
         }
@@ -48,11 +48,11 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         private float m_PercentageOfEnergyRemaining;
         private Wheel[] m_Wheels;
         private EnergyType m_EnergyType;
-        public Vehicle(string i_Model, string i_LicensePlate, float i_Percentage, int i_NumOfWheels, Dictionary<WheelData, string> i_Wheel, EnergyType i_EnergyType)
+        public Vehicle(string i_Model, string i_LicensePlate, int i_NumOfWheels, Dictionary<WheelData, string> i_Wheel, EnergyType i_EnergyType)
         {
             m_Model = i_Model;
             m_LicensePlate = i_LicensePlate;
-            m_PercentageOfEnergyRemaining = i_Percentage;
+            m_PercentageOfEnergyRemaining = i_EnergyType.currentEneregy * 100 / i_EnergyType.maxEnergy; 
             m_Wheels = Wheels(i_Wheel, i_NumOfWheels);
             m_EnergyType = i_EnergyType;
         }
@@ -99,11 +99,11 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public override string ToString()
         {
-            string vehicleDetails = "Model: " + m_Model + "\n";
-            vehicleDetails += "License Plate: " + m_LicensePlate + "\n";
-            vehicleDetails += "Percentage left fuel: " + m_PercentageOfEnergyRemaining.ToString() + "\n";
+            string vehicleDetails = "Model: " + m_Model + System.Environment.NewLine;
+            vehicleDetails += "License Plate: " + m_LicensePlate + System.Environment.NewLine;
+            vehicleDetails += "Percentage left fuel: " + m_PercentageOfEnergyRemaining.ToString() + System.Environment.NewLine;
             vehicleDetails += m_Wheels[0].ToString(); /// לשאול את דנה
-            vehicleDetails += m_EnergyType.ToString() + "\n";
+            vehicleDetails += m_EnergyType.ToString();
             return vehicleDetails;
         }
     }

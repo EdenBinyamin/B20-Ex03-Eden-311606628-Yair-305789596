@@ -11,8 +11,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         internal Truck(bool i_IsHavingHazardousMaterials, float i_CargoVolume, 
             string i_Model, string i_LicensePlate,
-            float i_Percentage, Dictionary<Vehicle.WheelData, string> i_Wheel,
-            EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, i_Percentage, 16,
+            Dictionary<Vehicle.WheelData, string> i_Wheel,
+            EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, 16,
                 i_Wheel, i_EnergyType)
         {
             m_IsHavingHazardousMaterials = i_IsHavingHazardousMaterials;
@@ -41,9 +41,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public override string ToString()
         {
-            string truckDetials = base.ToString() + "\n";
-            truckDetials += "Is it having hazardous materials: " + m_IsHavingHazardousMaterials.ToString() + "\n";
-            truckDetials += "Cargo volume: " + m_CargoVolume.ToString() + "\n";
+            string truckDetials = base.ToString() + System.Environment.NewLine;
+            truckDetials += "Is it having hazardous materials: " + m_IsHavingHazardousMaterials.ToString() + System.Environment.NewLine;
+            truckDetials += "Cargo volume: " + m_CargoVolume.ToString() + System.Environment.NewLine;
             return truckDetials;
         }
     }
