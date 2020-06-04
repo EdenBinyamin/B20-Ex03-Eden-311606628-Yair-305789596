@@ -115,6 +115,7 @@ Press 8 - To Exit");
                 {
                     Console.WriteLine(" --------------------------  ");
                     Console.WriteLine("Vechile by the same license plate already exist in the garage");
+                    addANewVehicleToGarage(i_Garage);
                 }
 
             }
@@ -124,6 +125,7 @@ Press 8 - To Exit");
                 Console.WriteLine("Cannot Adding a New Vechile");
                 Console.WriteLine(e.Message);
                 Console.WriteLine(" --------------------------  ");
+                addANewVehicleToGarage(i_Garage);
             }
         }
 
@@ -158,7 +160,7 @@ Press 3 - To Display only the paid up vehicles");
                     licensePlates = i_Garage.licenseNumbersByConditions(VehicleInRepair.VehicleCondition.paidUp);
                     break;
             }
-            if(licensePlates.Count==0)
+            if (licensePlates.Count == 0) 
             {
                 Console.WriteLine("No License Plates To Display");
             }
@@ -205,6 +207,7 @@ Press 3 - If the Repair was paid");
             catch (ArgumentException e)
             {
                 Console.WriteLine(e.Message);
+                changeVehicleStatus(i_Garage);
             }
    
         }
@@ -223,6 +226,7 @@ Press 3 - If the Repair was paid");
             {
                 Console.WriteLine("Cannot Blowing Air Pressure in Vehicle {0}", vehicleLicenseNumber);
                 Console.Write(e.Message);
+                blowingAirPressure(i_Garage);
             }
         }
 
@@ -245,6 +249,7 @@ Press 3 - If the Repair was paid");
             {// Exeption : Type Fuel Not As The vehicle Type fuel, Amout to fill is more than the max, the vechile is electric
                 Console.WriteLine("Cannot Fuel A Vehicle");
                 Console.WriteLine(e.Message);
+                fuelAVehicle(i_Garage);
             }
         }
 
@@ -265,6 +270,7 @@ Press 3 - If the Repair was paid");
             {
                 Console.WriteLine("Cannot Recharge Vehicle {0}", vehicleLicenseNumber);
                 Console.WriteLine(e.Message);
+                rechargeAVehicle(i_Garage);
             }
 
         }
