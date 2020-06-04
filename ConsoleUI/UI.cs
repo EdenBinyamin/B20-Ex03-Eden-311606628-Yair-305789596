@@ -119,7 +119,6 @@ Press 8 - To Exit");
             catch(Exception e)
             {
                 Console.WriteLine("{0}{1}Cannot Adding a New Vechile{1}{2}{1}{0}", k_BreakLine, System.Environment.NewLine, e.Message);
-                addANewVehicleToGarage(i_Garage);
             }
         }
 
@@ -197,12 +196,11 @@ Press 3 - If the Repair was paid");
                         break;
                 }
 
-                Console.WriteLine("{0}{1}Change Vehicle Status Succeeded!{0}{1}", k_BreakLine, System.Environment.NewLine);
+                Console.WriteLine("{0}{1}Change Vehicle Status Succeeded!{1}{0}", k_BreakLine, System.Environment.NewLine);
             }
             catch (ArgumentException e)
             {
                 Console.WriteLine(e.Message);
-                changeVehicleStatus(i_Garage);
             }
         }
 
@@ -218,7 +216,6 @@ Press 3 - If the Repair was paid");
             catch(Exception e)
             {
                 Console.WriteLine("{0}{1}Cannot Blowing Air Pressure in Vehicle!{1}{2}{1}{0}", k_BreakLine, System.Environment.NewLine, e.Message);
-                blowingAirPressure(i_Garage);
             }
         }
 
@@ -238,7 +235,6 @@ Press 3 - If the Repair was paid");
             catch (Exception e) 
             {
                 Console.WriteLine("{0}{1}Cannot Fuel A Vehicle!{1}{2}{1}{0}", k_BreakLine, System.Environment.NewLine, e.Message);
-                fuelAVehicle(i_Garage);
             }
         }
 
@@ -256,7 +252,6 @@ Press 3 - If the Repair was paid");
             catch(Exception e)
             {
                 Console.WriteLine("{0}{1}Cannot Recharge Vehicle {3}{1}{2}{1}{0}", k_BreakLine, System.Environment.NewLine, e.Message, vehicleLicenseNumber);
-                rechargeAVehicle(i_Garage);
             }
         }
 
@@ -310,7 +305,7 @@ Press 3 - If the Repair was paid");
         private static string getANumericString()
         {
             string inputStr = Console.ReadLine();
-            while (!inputStr.All(char.IsDigit))
+            while (inputStr.Length == 0 || !inputStr.All(char.IsDigit))
             {
                 Console.WriteLine("Not A Numeric String, Please Try Again.");
                 inputStr = Console.ReadLine();
