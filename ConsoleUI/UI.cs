@@ -1,18 +1,17 @@
-﻿using B20_Ex03_Eden_311606628_Yair_305789596;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Management.Instrumentation;
 using System.Security.AccessControl;
+using B20_Ex03_Eden_311606628_Yair_305789596;
 
 namespace ConsoleUI
 {
     public class UI
     {
-
-
         private const string k_WrongInput = "Wrong Input! Please Try Again.";
+        private const string k_BreakLine = " --------------------------  ";
 
         public enum eUserSelectionType
         {
@@ -40,11 +39,12 @@ Press 7 - To Display the entire details of a certain vechile
 Press 8 - To Exit");
             Console.WriteLine(menuMsg);
             string userSelection = Console.ReadLine();
-            while (!Validation.MenuSelection(userSelection))
+            while (!checkMenuSelection(userSelection))
             {
                 Console.WriteLine(k_WrongInput);
                 userSelection = Console.ReadLine();
             }
+
             return (eUserSelectionType)int.Parse(userSelection);
         }
 
@@ -52,6 +52,7 @@ Press 8 - To Exit");
         {
             string msg = "=========== Welcome to our Garage System ===========";
             Console.WriteLine(msg);
+            Console.WriteLine();
             eUserSelectionType userSelection = Menu();
             Garage garage = new Garage();
             while (userSelection != eUserSelectionType.ExitTheSystem)
@@ -80,14 +81,12 @@ Press 8 - To Exit");
                         displayAVehicleDetails(garage);
                         break;
                 }
+
                 userSelection = Menu();
                 Console.WriteLine();
-
             }
         }
 
-
-        //Function menu 1
         private static void addANewVehicleToGarage(Garage i_Garage)
         {
             Console.WriteLine(" ===== Add New Vechile To Our Garage ==== ");
@@ -103,34 +102,27 @@ Press 8 - To Exit");
                 Console.WriteLine("Please Type {0}", prop);
                 userInputProperties.Add(getNonEmptyString());
             }
+
             try
             {
                 bool res = i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumber, userInputProperties, vehicleType);
                 if (res)
                 {
-                    Console.WriteLine(" --------------------------  ");
-                    Console.WriteLine("Sucsses Adding A New Vehicle!");
+                    Console.WriteLine("{0}{1}Sucsses Adding A New Vehicle!{1}{0}", k_BreakLine, System.Environment.NewLine);
                 }
                 else
                 {
-                    Console.WriteLine(" --------------------------  ");
-                    Console.WriteLine("Vechile by the same license plate already exist in the garage");
+                    Console.WriteLine("{0}{1}Vechile by the same license plate already exist in the garage{1}{0}", k_BreakLine, System.Environment.NewLine);
                     addANewVehicleToGarage(i_Garage);
                 }
-
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                Console.WriteLine(" --------------------------  ");
-                Console.WriteLine("Cannot Adding a New Vechile");
-                Console.WriteLine(e.Message);
-                Console.WriteLine(" --------------------------  ");
+                Console.WriteLine("{0}{1}Cannot Adding a New Vechile{1}{2}{1}{0}", k_BreakLine, System.Environment.NewLine, e.Message);
                 addANewVehicleToGarage(i_Garage);
             }
         }
 
-
-        //Function menu 2
         private static void displayLicensePlates(Garage i_Garage)
         {
             Console.WriteLine(
@@ -139,11 +131,12 @@ Press 1 - To Display only the vehicles in repair
 Press 2 - To Display only the repaired vehicles
 Press 3 - To Display only the paid up vehicles");
             string userSelection = Console.ReadLine();
-            while (userSelection.Length > 1 ||char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
+            while (userSelection.Length > 1 || char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
             {
                 Console.WriteLine(k_WrongInput);
                 userSelection = Console.ReadLine();
             }
+
             List<string> licensePlates = new List<string>();
             switch (char.Parse(userSelection))
             {
@@ -160,17 +153,17 @@ Press 3 - To Display only the paid up vehicles");
                     licensePlates = i_Garage.licenseNumbersByConditions(VehicleInRepair.VehicleCondition.paidUp);
                     break;
             }
+
             if (licensePlates.Count == 0) 
             {
                 Console.WriteLine("No License Plates To Display");
             }
+
             foreach (string vechileLicensePlate in licensePlates)
             {
                 Console.WriteLine("License Number: {0}", vechileLicensePlate);
             }
         }
-
-        //Function menu 3
 
         private static void changeVehicleStatus(Garage i_Garage)
         {
@@ -188,6 +181,7 @@ Press 3 - If the Repair was paid");
                 Console.WriteLine(k_WrongInput);
                 userSelection = Console.ReadLine();
             }
+
             try
             {
                 switch (char.Parse(userSelection))
@@ -202,17 +196,16 @@ Press 3 - If the Repair was paid");
                         i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.paidUp);
                         break;
                 }
-                Console.WriteLine("Change Vehicle Status Succeeded!");
+
+                Console.WriteLine("{0}{1}Change Vehicle Status Succeeded!{0}{1}", k_BreakLine, System.Environment.NewLine);
             }
             catch (ArgumentException e)
             {
                 Console.WriteLine(e.Message);
                 changeVehicleStatus(i_Garage);
             }
-   
         }
 
-        //Function Menu 4
         private static void blowingAirPressure(Garage i_Garage)
         {
             Console.WriteLine(" ===== Blowing Air Pressure In Wheel ==== ");
@@ -224,14 +217,11 @@ Press 3 - If the Repair was paid");
             }
             catch(Exception e)
             {
-                Console.WriteLine("Cannot Blowing Air Pressure in Vehicle {0}", vehicleLicenseNumber);
-                Console.Write(e.Message);
+                Console.WriteLine("{0}{1}Cannot Blowing Air Pressure in Vehicle!{1}{2}{1}{0}", k_BreakLine, System.Environment.NewLine, e.Message);
                 blowingAirPressure(i_Garage);
             }
         }
 
-
-        //Funcion Menu 5
         private static void fuelAVehicle(Garage i_Garage)
         {
             Console.WriteLine(" ===== Fuel A Regular Vehicle ==== ");
@@ -246,14 +236,11 @@ Press 3 - If the Repair was paid");
                 Console.WriteLine("Fuel Vechile {0} Succeeded!", vehicleLicenseNumber);
             }
             catch (Exception e) 
-            {// Exeption : Type Fuel Not As The vehicle Type fuel, Amout to fill is more than the max, the vechile is electric
-                Console.WriteLine("Cannot Fuel A Vehicle");
-                Console.WriteLine(e.Message);
+            {
+                Console.WriteLine("{0}{1}Cannot Fuel A Vehicle!{1}{2}{1}{0}", k_BreakLine, System.Environment.NewLine, e.Message);
                 fuelAVehicle(i_Garage);
             }
         }
-
-        //Function MEnu 6
 
         private static void rechargeAVehicle(Garage i_Garage)
         {
@@ -264,32 +251,24 @@ Press 3 - If the Repair was paid");
             try
             { 
                 i_Garage.chargeVehicle(vehicleLicenseNumber, minutesToCharge);
-                Console.WriteLine("Recharge Vehicle {0} in {1} minutes Succeeded!",vehicleLicenseNumber,minutesToCharge);
+                Console.WriteLine("Recharge Vehicle {0} in {1} minutes Succeeded!", vehicleLicenseNumber, minutesToCharge);
             }
             catch(Exception e)
             {
-                Console.WriteLine("Cannot Recharge Vehicle {0}", vehicleLicenseNumber);
-                Console.WriteLine(e.Message);
+                Console.WriteLine("{0}{1}Cannot Recharge Vehicle {3}{1}{2}{1}{0}", k_BreakLine, System.Environment.NewLine, e.Message, vehicleLicenseNumber);
                 rechargeAVehicle(i_Garage);
             }
-
         }
 
-
-        //Function Menu 
         private static void displayAVehicleDetails(Garage i_Garage)
         {
-            
             string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
             Console.WriteLine(" ===== Display All The Details Of A Certain Vechile ==== ");
             VehicleInRepair vehicleInGarage = i_Garage.getVehicleByLicenseNumber(vehicleLicenseNumber);
             System.Console.WriteLine(vehicleInGarage.ToString());
-
         }
 
-        //AUX FUNCTION
         private static KnownVehicleTypes.eVehicleType chooseVechileToAdd()
-
         {
             char indexForMenu = '1';
             foreach (string vechileType in KnownVehicleTypes.r_KnownTypes)
@@ -297,6 +276,7 @@ Press 3 - If the Repair was paid");
                 Console.WriteLine("Press {0} - To Add New {1} To The Garage", indexForMenu, vechileType);
                 indexForMenu++;
             }
+
             string userSelection = getANumericString();
             bool res = false;
             while(!res)
@@ -309,6 +289,7 @@ Press 3 - If the Repair was paid");
                     }
                 }
             }       
+
             return (KnownVehicleTypes.eVehicleType)int.Parse(userSelection);
         }
 
@@ -322,10 +303,10 @@ Press 3 - If the Repair was paid");
                 Console.WriteLine("Please Try Again!");
                 vehicleLicenseNumber = getANumericString();
             }
+
             return vehicleLicenseNumber;
         }
 
-        //AUXILIARY
         private static string getANumericString()
         {
             string inputStr = Console.ReadLine();
@@ -334,6 +315,7 @@ Press 3 - If the Repair was paid");
                 Console.WriteLine("Not A Numeric String, Please Try Again.");
                 inputStr = Console.ReadLine();
             }
+
             return inputStr;
         }
 
@@ -345,6 +327,7 @@ Press 3 - If the Repair was paid");
                 Console.WriteLine("You Enter A Empty Input, please try again!");
                 userInput = Console.ReadLine();
             }
+
             return userInput;
         }
 
@@ -356,7 +339,13 @@ Press 3 - If the Repair was paid");
                 Console.WriteLine("Not A Alphabeat String, Please Try Again.");
                 inputStr = Console.ReadLine();
             }
+
             return inputStr;
+        }
+
+        private static bool checkMenuSelection(string userSelection)
+        {
+            return userSelection.Length == 1 && char.Parse(userSelection) >= '1' && char.Parse(userSelection) <= '8';
         }
     }
 }
