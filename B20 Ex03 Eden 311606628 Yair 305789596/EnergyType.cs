@@ -10,7 +10,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
     {
         public enum eEnergyType
         {
-            Regular=1,
+            Regular = 1,
             Electric
         }
 
