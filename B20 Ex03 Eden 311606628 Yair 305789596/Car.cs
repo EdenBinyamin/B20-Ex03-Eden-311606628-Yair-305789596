@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
@@ -13,6 +14,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             Silver
         }
 
+        private const int k_MinNumOfDoors = 2;
+        private const int k_MaxNumOfDoors = 5;
         private eColorType m_Color;
         private int m_NumOfDoors;
 
@@ -22,7 +25,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_NumOfDoors = i_NumOfDoors;
         }
 
-        public static int DoorNumbersParse(string i_NumOfDoors)
+        internal static int parseNumOfDoors(string i_NumOfDoors)
         {
             int numOfDoors;
             bool res = int.TryParse(i_NumOfDoors, out numOfDoors);
@@ -31,38 +34,35 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
                 throw new FormatException("Not A Valid Number");
             }
 
-            if(numOfDoors < 2 || numOfDoors > 5)
+            if(numOfDoors < k_MinNumOfDoors || numOfDoors > k_MaxNumOfDoors)
             {
-                throw new ValueOutOfRangeException(2, 5, "Wrong number of doors. only 2 to 5 numbers of doors are allowed");
+                string errorMsg = string.Format("Wrong number of doors. only 2 to 5 numbers of doors are allowed");
+                throw new ValueOutOfRangeException(k_MinNumOfDoors, k_MaxNumOfDoors, errorMsg);
             }
 
             return numOfDoors;
         }
 
-        public static eColorType ColorParse(string i_Color)
+        internal static eColorType parseColor(string i_Color)
         {
-            i_Color = i_Color.Trim();
-            i_Color = i_Color.ToUpper();
+            i_Color = i_Color.Trim().ToUpper();
             eColorType color;
-            if (i_Color == "RED")
+            switch(i_Color)
             {
-                color = eColorType.Red;
-            }
-            else if (i_Color == "WHITE")
-            {
-                color = eColorType.White;
-            }
-            else if (i_Color == "BLACK")
-            {
-                color = eColorType.Black;
-            }
-            else if (i_Color == "SILVER")
-            {
-                color = eColorType.Silver;
-            }
-            else
-            {
-                throw new FormatException("Wrong Known Color");
+                case "RED":
+                    color = eColorType.Red;
+                    break;
+                case "WHITE":
+                    color = eColorType.White;
+                    break;
+                case "BLACK":
+                    color = eColorType.Black;
+                    break;
+                case "SILVER":
+                    color = eColorType.Silver;
+                    break;
+                default:
+                    throw new FormatException("Wrong Known Color");
             }
 
             return color;

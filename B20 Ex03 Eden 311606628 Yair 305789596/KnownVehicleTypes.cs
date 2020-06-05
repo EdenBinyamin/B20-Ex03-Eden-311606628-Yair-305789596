@@ -206,14 +206,14 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         public static Car CreateCar(string i_LicensePlate, string i_Model, Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
             checkNumericStrings(i_DataMemory[eDataType.NumOfDoors]);
-            Car.eColorType color = Car.ColorParse(i_DataMemory[eDataType.Color]);
-            int numOfDoors = Car.DoorNumbersParse(i_DataMemory[eDataType.NumOfDoors]);
+            Car.eColorType color = Car.parseColor(i_DataMemory[eDataType.Color]);
+            int numOfDoors = Car.parseNumOfDoors(i_DataMemory[eDataType.NumOfDoors]);
             EnergyType energyType = null;
 
             if (i_EnergyType == EnergyType.eEnergyType.Regular)
             {
                 checkNumericStrings(i_DataMemory[eDataType.AmountOfFuelLeft]);
-                energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan96, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegualrCarFullTank);
+                energyType = new RegularEnergyType(RegularEnergyType.eFuelType.Octan96, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegualrCarFullTank);
             }
             else if (i_EnergyType == EnergyType.eEnergyType.Electric)
             {
@@ -227,24 +227,24 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         public static Truck CreateTruck(string i_LicensePlate, string i_Model, Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
             checkNumericStrings(i_DataMemory[eDataType.CargoVolume], i_DataMemory[eDataType.AmountOfFuelLeft]);
-            bool isHavingHazardousMeterials = Truck.ParseHazardousMeterials(i_DataMemory[eDataType.HavingHazardousMeterials]);
+            bool isHavingHazardousMeterials = Truck.parseHazardousMeterials(i_DataMemory[eDataType.HavingHazardousMeterials]);
             float cargoVolume = float.Parse(i_DataMemory[eDataType.CargoVolume]);
 
-            EnergyType energyType = new RegularEnergyType(RegularEnergyType.FuelType.Soler, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegularTruckFullTank);
+            EnergyType energyType = new RegularEnergyType(RegularEnergyType.eFuelType.Soler, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegularTruckFullTank);
             return new Truck(isHavingHazardousMeterials, cargoVolume, i_Model, i_LicensePlate, i_Wheel, energyType);
         }
 
         public static Motorcycle CreateMotorCycle(string i_LicensePlate, string i_Model, Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
         {
             checkNumericStrings(i_DataMemory[eDataType.EngineCapacity]);
-            Motorcycle.licenseType licenceType = Motorcycle.LicenseTypeParse(i_DataMemory[eDataType.LicenceType]);
+            Motorcycle.eLicenseType licenceType = Motorcycle.parseLicenseType(i_DataMemory[eDataType.LicenceType]);
             int engineCapacity = int.Parse(i_DataMemory[eDataType.EngineCapacity]);
             EnergyType energyType = null;
 
             if (i_EnergyType == EnergyType.eEnergyType.Regular)
             {
                 checkNumericStrings(i_DataMemory[eDataType.AmountOfFuelLeft]);
-                energyType = new RegularEnergyType(RegularEnergyType.FuelType.Octan95, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegularMotorcycleFullTank);
+                energyType = new RegularEnergyType(RegularEnergyType.eFuelType.Octan95, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegularMotorcycleFullTank);
             }
             else if (i_EnergyType == EnergyType.eEnergyType.Electric)
             {
@@ -255,7 +255,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return new Motorcycle(licenceType, engineCapacity, i_Model, i_LicensePlate, i_Wheel, energyType);
         }
 
-        public static void checkNumericStrings(params string[] i_ListStrings)
+        private static void checkNumericStrings(params string[] i_ListStrings)
         {
             foreach (string strToCheck in i_ListStrings)
             {
@@ -267,7 +267,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
         }
 
-        public static void checkAlpabeatStrings(params string[] i_ListStrings)
+        private static void checkAlpabeatStrings(params string[] i_ListStrings)
         {
             foreach (string strToCheck in i_ListStrings)
             {

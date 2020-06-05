@@ -14,10 +14,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             m_CargoVolume = i_CargoVolume;
         }
 
-        public static bool ParseHazardousMeterials(string i_InputStr)
+        internal static bool parseHazardousMeterials(string i_InputStr)
         {
-            i_InputStr = i_InputStr.Trim();
-            i_InputStr = i_InputStr.ToUpper();
+            i_InputStr = i_InputStr.Trim().ToUpper();
             bool res = true;
             if (i_InputStr == "TRUE" || i_InputStr == "YES")
             {

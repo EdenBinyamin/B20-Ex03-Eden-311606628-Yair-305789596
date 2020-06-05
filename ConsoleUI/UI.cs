@@ -38,13 +38,7 @@ Press 6 - To Recharge a electric vechile
 Press 7 - To Display the entire details of a certain vechile
 Press 8 - To Exit");
             Console.WriteLine(menuMsg);
-            string userSelection = Console.ReadLine();
-            while (!checkMenuSelection(userSelection))
-            {
-                Console.WriteLine(k_WrongInput);
-                userSelection = Console.ReadLine();
-            }
-
+            string userSelection = getSelectionByRange(1, 8);
             return (eUserSelectionType)int.Parse(userSelection);
         }
 
@@ -105,7 +99,7 @@ Press 8 - To Exit");
 
             try
             {
-                bool res = i_Garage.tryAddingNewVehicleToGarage(ownerName, phoneNumber, userInputProperties, vehicleType);
+                bool res = i_Garage.TryAddingNewVehicleToGarage(ownerName, phoneNumber, userInputProperties, vehicleType);
                 if (res)
                 {
                     Console.WriteLine("{0}{1}Sucsses Adding A New Vehicle!{1}{0}", k_BreakLine, System.Environment.NewLine);
@@ -113,7 +107,6 @@ Press 8 - To Exit");
                 else
                 {
                     Console.WriteLine("{0}{1}Vechile by the same license plate already exist in the garage{1}{0}", k_BreakLine, System.Environment.NewLine);
-                    addANewVehicleToGarage(i_Garage);
                 }
             }
             catch(Exception e)
@@ -129,27 +122,21 @@ Press 8 - To Exit");
 Press 1 - To Display only the vehicles in repair
 Press 2 - To Display only the repaired vehicles
 Press 3 - To Display only the paid up vehicles");
-            string userSelection = Console.ReadLine();
-            while (userSelection.Length > 1 || char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
-            {
-                Console.WriteLine(k_WrongInput);
-                userSelection = Console.ReadLine();
-            }
-
+            string userSelection = getSelectionByRange(1, 3);
             List<string> licensePlates = new List<string>();
             switch (char.Parse(userSelection))
             {
                 case '1':
                     Console.WriteLine("==== The Vechile in Repair ==== ");
-                    licensePlates = i_Garage.licenseNumbersByConditions(VehicleInRepair.VehicleCondition.inRepair);
+                    licensePlates = i_Garage.LicenseNumbersByConditions(VehicleInRepair.eVehicleCondition.inRepair);
                     break;
                 case '2':
                     Console.WriteLine("==== The Repaired Vechiles ==== ");
-                    licensePlates = i_Garage.licenseNumbersByConditions(VehicleInRepair.VehicleCondition.wasFixed);
+                    licensePlates = i_Garage.LicenseNumbersByConditions(VehicleInRepair.eVehicleCondition.wasFixed);
                     break;
                 case '3':
                     Console.WriteLine("==== The Paid Up Vechiles ==== ");
-                    licensePlates = i_Garage.licenseNumbersByConditions(VehicleInRepair.VehicleCondition.paidUp);
+                    licensePlates = i_Garage.LicenseNumbersByConditions(VehicleInRepair.eVehicleCondition.paidUp);
                     break;
             }
 
@@ -174,25 +161,20 @@ Press 3 - To Display only the paid up vehicles");
 Press 1 - If The Vehicle In Repair
 Press 2 - If The Vehicle Already Repaired
 Press 3 - If the Repair was paid");
-            string userSelection = Console.ReadLine();
-            while (userSelection.Length > 1 || char.Parse(userSelection) < '1' || char.Parse(userSelection) > '3')
-            {
-                Console.WriteLine(k_WrongInput);
-                userSelection = Console.ReadLine();
-            }
+            string userSelection = getSelectionByRange(1, 3);
 
             try
             {
                 switch (char.Parse(userSelection))
                 {
                     case '1':
-                        i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.inRepair);
+                        i_Garage.ChangesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.eVehicleCondition.inRepair);
                         break;
                     case '2':
-                        i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.wasFixed);
+                        i_Garage.ChangesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.eVehicleCondition.wasFixed);
                         break;
                     case '3':
-                        i_Garage.changesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.VehicleCondition.paidUp);
+                        i_Garage.ChangesVehicleCondition(vehicleLicenseNumber, VehicleInRepair.eVehicleCondition.paidUp);
                         break;
                 }
 
@@ -210,7 +192,7 @@ Press 3 - If the Repair was paid");
             string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
             try
             {
-                i_Garage.fillAirInWheels(vehicleLicenseNumber);
+                i_Garage.FillAirInWheels(vehicleLicenseNumber);
                 Console.WriteLine("Blow Air Succeeded!");
             }
             catch(Exception e)
@@ -229,7 +211,7 @@ Press 3 - If the Repair was paid");
             string fuelType = getNonEmptyString();
             try 
             {
-               i_Garage.fuelVehicle(vehicleLicenseNumber, fuelType, amountToFill);
+               i_Garage.FuelRegularVehicle(vehicleLicenseNumber, fuelType, amountToFill);
                 Console.WriteLine("Fuel Vechile {0} Succeeded!", vehicleLicenseNumber);
             }
             catch (Exception e) 
@@ -246,7 +228,7 @@ Press 3 - If the Repair was paid");
             string minutesToCharge = getANumericString();
             try
             { 
-                i_Garage.chargeVehicle(vehicleLicenseNumber, minutesToCharge);
+                i_Garage.ChargeElectricVehicle(vehicleLicenseNumber, minutesToCharge);
                 Console.WriteLine("Recharge Vehicle {0} in {1} minutes Succeeded!", vehicleLicenseNumber, minutesToCharge);
             }
             catch(Exception e)
@@ -259,7 +241,7 @@ Press 3 - If the Repair was paid");
         {
             string vehicleLicenseNumber = getAVehicleLicenseNumber(i_Garage);
             Console.WriteLine(" ===== Display All The Details Of A Certain Vechile ==== ");
-            VehicleInRepair vehicleInGarage = i_Garage.getVehicleByLicenseNumber(vehicleLicenseNumber);
+            VehicleInRepair vehicleInGarage = i_Garage.GetVehicleByLicenseNumber(vehicleLicenseNumber);
             System.Console.WriteLine(vehicleInGarage.ToString());
         }
 
@@ -292,7 +274,7 @@ Press 3 - If the Repair was paid");
         {
             Console.WriteLine("-Please Type A License Number-");
             string vehicleLicenseNumber = getANumericString();
-            while (!i_Garage.isLicenseNumberAlrdyExists(vehicleLicenseNumber))
+            while (!i_Garage.IsLicenseNumberAlrdyExists(vehicleLicenseNumber))
             {
                 Console.WriteLine("The Vehicle with the liecnse number {0}, is not exist", vehicleLicenseNumber);
                 Console.WriteLine("Please Try Again!");
@@ -338,9 +320,18 @@ Press 3 - If the Repair was paid");
             return inputStr;
         }
 
-        private static bool checkMenuSelection(string userSelection)
+        private static string getSelectionByRange(int i_MinVal, int i_MaxVal)
         {
-            return userSelection.Length == 1 && char.Parse(userSelection) >= '1' && char.Parse(userSelection) <= '8';
+            string userSelection = getANumericString();
+            int userSelectByNum = int.Parse(userSelection);
+            while (userSelectByNum < i_MinVal || userSelectByNum > i_MaxVal)
+            {
+                Console.WriteLine(k_WrongInput);
+                Console.WriteLine("Your Selection should by in range {0}-{1}", i_MinVal, i_MaxVal);
+                userSelection = getANumericString();
+            }
+
+            return userSelection;
         }
     }
 }

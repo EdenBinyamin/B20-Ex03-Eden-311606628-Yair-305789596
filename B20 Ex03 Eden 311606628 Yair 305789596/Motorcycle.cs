@@ -5,7 +5,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
     public class Motorcycle : Vehicle
     {
-        public enum licenseType
+        public enum eLicenseType
         {
             A,
             A1,
@@ -13,47 +13,45 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             B
         }
 
-        private licenseType m_LicenseType;
-        private int m_EngineCapacity;
+        private readonly int r_EngineCapacity;
+        private eLicenseType m_LicenseType;
 
-        internal Motorcycle(licenseType i_LicenseType, int i_EngineCapacity, string i_Model, string i_LicensePlate, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, 2, i_Wheel, i_EnergyType)
+        internal Motorcycle(eLicenseType i_LicenseType, int i_EngineCapacity, string i_Model, string i_LicensePlate, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, 2, i_Wheel, i_EnergyType)
         {
             m_LicenseType = i_LicenseType;
-            m_EngineCapacity = i_EngineCapacity;
+            r_EngineCapacity = i_EngineCapacity;
         }
 
-        public static licenseType LicenseTypeParse(string licenseType)
+        internal static eLicenseType parseLicenseType(string i_LicenseType)
         {
-            licenseType type;
-            if(licenseType == "A")
+            eLicenseType licenseType;
+            i_LicenseType = i_LicenseType.Trim().ToUpper();
+            switch(i_LicenseType)
             {
-                type = Motorcycle.licenseType.A;
-            }
-            else if(licenseType == "A1")
-            {
-                type = Motorcycle.licenseType.A1;
-            }
-            else if(licenseType == "AA")
-            {
-                type = Motorcycle.licenseType.AA;
-            }
-            else if(licenseType == "B")
-            {
-                type = Motorcycle.licenseType.B;
-            }
-            else
-            {
-                throw new ArgumentException("Wrong License Type");
+                case "A":
+                    licenseType = Motorcycle.eLicenseType.A;
+                    break;
+                case "A1":
+                    licenseType = Motorcycle.eLicenseType.A1;
+                    break;
+                case "AA":
+                    licenseType = Motorcycle.eLicenseType.AA;
+                    break;
+                case "B":
+                    licenseType = Motorcycle.eLicenseType.B;
+                    break;
+                default:
+                    throw new ArgumentException("Known License Type");
             }
 
-            return type;
+            return licenseType;
         }
 
         public override string ToString()
         {
             string motorcycleDetials = base.ToString();
             motorcycleDetials += "License type: " + m_LicenseType.ToString() + System.Environment.NewLine;
-            motorcycleDetials += "Engine capacity: " + m_EngineCapacity.ToString() + System.Environment.NewLine;
+            motorcycleDetials += "Engine capacity: " + r_EngineCapacity.ToString() + System.Environment.NewLine;
             return motorcycleDetials;
         }
     }
