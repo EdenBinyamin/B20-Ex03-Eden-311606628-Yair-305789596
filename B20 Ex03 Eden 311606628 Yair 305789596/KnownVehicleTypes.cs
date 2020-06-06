@@ -96,43 +96,6 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return CreateVehicle(dataMemory, i_Type, wheelsData);
         }
 
-        public static List<string> GetPropertiesByVehicleType(Vehicle i_Vehicle)
-        {
-            List<string> vehicleProprties = new List<string>();
-            if (i_Vehicle is Motorcycle)
-            {
-                if (i_Vehicle.Energy is RegularEnergyType)
-                {
-                    vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.RegularMotorcycle);
-                }
-
-                if (i_Vehicle.Energy is ElectricEnergyType)
-                {
-                    vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.ElectricMotorcycle);
-                }
-            }
-
-            if (i_Vehicle is Car)
-            {
-                if (i_Vehicle.Energy is RegularEnergyType)
-                {
-                    vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.RegularCar);
-                }
-
-                if (i_Vehicle.Energy is ElectricEnergyType)
-                {
-                    vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.ElectricCar);
-                }
-            }
-
-            if (i_Vehicle is Truck)
-            {
-                vehicleProprties = KnownVehicleTypes.GetPropertiesByVehicleType(KnownVehicleTypes.eVehicleType.Truck);
-            }
-
-            return vehicleProprties;
-        }
-
         public static List<string> GetPropertiesByVehicleType(eVehicleType i_Type)
         {
             List<string> properties = new List<string>();
