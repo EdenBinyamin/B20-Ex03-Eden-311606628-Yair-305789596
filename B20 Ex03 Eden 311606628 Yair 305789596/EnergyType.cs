@@ -2,7 +2,7 @@
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    public abstract class EnergyType
+    public abstract class Energy
     {
         public enum eEnergyType
         {

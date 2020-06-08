@@ -2,12 +2,12 @@
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    public class ElectricEnergyType : EnergyType
+    public class ElectricEnergy : Energy
     {
         internal readonly float r_FullBatteryInHours;
-        internal float m_HourseLeftForEndingBattery;
+        internal float m_HoursLeftForEndingBattery;
 
-        internal ElectricEnergyType(float i_HoursLeftInBattery, float i_FullBatteryInHours)
+        internal ElectricEnergy(float i_HoursLeftInBattery, float i_FullBatteryInHours)
         {
             if(i_HoursLeftInBattery > i_FullBatteryInHours)
             {
@@ -15,7 +15,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
             else
             {
-                m_HourseLeftForEndingBattery = i_HoursLeftInBattery;
+                m_HoursLeftForEndingBattery = i_HoursLeftInBattery;
                 r_FullBatteryInHours = i_FullBatteryInHours;
             }
         }
@@ -24,7 +24,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         {
             get
             {
-                return m_HourseLeftForEndingBattery;
+                return m_HoursLeftForEndingBattery;
             }
         }
 
@@ -38,21 +38,21 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         internal void batteryCharging(float i_HoursToCharge)
         {
-            if(i_HoursToCharge + m_HourseLeftForEndingBattery > r_FullBatteryInHours)
+            if(i_HoursToCharge + m_HoursLeftForEndingBattery > r_FullBatteryInHours)
             {
-                throw new ValueOutOfRangeException(0, r_FullBatteryInHours - m_HourseLeftForEndingBattery, "You cannot charge your battery more than its maxumim");
+                throw new ValueOutOfRangeException(0, r_FullBatteryInHours - m_HoursLeftForEndingBattery, "You cannot charge your battery more than its maxumim");
             }
             else
             {
-                m_HourseLeftForEndingBattery += i_HoursToCharge;
+                m_HoursLeftForEndingBattery += i_HoursToCharge;
             }
         }
 
         public override string ToString()
         {
-            string electricEnergyTypeDetails = "Full battery in hours: " + r_FullBatteryInHours.ToString() + System.Environment.NewLine;
-            electricEnergyTypeDetails += "Hours left in battery: " + m_HourseLeftForEndingBattery.ToString() + System.Environment.NewLine;
-            return electricEnergyTypeDetails;
+            string ElectricEnergyDetails = "Full battery in hours: " + r_FullBatteryInHours.ToString() + System.Environment.NewLine;
+            ElectricEnergyDetails += "Hours left in battery: " + m_HoursLeftForEndingBattery.ToString() + System.Environment.NewLine;
+            return ElectricEnergyDetails;
         }
     }
 }

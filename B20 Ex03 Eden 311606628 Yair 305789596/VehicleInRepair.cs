@@ -8,6 +8,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         private readonly Vehicle r_TypeOfVehicle;
         private string m_Owner;
         private string m_PhoneNumberOfOwner;
+        internal eVehicleCondition m_VehicleCondition;
+
 
         public enum eVehicleCondition
         {
@@ -16,11 +18,10 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             paidUp
         }
 
-        internal eVehicleCondition m_VehicleCondition;
 
-        internal VehicleInRepair(string i_OwnerName, string i_PhoneNumberOfOwner, List<string> i_DataMemory, KnownVehicleTypes.eVehicleType i_VehicleType)
+        internal VehicleInRepair(string i_OwnerName, string i_PhoneNumberOfOwner, List<string> i_DataMemory, SupportVehicle.eVehicleType i_VehicleType)
         {
-            r_TypeOfVehicle = KnownVehicleTypes.CreateVehicle(i_DataMemory, i_VehicleType);
+            r_TypeOfVehicle = SupportVehicle.CreateVehicle(i_DataMemory, i_VehicleType);
             m_Owner = i_OwnerName;
             m_PhoneNumberOfOwner = i_PhoneNumberOfOwner;
             m_VehicleCondition = eVehicleCondition.inRepair;

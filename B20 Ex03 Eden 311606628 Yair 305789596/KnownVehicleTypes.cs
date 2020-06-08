@@ -5,7 +5,7 @@ using B20_Ex03_Eden_311606628_Yair_305789596;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    public class KnownVehicleTypes
+    public class SupportVehicle
     {
         internal const int k_MotorcycleMaxAirPressure = 30;
         internal const int k_CarMaxAirPressure = 32;
@@ -34,7 +34,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             "Truck"
         };
 
-        public enum eDataType
+        public enum eVehicleData
         {
             Model,
             LicencePlate,
@@ -51,24 +51,24 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public static Vehicle CreateVehicle(List<string> i_Properties, eVehicleType i_Type)
         {
-            Dictionary<eDataType, string> dataMemory = new Dictionary<eDataType, string>();
-            Dictionary<Vehicle.WheelData, string> wheelsData = new Dictionary<Vehicle.WheelData, string>();
+            Dictionary<eVehicleData, string> dataMemory = new Dictionary<eVehicleData, string>();
+            Dictionary<Vehicle.eWheelData, string> wheelsData = new Dictionary<Vehicle.eWheelData, string>();
             int indexInProperties = 0;
-            dataMemory.Add(eDataType.Model, i_Properties[indexInProperties++]);
-            dataMemory.Add(eDataType.LicencePlate, i_Properties[indexInProperties++]);
-            wheelsData.Add(Vehicle.WheelData.CurrentAirPressure, i_Properties[indexInProperties++]);
+            dataMemory.Add(eVehicleData.Model, i_Properties[indexInProperties++]);
+            dataMemory.Add(eVehicleData.LicencePlate, i_Properties[indexInProperties++]);
+            wheelsData.Add(Vehicle.eWheelData.CurrentAirPressure, i_Properties[indexInProperties++]);
             checkAlpabeatStrings(i_Properties[indexInProperties]); // check manufactuereName
-            wheelsData.Add(Vehicle.WheelData.ManufacturerName, i_Properties[indexInProperties++]);
+            wheelsData.Add(Vehicle.eWheelData.ManufacturerName, i_Properties[indexInProperties++]);
             switch (i_Type)
             {
                 case eVehicleType.RegularCar:
                 case eVehicleType.RegularMotorcycle:
                 case eVehicleType.Truck:
-                    dataMemory.Add(eDataType.AmountOfFuelLeft, i_Properties[indexInProperties++]);
+                    dataMemory.Add(eVehicleData.AmountOfFuelLeft, i_Properties[indexInProperties++]);
                     break;
                 case eVehicleType.ElectricCar:
                 case eVehicleType.ElectricMotorcycle:
-                    dataMemory.Add(eDataType.HoursLeftInBattery, i_Properties[indexInProperties++]);
+                    dataMemory.Add(eVehicleData.HoursLeftInBattery, i_Properties[indexInProperties++]);
                     break;
             }
 
@@ -76,20 +76,20 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             {
                 case eVehicleType.RegularCar:
                 case eVehicleType.ElectricCar:
-                    dataMemory.Add(eDataType.Color, i_Properties[indexInProperties++]);
-                    dataMemory.Add(eDataType.NumOfDoors, i_Properties[indexInProperties++]);
-                    wheelsData.Add(Vehicle.WheelData.MaxAirPressure, k_CarMaxAirPressure.ToString());
+                    dataMemory.Add(eVehicleData.Color, i_Properties[indexInProperties++]);
+                    dataMemory.Add(eVehicleData.NumOfDoors, i_Properties[indexInProperties++]);
+                    wheelsData.Add(Vehicle.eWheelData.MaxAirPressure, k_CarMaxAirPressure.ToString());
                     break;
                 case eVehicleType.RegularMotorcycle:
                 case eVehicleType.ElectricMotorcycle:
-                    dataMemory.Add(eDataType.LicenceType, i_Properties[indexInProperties++]);
-                    dataMemory.Add(eDataType.EngineCapacity, i_Properties[indexInProperties++]);
-                    wheelsData.Add(Vehicle.WheelData.MaxAirPressure, k_MotorcycleMaxAirPressure.ToString());
+                    dataMemory.Add(eVehicleData.LicenceType, i_Properties[indexInProperties++]);
+                    dataMemory.Add(eVehicleData.EngineCapacity, i_Properties[indexInProperties++]);
+                    wheelsData.Add(Vehicle.eWheelData.MaxAirPressure, k_MotorcycleMaxAirPressure.ToString());
                     break;
                 case eVehicleType.Truck:
-                    dataMemory.Add(eDataType.HavingHazardousMeterials, i_Properties[indexInProperties++]);
-                    dataMemory.Add(eDataType.CargoVolume, i_Properties[indexInProperties++]);
-                    wheelsData.Add(Vehicle.WheelData.MaxAirPressure, k_TruckMaxAirPressure.ToString());
+                    dataMemory.Add(eVehicleData.HavingHazardousMeterials, i_Properties[indexInProperties++]);
+                    dataMemory.Add(eVehicleData.CargoVolume, i_Properties[indexInProperties++]);
+                    wheelsData.Add(Vehicle.eWheelData.MaxAirPressure, k_TruckMaxAirPressure.ToString());
                     break;
             }
 
@@ -99,7 +99,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         public static List<string> GetPropertiesByVehicleType(eVehicleType i_Type)
         {
             List<string> properties = new List<string>();
-            properties.Add("model:");
+            properties.Add("model name:");
             properties.Add("license plate:");
             properties.Add("current air pressure in wheels:");
             properties.Add("manufacturer name:");
@@ -137,82 +137,82 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return properties;
         }
 
-        public static Vehicle CreateVehicle(Dictionary<eDataType, string> i_DataMemory, eVehicleType i_VehicleType, Dictionary<Vehicle.WheelData, string> i_Wheel)
+        public static Vehicle CreateVehicle(Dictionary<eVehicleData, string> i_DataMemory, eVehicleType i_VehicleType, Dictionary<Vehicle.eWheelData, string> i_Wheel)
         {
-            string licensePlate = i_DataMemory[eDataType.LicencePlate];
-            string model = i_DataMemory[eDataType.Model];
-            checkNumericStrings(licensePlate, i_Wheel[Vehicle.WheelData.CurrentAirPressure]);
+            string licensePlate = i_DataMemory[eVehicleData.LicencePlate];
+            string model = i_DataMemory[eVehicleData.Model];
+            checkNumericStrings(licensePlate, i_Wheel[Vehicle.eWheelData.CurrentAirPressure]);
             checkAlpabeatStrings(model);
             Vehicle vehicle = null;
             switch (i_VehicleType)
             {
                 case eVehicleType.RegularMotorcycle:
-                    vehicle = CreateMotorCycle(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Regular);
+                    vehicle = CreateMotorCycle(licensePlate, model, i_DataMemory, i_Wheel, Energy.eEnergyType.Regular);
                     break;
                 case eVehicleType.ElectricMotorcycle:
-                    vehicle = CreateMotorCycle(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Electric);
+                    vehicle = CreateMotorCycle(licensePlate, model, i_DataMemory, i_Wheel, Energy.eEnergyType.Electric);
                     break;
                 case eVehicleType.RegularCar:
-                    vehicle = CreateCar(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Regular);
+                    vehicle = CreateCar(licensePlate, model, i_DataMemory, i_Wheel, Energy.eEnergyType.Regular);
                     break;
                 case eVehicleType.ElectricCar:
-                    vehicle = CreateCar(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Electric);
+                    vehicle = CreateCar(licensePlate, model, i_DataMemory, i_Wheel, Energy.eEnergyType.Electric);
                     break;
                 case eVehicleType.Truck:
-                    vehicle = CreateTruck(licensePlate, model, i_DataMemory, i_Wheel, EnergyType.eEnergyType.Electric);
+                    vehicle = CreateTruck(licensePlate, model, i_DataMemory, i_Wheel, Energy.eEnergyType.Electric);
                     break;
             }
 
             return vehicle;
         }
 
-        public static Car CreateCar(string i_LicensePlate, string i_Model, Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
+        public static Car CreateCar(string i_LicensePlate, string i_Model, Dictionary<eVehicleData, string> i_DataMemory, Dictionary<Vehicle.eWheelData, string> i_Wheel, Energy.eEnergyType i_EnergyType)
         {
-            checkNumericStrings(i_DataMemory[eDataType.NumOfDoors]);
-            Car.eColorType color = Car.parseColor(i_DataMemory[eDataType.Color]);
-            int numOfDoors = Car.parseNumOfDoors(i_DataMemory[eDataType.NumOfDoors]);
-            EnergyType energyType = null;
+            checkNumericStrings(i_DataMemory[eVehicleData.NumOfDoors]);
+            Car.eColorType color = Car.parseColor(i_DataMemory[eVehicleData.Color]);
+            int numOfDoors = Car.parseNumOfDoors(i_DataMemory[eVehicleData.NumOfDoors]);
+            Energy energyType = null;
 
-            if (i_EnergyType == EnergyType.eEnergyType.Regular)
+            if (i_EnergyType == Energy.eEnergyType.Regular)
             {
-                checkNumericStrings(i_DataMemory[eDataType.AmountOfFuelLeft]);
-                energyType = new RegularEnergyType(RegularEnergyType.eFuelType.Octan96, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegualrCarFullTank);
+                checkNumericStrings(i_DataMemory[eVehicleData.AmountOfFuelLeft]);
+                energyType = new RegularEnergy(RegularEnergy.eFuelType.Octan96, float.Parse(i_DataMemory[eVehicleData.AmountOfFuelLeft]), k_RegualrCarFullTank);
             }
-            else if (i_EnergyType == EnergyType.eEnergyType.Electric)
+            else if (i_EnergyType == Energy.eEnergyType.Electric)
             {
-                checkNumericStrings(i_DataMemory[eDataType.HoursLeftInBattery]);
-                energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]), k_ElectricCarMaxBatteryHourTime);
+                checkNumericStrings(i_DataMemory[eVehicleData.HoursLeftInBattery]);
+                energyType = new ElectricEnergy(float.Parse(i_DataMemory[eVehicleData.HoursLeftInBattery]), k_ElectricCarMaxBatteryHourTime);
             }
 
             return new Car(color, numOfDoors, i_Model, i_LicensePlate, i_Wheel, energyType);
         }
 
-        public static Truck CreateTruck(string i_LicensePlate, string i_Model, Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
+        public static Truck CreateTruck(string i_LicensePlate, string i_Model, Dictionary<eVehicleData, string> i_DataMemory, Dictionary<Vehicle.eWheelData, string> i_Wheel, Energy.eEnergyType i_EnergyType)
         {
-            checkNumericStrings(i_DataMemory[eDataType.CargoVolume], i_DataMemory[eDataType.AmountOfFuelLeft]);
-            bool isHavingHazardousMeterials = Truck.parseHazardousMeterials(i_DataMemory[eDataType.HavingHazardousMeterials]);
-            float cargoVolume = float.Parse(i_DataMemory[eDataType.CargoVolume]);
+            checkNumericStrings(i_DataMemory[eVehicleData.CargoVolume], i_DataMemory[eVehicleData.AmountOfFuelLeft]);
+            bool isHavingHazardousMeterials = Truck.parseHazardousMeterials(i_DataMemory[eVehicleData.HavingHazardousMeterials]);
+            float cargoVolume = float.Parse(i_DataMemory[eVehicleData.CargoVolume]);
 
-            EnergyType energyType = new RegularEnergyType(RegularEnergyType.eFuelType.Soler, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegularTruckFullTank);
+            Energy energyType = new RegularEnergy(RegularEnergy.eFuelType.Soler, float.Parse(i_DataMemory[eVehicleData.AmountOfFuelLeft]), k_RegularTruckFullTank);
             return new Truck(isHavingHazardousMeterials, cargoVolume, i_Model, i_LicensePlate, i_Wheel, energyType);
         }
 
-        public static Motorcycle CreateMotorCycle(string i_LicensePlate, string i_Model, Dictionary<eDataType, string> i_DataMemory, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType.eEnergyType i_EnergyType)
+        public static Motorcycle CreateMotorCycle(string i_LicensePlate, string i_Model, Dictionary<eVehicleData, string> i_DataMemory, Dictionary<Vehicle.eWheelData, string> i_Wheel, Energy.eEnergyType i_EnergyType)
         {
-            checkNumericStrings(i_DataMemory[eDataType.EngineCapacity]);
-            Motorcycle.eLicenseType licenceType = Motorcycle.parseLicenseType(i_DataMemory[eDataType.LicenceType]);
-            int engineCapacity = int.Parse(i_DataMemory[eDataType.EngineCapacity]);
-            EnergyType energyType = null;
+            checkNumericStrings(i_DataMemory[eVehicleData.EngineCapacity]);
+            Motorcycle.eLicenseType licenceType = Motorcycle.parseLicenseType(i_DataMemory[eVehicleData.LicenceType]);
+            int engineCapacity = int.Parse(i_DataMemory[eVehicleData.EngineCapacity]);
+            Energy energyType = null;
 
-            if (i_EnergyType == EnergyType.eEnergyType.Regular)
+            if (i_EnergyType == Energy.eEnergyType.Regular)
             {
-                checkNumericStrings(i_DataMemory[eDataType.AmountOfFuelLeft]);
-                energyType = new RegularEnergyType(RegularEnergyType.eFuelType.Octan95, float.Parse(i_DataMemory[eDataType.AmountOfFuelLeft]), k_RegularMotorcycleFullTank);
+                checkNumericStrings(i_DataMemory[eVehicleData.AmountOfFuelLeft]);
+                energyType = new RegularEnergy(RegularEnergy.eFuelType.Octan95, float.Parse(i_DataMemory[eVehicleData.AmountOfFuelLeft]), k_RegularMotorcycleFullTank);
             }
-            else if (i_EnergyType == EnergyType.eEnergyType.Electric)
+            else if (i_EnergyType == Energy.eEnergyType.Electric)
             {
-                checkNumericStrings(i_DataMemory[eDataType.HoursLeftInBattery]);
-                energyType = new ElectricEnergyType(float.Parse(i_DataMemory[eDataType.HoursLeftInBattery]), k_ElectricMotorcycleMaxBatteryHourTime);
+                checkNumericStrings(i_DataMemory[eVehicleData.HoursLeftInBattery]);
+                energyType = new ElectricEnergy(float.Parse(i_DataMemory[eVehicleData.HoursLeftInBattery]), k_ElectricMotorcycleMaxBatteryHourTime);
             }
 
             return new Motorcycle(licenceType, engineCapacity, i_Model, i_LicensePlate, i_Wheel, energyType);

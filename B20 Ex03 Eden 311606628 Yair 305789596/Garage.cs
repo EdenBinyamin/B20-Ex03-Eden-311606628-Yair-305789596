@@ -25,16 +25,16 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return m_VehiclesInGarage[i_LicenseNumber];
         }
 
-        public bool TryAddingNewVehicleToGarage(string i_OwnerName, string i_PhoneNumberOfOwner, List<string> i_DataMemory, KnownVehicleTypes.eVehicleType i_VehicleType)
+        public bool TryAddingNewVehicleToGarage(string i_OwnerName, string i_PhoneNumberOfOwner, List<string> i_DataMemory, SupportVehicle.eVehicleType i_VehicleType)
         {
             bool res = true;
-            if (!IsLicenseNumberAlrdyExists(i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate]))
+            if (!IsLicenseNumberAlrdyExists(i_DataMemory[(int)SupportVehicle.eVehicleData.LicencePlate]))
             {
-                m_VehiclesInGarage.Add(i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate], new VehicleInRepair(i_OwnerName, i_PhoneNumberOfOwner, i_DataMemory, i_VehicleType));
+                m_VehiclesInGarage.Add(i_DataMemory[(int)SupportVehicle.eVehicleData.LicencePlate], new VehicleInRepair(i_OwnerName, i_PhoneNumberOfOwner, i_DataMemory, i_VehicleType));
             }
             else
             {
-                changeVehicleConditionBackToInRepair(m_VehiclesInGarage[i_DataMemory[(int)KnownVehicleTypes.eDataType.LicencePlate]].Vehicle.LicensePlate);
+                changeVehicleConditionBackToInRepair(m_VehiclesInGarage[i_DataMemory[(int)SupportVehicle.eVehicleData.LicencePlate]].Vehicle.LicensePlate);
                 res = false;
             }
 
@@ -83,8 +83,8 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public void FuelRegularVehicle(string i_LicenseNumber, string i_FuelType, string i_AmountToFuel)
         {
-            RegularEnergyType vehicleEnergy = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as RegularEnergyType;
-            RegularEnergyType.eFuelType fuelType = RegularEnergyType.parseFuelType(i_FuelType);
+            RegularEnergy vehicleEnergy = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as RegularEnergy;
+            RegularEnergy.eFuelType fuelType = RegularEnergy.parseFuelType(i_FuelType);
             float amountToFuel;
             bool res = float.TryParse(i_AmountToFuel, out amountToFuel);
             if(vehicleEnergy == null)
@@ -105,7 +105,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public void ChargeElectricVehicle(string i_LicenseNumber, string i_MinutesToCharge)
         {
-            ElectricEnergyType electricType = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as ElectricEnergyType;
+            ElectricEnergy electricType = m_VehiclesInGarage[i_LicenseNumber].Vehicle.Energy as ElectricEnergy;
             float minToRechare = float.Parse(i_MinutesToCharge);
             if (electricType != null) 
             {

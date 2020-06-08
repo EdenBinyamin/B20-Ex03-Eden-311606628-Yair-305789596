@@ -2,7 +2,7 @@
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    public class RegularEnergyType : EnergyType
+    public class RegularEnergy : Energy
     {
         public enum eFuelType
         {
@@ -41,7 +41,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return fuelType;
         }
 
-        internal RegularEnergyType(eFuelType i_FuelType, float i_AmountOfLittersInTank, float i_FullTank)
+        internal RegularEnergy(eFuelType i_FuelType, float i_AmountOfLittersInTank, float i_FullTank)
         {
             r_FuleType = i_FuelType;
             if(i_AmountOfLittersInTank > i_FullTank)
@@ -83,10 +83,10 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
 
         public override string ToString()
         {
-            string regularEnergyTypeDetails = "Fuel type: " + r_FuleType.ToString() + System.Environment.NewLine;
-            regularEnergyTypeDetails += "Full tank: " + r_FullTank.ToString() + System.Environment.NewLine;
-            regularEnergyTypeDetails += "Litters left in tank: " + m_AmountOfLittersLeftInTank.ToString() + System.Environment.NewLine;
-            return regularEnergyTypeDetails;
+            string RegularEnergyDetails = "Fuel type: " + r_FuleType.ToString() + System.Environment.NewLine;
+            RegularEnergyDetails += "Full tank: " + r_FullTank.ToString() + System.Environment.NewLine;
+            RegularEnergyDetails += "Litters left in tank: " + m_AmountOfLittersLeftInTank.ToString() + System.Environment.NewLine;
+            return RegularEnergyDetails;
         }
     }
 }

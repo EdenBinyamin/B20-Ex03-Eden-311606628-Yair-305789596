@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace B20_Ex03_Eden_311606628_Yair_305789596
 {
-    public class Vehicle
+    public abstract class Vehicle
     {
-        public enum WheelData
+        public enum eWheelData
         {
             ManufacturerName,
             CurrentAirPressure,
@@ -53,9 +53,9 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         private float m_PercentageOfEnergyRemaining;
         private Wheel[] m_Wheels;
         private readonly int r_NumOfWheels;
-        private readonly EnergyType r_EnergyType;
+        private readonly Energy r_EnergyType;
 
-        internal Vehicle(string i_Model, string i_LicensePlate, int i_NumOfWheels, Dictionary<WheelData, string> i_Wheel, EnergyType i_EnergyType)
+        internal Vehicle(string i_Model, string i_LicensePlate, int i_NumOfWheels, Dictionary<eWheelData, string> i_Wheel, Energy i_EnergyType)
         {
             r_Model = i_Model;
             r_LicensePlate = i_LicensePlate;
@@ -65,12 +65,12 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             updatePecentageOfEnergy();
         }
 
-        private Wheel[] Wheels(Dictionary<WheelData, string> i_Wheel, int i_NumOfWheels)
+        private Wheel[] Wheels(Dictionary<eWheelData, string> i_Wheel, int i_NumOfWheels)
         {
             Wheel[] Wheels = new Wheel[i_NumOfWheels];
-            string manufacturer = i_Wheel[WheelData.ManufacturerName];
-            float maxAirPressure = float.Parse(i_Wheel[WheelData.MaxAirPressure]);
-            float currentAirPressure = float.Parse(i_Wheel[WheelData.CurrentAirPressure]);
+            string manufacturer = i_Wheel[eWheelData.ManufacturerName];
+            float maxAirPressure = float.Parse(i_Wheel[eWheelData.MaxAirPressure]);
+            float currentAirPressure = float.Parse(i_Wheel[eWheelData.CurrentAirPressure]);
             for (int i = 0; i < i_NumOfWheels; i++)
             {
                 Wheels[i] = new Wheel(manufacturer, currentAirPressure, maxAirPressure);
@@ -87,7 +87,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             }
         }
 
-        public EnergyType Energy
+        public Energy Energy
         {
             get
             {

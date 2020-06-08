@@ -84,12 +84,12 @@ Press 8 - To Exit");
         private static void addANewVehicleToGarage(Garage i_Garage)
         {
             Console.WriteLine(" ===== Add New Vechile To Our Garage ==== ");
-            KnownVehicleTypes.eVehicleType vehicleType = chooseVechileToAdd();
+            SupportVehicle.eVehicleType vehicleType = chooseVechileToAdd();
             Console.WriteLine("Please Type Owner Name");
             string ownerName = getAlphabeatString();
             Console.WriteLine("please Type Phone Number");
             string phoneNumber = getANumericString();
-            List<string> propertiesToGet = KnownVehicleTypes.GetPropertiesByVehicleType(vehicleType);
+            List<string> propertiesToGet = SupportVehicle.GetPropertiesByVehicleType(vehicleType);
             List<string> userInputProperties = new List<string>();
             foreach (string prop in propertiesToGet)
             {
@@ -245,10 +245,10 @@ Press 3 - If the Repair was paid");
             System.Console.WriteLine(vehicleInGarage.ToString());
         }
 
-        private static KnownVehicleTypes.eVehicleType chooseVechileToAdd()
+        private static SupportVehicle.eVehicleType chooseVechileToAdd()
         {
             char indexForMenu = '1';
-            foreach (string vechileType in KnownVehicleTypes.r_KnownTypes)
+            foreach (string vechileType in SupportVehicle.r_KnownTypes)
             {
                 Console.WriteLine("Press {0} - To Add New {1} To The Garage", indexForMenu, vechileType);
                 indexForMenu++;
@@ -258,7 +258,7 @@ Press 3 - If the Repair was paid");
             bool res = false;
             while(!res)
             {
-                foreach (KnownVehicleTypes.eVehicleType type in Enum.GetValues(typeof(KnownVehicleTypes.eVehicleType)))
+                foreach (SupportVehicle.eVehicleType type in Enum.GetValues(typeof(SupportVehicle.eVehicleType)))
                 {
                     if ((int)type == int.Parse(userSelection))
                     {
@@ -267,7 +267,7 @@ Press 3 - If the Repair was paid");
                 }
             }       
 
-            return (KnownVehicleTypes.eVehicleType)int.Parse(userSelection);
+            return (SupportVehicle.eVehicleType)int.Parse(userSelection);
         }
 
         private static string getAVehicleLicenseNumber(Garage i_Garage)

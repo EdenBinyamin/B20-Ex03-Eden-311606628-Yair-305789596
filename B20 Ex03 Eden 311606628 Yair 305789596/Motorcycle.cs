@@ -16,7 +16,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         private readonly int r_EngineCapacity;
         private eLicenseType m_LicenseType;
 
-        internal Motorcycle(eLicenseType i_LicenseType, int i_EngineCapacity, string i_Model, string i_LicensePlate, Dictionary<Vehicle.WheelData, string> i_Wheel, EnergyType i_EnergyType) : base(i_Model, i_LicensePlate, 2, i_Wheel, i_EnergyType)
+        internal Motorcycle(eLicenseType i_LicenseType, int i_EngineCapacity, string i_Model, string i_LicensePlate, Dictionary<Vehicle.eWheelData, string> i_Wheel, Energy i_EnergyType) : base(i_Model, i_LicensePlate, 2, i_Wheel, i_EnergyType)
         {
             m_LicenseType = i_LicenseType;
             r_EngineCapacity = i_EngineCapacity;
