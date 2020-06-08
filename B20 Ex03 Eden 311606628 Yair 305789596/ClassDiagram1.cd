@@ -4,7 +4,7 @@
     <Position X="0.5" Y="3.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAAAAAAEAQAAAEAAAAAAAAAAAAEAAAACAAA=</HashCode>
-      <FileName>ElectricEnergyType.cs</FileName>
+      <FileName>ElectricEnergy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="B20_Ex03_Eden_311606628_Yair_305789596.Energy">
@@ -12,13 +12,13 @@
     <NestedTypes>
       <Enum Name="B20_Ex03_Eden_311606628_Yair_305789596.Energy.eEnergyType" Collapsed="true">
         <TypeIdentifier>
-          <NewMemberFileName>EnergyType.cs</NewMemberFileName>
+          <NewMemberFileName>Energy.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
-      <FileName>EnergyType.cs</FileName>
+      <FileName>Energy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="B20_Ex03_Eden_311606628_Yair_305789596.Motorcycle">
@@ -40,13 +40,13 @@
     <NestedTypes>
       <Enum Name="B20_Ex03_Eden_311606628_Yair_305789596.RegularEnergy.eFuelType" Collapsed="true">
         <TypeIdentifier>
-          <NewMemberFileName>RegularEnergyType.cs</NewMemberFileName>
+          <NewMemberFileName>RegularEnergy.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAQAAEAAAAAEAQABAAAgAAACAAAAAAAAAAACAAA=</HashCode>
-      <FileName>RegularEnergyType.cs</FileName>
+      <FileName>RegularEnergy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="B20_Ex03_Eden_311606628_Yair_305789596.Truck">
