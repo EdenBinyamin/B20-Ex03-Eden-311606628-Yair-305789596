@@ -106,6 +106,11 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             return succeessFillAir;
         }
 
+        internal void updatePecentageOfEnergy()
+        {
+            m_PercentageOfEnergyRemaining = r_EnergyType.CurrentEneregy * 100 / r_EnergyType.MaxEnergy;
+        }
+
         public override string ToString()
         {
             string vehicleDetails = "Model: " + r_Model + System.Environment.NewLine;
@@ -115,11 +120,6 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             vehicleDetails += m_Wheels[0].ToString();
             vehicleDetails += r_EnergyType.ToString();
             return vehicleDetails;
-        }
-
-        internal void updatePecentageOfEnergy()
-        {
-            m_PercentageOfEnergyRemaining = r_EnergyType.CurrentEneregy * 100 / r_EnergyType.MaxEnergy;
         }
     }
 }

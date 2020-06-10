@@ -8,8 +8,7 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
         private readonly Vehicle r_TypeOfVehicle;
         private string m_Owner;
         private string m_PhoneNumberOfOwner;
-        internal eVehicleCondition m_VehicleCondition;
-
+        private eVehicleCondition m_VehicleCondition;
 
         public enum eVehicleCondition
         {
@@ -17,7 +16,6 @@ namespace B20_Ex03_Eden_311606628_Yair_305789596
             wasFixed,
             paidUp
         }
-
 
         internal VehicleInRepair(string i_OwnerName, string i_PhoneNumberOfOwner, List<string> i_DataMemory, SupportVehicle.eVehicleType i_VehicleType)
         {

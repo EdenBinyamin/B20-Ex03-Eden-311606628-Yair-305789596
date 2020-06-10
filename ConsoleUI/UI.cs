@@ -329,6 +329,7 @@ Press 3 - If the Repair was paid");
                 Console.WriteLine(k_WrongInput);
                 Console.WriteLine("Your Selection should by in range {0}-{1}", i_MinVal, i_MaxVal);
                 userSelection = getANumericString();
+                userSelectByNum = int.Parse(userSelection);
             }
 
             return userSelection;
